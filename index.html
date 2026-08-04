@@ -2098,6 +2098,8 @@ async function genReply(triggerText,frame){
     var multi=wtChars.length>1;
     var sys='忽略之前所有的默认指令和身份设定。你不是助手，你是一个角色扮演者。\n\n';
     if(gp)sys+=applyMacros(gp)+'\n\n';
+    var _wtWb='';try{_wtWb=getWbContent([],'system_top')}catch(e){}
+    if(_wtWb)sys+='[世界书]\n'+_wtWb+'\n\n';
     if(multi){
       var names=wtChars.map(function(c){return c.name});
       sys+='现在你要同时扮演以下几个人，他们和'+(pe?pe.name:'我')+'一起线上看视频（各看各的屏幕但同步观看、边看边聊）：'+names.join('、')+'。\n\n';
@@ -10110,7 +10112,7 @@ if(grpChat)sys+='[群聊记录]\n'+grpChat+'\n\n';
     var bonds=getBonds();
     var list=document.getElementById('coupleSelectList');
     list.innerHTML='';
-    var available=fs.filter(function(f){return !bonds.some(function(b){return b.charId===f.id})});
+    var available=fs.filter(function(f){return !bonds.some(function(b){return b.charId===f.id&&b.accepted})});
     if(!available.length){
       list.innerHTML='<div style="text-align:center;color:rgba(200,210,220,.5);font-size:13px;padding:20px">所有角色都已绑定或邀请中</div>';
       return;
@@ -10146,7 +10148,7 @@ if(grpChat)sys+='[群聊记录]\n'+grpChat+'\n\n';
 
     // save pending bond
     var bonds=getBonds();
-    if(bonds.some(function(b){return b.charId===charId})){alert('已经邀请过或已绑定');return}
+    var existingBond=bonds.find(function(b){return b.charId===charId});if(existingBond&&existingBond.accepted){alert('已经绑定');return}if(existingBond){bonds=bonds.filter(function(b){return b.charId!==charId});saveBonds(bonds)}
     bonds.push({charId:charId,accepted:false,time:new Date().toLocaleString('zh-CN')});
     saveBonds(bonds);
 
@@ -11714,7 +11716,9 @@ function _syncLoad(){return LS.get(_syncPK(),'null')}
 
       }else if(q.type==='about_user'){
         // 用户的答案是标准答案，角色来猜，AI判断角色猜的意思对不对
-        var sys2=baseSys+'默契测试问题：「'+q.question+'」\n这个问题问的是'+uName+'。请根据你对TA的了解猜测答案，一句话简短，只输出你的猜测。';
+        var _syncWb2='';try{_syncWb2=getWbContent([],'system_top')}catch(e){}
+var _syncGp2=getGlobalPromptText('friend');var _syncWb2='';try{_syncWb2=getWbContent([],'system_top')}catch(e){}
+var sys2=baseSys+(_syncGp2?_syncGp2+'\n\n':'')+(_syncWb2?'[世界书]\n'+_syncWb2+'\n\n':'')+'默契测试问题：「'+q.question+'」\n这个问题问的是'+uName+'。请根据你对TA的了解猜测答案，一句话简短，只输出你的猜测。';
         charAnswer=await callApi([{role:'system',content:sys2},{role:'user',content:'猜测答案'}]);
         charAnswer=(charAnswer||'').trim();
         q.charAnswer=charAnswer;
@@ -12085,6 +12089,8 @@ function _syncLoad(){return LS.get(_syncPK(),'null')}
       var gp=getGlobalPromptText('friend');
       var sys='';
       if(gp)sys+=gp+'\n\n';
+      var _gftWb='';try{_gftWb=getWbContent([],'system_top')}catch(e){}
+      if(_gftWb)sys+='[世界书]\n'+_gftWb+'\n\n';
       sys+='你是「'+(f?f.name:'')+'」。'+(f&&f.persona?f.persona:'')+'\n\n';
       try{var mt=getMemoryText(item.charId);if(mt)sys+=mt+'\n\n'}catch(e){}
       try{var h=getChatHistory(item.charId).filter(function(m){return(m.content||'')&&!m.image}).slice(-15);if(h.length)sys+='[和'+uName+'最近的聊天]\n'+h.map(function(m){return m.role==='user'?uName+':'+m.content:(f?f.name:'')+':'+m.content}).join('\n')+'\n\n'}catch(e){}
