@@ -114,11 +114,48 @@
 .ab-comment-ref{font-size:11px;color:#bbb;margin-top:6px;padding-left:10px;border-left:2px solid #e8e8e8}
 .ab-empty{padding:60px 30px;text-align:center;color:#bbb;font-size:13px;letter-spacing:1px;line-height:1.8}
 .ab-post-badge{display:inline-block;font-size:10px;color:#999;border:1px solid #ddd;padding:2px 8px;border-radius:3px;margin-top:8px;letter-spacing:1px} .msg-bubble.msg-has-trans{width:100%;box-sizing:border-box} .msg-tr-orig{font-size:15px;line-height:1.5;word-break:break-word} .msg-tr-line{height:1px;background:rgba(7,193,96,.3);margin:7px 0} .msg-tr-trans{font-size:14px;line-height:1.5;color:#07c160;word-break:break-word} .msg-row.sent .msg-tr-line{background:rgba(0,0,0,.1)} .msg-row.sent .msg-tr-trans{color:#2e7d32}</style>
-</head>
+<style>
+#tmSettingsPage .tms-group{background:#fff!important;border:1px solid #c8dce8!important}
+#tmSettingsPage .tms-field{border-bottom:1px solid #e8f0f5!important}
+#tmSettingsPage .tms-input,#tmSettingsPage .tms-textarea{background:#fff!important;border:1px solid #c8dce8!important;color:#3a5a75!important}
+#tmSettingsPage .tms-input:focus,#tmSettingsPage .tms-textarea:focus{border-color:#8ab8d4!important}
+#tmSettingsPage .tms-check{border-bottom:1px solid #e8f0f5!important}
+#tmSettingsPage .tms-check-label{color:#3a6080!important}
+#tmSettingsPage .tms-checkbox{border:2px solid #b0cfe0!important;background:#fff!important}
+#tmSettingsPage .tms-checkbox.on{background:#7ab0cc!important;border-color:#7ab0cc!important}
+#tmSettingsPage .tms-radio{border:1px solid #c8dce8!important}
+#tmSettingsPage .tms-radio-opt{background:#fff!important;color:#6a90a8!important;border-right:1px solid #dce8f0!important}
+#tmSettingsPage .tms-radio-opt.on{background:#7ab0cc!important;color:#fff!important}
+#tmSettingsPage .tms-btn{background:#fff!important;border:1.5px solid #a8cce0!important;color:#4a7a9a!important}
+#tmSettingsPage .tms-btn.danger{background:#fff!important;border-color:#d4a0a0!important;color:#905050!important}
+#tmSettingsPage .tms-hint{color:#8aaab8!important}
+#tmSettingsPage .tms-label{color:#7a9db8!important}
+#tmMemPage .tms-group{background:#fff!important;border:1px solid #c8dce8!important}
+#tmMemPage .tms-field{border-bottom:1px solid #e8f0f5!important}
+#tmMemPage .tms-check{border-bottom:1px solid #e8f0f5!important}
+#tmMemPage .tms-check-label{color:#3a6080!important}
+#tmMemPage .tms-checkbox{border:2px solid #b0cfe0!important;background:#fff!important}
+#tmMemPage .tms-checkbox.on{background:#7ab0cc!important;border-color:#7ab0cc!important}
+#tmMemPage .tms-input,#tmMemPage .tms-textarea{background:#fff!important;border:1px solid #c8dce8!important;color:#3a5a75!important}
+#tmMemPage .tms-btn{background:#fff!important;border:1.5px solid #a8cce0!important;color:#4a7a9a!important}
+#tmMemPage .tms-btn.danger{background:#fff!important;border-color:#d4a0a0!important;color:#905050!important}
+#tmMemEditPage .tms-group{background:#fff!important;border:1px solid #c8dce8!important}
+#tmMemEditPage .tms-field{border-bottom:1px solid #e8f0f5!important}
+#tmMemEditPage .tms-textarea{background:#fff!important;border:1px solid #c8dce8!important;color:#3a5a75!important}
+#tmMemEditPage .tms-btn{background:#fff!important;border:1.5px solid #a8cce0!important;color:#4a7a9a!important}
+#tmMemEditPage .tms-btn.danger{background:#fff!important;border-color:#d4a0a0!important;color:#905050!important}
+#tmMemPage{background:linear-gradient(180deg,#e8f0f6,#f2f7fa)!important}
+#tmMemEditPage{background:linear-gradient(180deg,#e8f0f6,#f2f7fa)!important}
+#tmMemPage .tm-nav{background:rgba(255,255,255,.5)!important;border-bottom:1px solid #c8dce8!important}
+#tmMemPage .tm-nav .tm-back,#tmMemPage .tm-nav .tm-set{color:#6a8ea8!important}
+#tmMemPage .tm-nav .tm-title{color:#4a7090!important}
+#tmMemEditPage .tm-nav{background:rgba(255,255,255,.5)!important;border-bottom:1px solid #c8dce8!important}
+#tmMemEditPage .tm-nav .tm-back{color:#6a8ea8!important}
+#tmMemEditPage .tm-nav .tm-title{color:#4a7090!important}</style></head>
 <body>
 <div class="phone"><div class="phone-screen"><div class="notch"></div><div class="status-bar"><span>9:41</span><span>--:--</span></div>
 <div class="screen-stack">
-<div class="home-screen" id="homeScreen"><div class="pages-wrapper" id="pagesWrapper"><div class="pages" id="pages"><div class="page"><div class="home-widget home-widget-rect" data-widget="rect"><span class="widget-placeholder">点击上传<br>横向图片</span><input type="file" accept="image/*" style="display:none"></div><div class="home-widget home-widget-square" data-widget="square"><span class="widget-placeholder">点击上传<br>方形图片</span><input type="file" accept="image/*" style="display:none"></div><div class="app-icon" id="chatAppIcon" data-key="chat"><div class="icon">聊天</div><span class="label">聊天</span></div><div class="app-icon" id="forumAppIcon" data-key="forum"><div class="icon">论坛</div><span class="label">论坛</span></div><div class="app-icon" id="promptAppIcon" data-key="prompt"><div class="icon" style="font-size:11px">提示词</div><span class="label">提示词</span></div><div class="app-icon" id="beautyAppIcon" data-key="beauty"><div class="icon">美化</div><span class="label">美化</span></div><div class="app-icon" id="settingsIcon" data-key="settings"><div class="icon">设置</div><span class="label">设置</span></div><div class="app-icon" id="worldBookIcon" data-key="worldbook"><div class="icon" style="font-size:11px">世界书</div><span class="label">世界书</span></div><div class="app-icon" id="checkPhoneIcon" data-key="checkphone"><div class="icon" style="font-size:11px">查手机</div><span class="label">查手机</span></div><div class="app-icon" id="douyinAppIcon" data-key="douyin"><div class="icon" style="font-size:11px">抖音</div><span class="label">抖音</span></div><div class="app-icon" id="albumAppIcon" data-key="album"><div class="icon" style="font-size:11px">相册</div><span class="label">相册</span></div><div class="app-icon" id="relationAppIcon" data-key="relation"><div class="icon" style="font-size:11px">关系</div><span class="label">关系</span></div><div class="app-icon" id="askboxAppIcon" data-key="askbox"><div class="icon" style="font-size:11px">提问箱</div><span class="label">提问箱</span></div><div class="app-icon" id="bubbleAppIcon" data-key="bubble"><div class="icon" style="font-size:11px">bubble</div><span class="label">bubble</span></div><div class="app-icon" id="shopAppIcon" data-key="shop"><div class="icon" style="font-size:11px">购物</div><span class="label">购物</span></div><div class="app-icon" id="watchAppIcon" data-key="watch"><div class="icon" style="font-size:11px">一起看</div><span class="label">一起看</span></div><div class="app-icon" id="diaryAppIcon" data-key="diary"><div class="icon" style="font-size:11px">日记</div><span class="label">日记</span></div><div class="app-icon" id="coupleAppIcon" data-key="couple"><div class="icon" style="font-size:11px">情侣</div><span class="label">情侣空间</span></div></div><div class="page"><div class="app-icon" data-key="wait"><div class="icon">期待</div><span class="label">期待更新</span></div></div></div></div><div class="page-dots"><div class="dot active"></div><div class="dot"></div></div></div>
+<div class="home-screen" id="homeScreen"><div class="pages-wrapper" id="pagesWrapper"><div class="pages" id="pages"><div class="page"><div class="home-widget home-widget-rect" data-widget="rect"><span class="widget-placeholder">点击上传<br>横向图片</span><input type="file" accept="image/*" style="display:none"></div><div class="home-widget home-widget-square" data-widget="square"><span class="widget-placeholder">点击上传<br>方形图片</span><input type="file" accept="image/*" style="display:none"></div><div class="app-icon" id="chatAppIcon" data-key="chat"><div class="icon">聊天</div><span class="label">聊天</span></div><div class="app-icon" id="forumAppIcon" data-key="forum"><div class="icon">论坛</div><span class="label">论坛</span></div><div class="app-icon" id="promptAppIcon" data-key="prompt"><div class="icon" style="font-size:11px">提示词</div><span class="label">提示词</span></div><div class="app-icon" id="beautyAppIcon" data-key="beauty"><div class="icon">美化</div><span class="label">美化</span></div><div class="app-icon" id="settingsIcon" data-key="settings"><div class="icon">设置</div><span class="label">设置</span></div><div class="app-icon" id="worldBookIcon" data-key="worldbook"><div class="icon" style="font-size:11px">世界书</div><span class="label">世界书</span></div><div class="app-icon" id="checkPhoneIcon" data-key="checkphone"><div class="icon" style="font-size:11px">查手机</div><span class="label">查手机</span></div><div class="app-icon" id="douyinAppIcon" data-key="douyin"><div class="icon" style="font-size:11px">抖音</div><span class="label">抖音</span></div><div class="app-icon" id="albumAppIcon" data-key="album"><div class="icon" style="font-size:11px">相册</div><span class="label">相册</span></div><div class="app-icon" id="relationAppIcon" data-key="relation"><div class="icon" style="font-size:11px">关系</div><span class="label">关系</span></div><div class="app-icon" id="askboxAppIcon" data-key="askbox"><div class="icon" style="font-size:11px">提问箱</div><span class="label">提问箱</span></div><div class="app-icon" id="bubbleAppIcon" data-key="bubble"><div class="icon" style="font-size:11px">bubble</div><span class="label">bubble</span></div><div class="app-icon" id="shopAppIcon" data-key="shop"><div class="icon" style="font-size:11px">购物</div><span class="label">购物</span></div><div class="app-icon" id="watchAppIcon" data-key="watch"><div class="icon" style="font-size:11px">一起看</div><span class="label">一起看</span></div><div class="app-icon" id="diaryAppIcon" data-key="diary"><div class="icon" style="font-size:11px">日记</div><span class="label">日记</span></div><div class="app-icon" id="coupleAppIcon" data-key="couple"><div class="icon" style="font-size:11px">情侣</div><span class="label">情侣空间</span></div><div class="app-icon" id="timeMachineIcon" data-key="timemachine"><div class="icon" style="font-size:11px">时光机</div><span class="label">时光机</span></div></div><div class="page"><div class="app-icon" data-key="wait"><div class="icon">期待</div><span class="label">期待更新</span></div></div></div></div><div class="page-dots"><div class="dot active"></div><div class="dot"></div></div></div>
 <div class="app-page" id="settingsPage"> <style>
 /* ===== 设置页·黑白 INS 风 ===== */
 #settingsPage{background:#fff}
@@ -8296,7 +8333,52 @@ async function checkAutoMoments(){
   }
 }
 setInterval(checkAutoMoments,60000);
-  setTimeout(checkAutoMoments,15000);
+  async function ckiRemindCharToCheckin(cid){
+  var api=getApiSettings();
+  if(!api.apiUrl||!api.apiKey||!api.model)return;
+  var f=getFriends().find(function(x){return x.id===cid});
+  if(!f)return;
+  var pe=getActivePersona();var uName=pe?pe.name:'用户';
+  var gp=getGlobalPromptText('friend');
+  var sys='';
+  if(gp)sys+=applyMacros(gp)+'\n\n';
+  sys+='你是「'+f.name+'」。'+(f.persona?'以下是你的人设：\n'+f.persona:'')+'\n\n';
+  try{var mt=getMemoryText(cid);if(mt)sys+=mt+'\n\n'}catch(e){}
+  try{var h=getChatHistory(cid).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-15);if(h.length)sys+='[你和'+uName+'最近的聊天]\n'+h.map(function(m){return m.role==='user'?uName+':'+m.content:f.name+':'+m.content}).join('\n')+'\n\n'}catch(e){}
+  sys+=buildRelationInject();
+  if(pe)sys+='\n[和你聊天的人] '+uName+(pe.desc?' ('+pe.desc+')':'')+'\n\n';
+  sys+=uName+'刚刚把你们情侣空间的「爱意打卡签到」转发给了你，提醒你今天还没签到，你们的连续签到链接断了。\n\n';
+  sys+='请根据你的人设做出真实反应。可能的反应方向（不限于这些，完全由你的性格决定）：\n';
+  sys+='- 忘了签到然后道歉撒娇\n- 理直气壮说忙/说等会儿\n- 找借口（手机没电/太忙/刚醒）\n- 假装无所谓但其实心虚\n- 嘴硬说不想签看对方急\n- 立刻认错说马上去签\n- 反过来撒娇让对方别生气\n\n';
+  sys+='要求：像真人发微信一样简短随意，1-3条消息，每条之间空一行。不要写括号动作神态。回复完之后，无论你嘴上怎么说，你最终都会去签到（系统会自动帮你完成签到）。';
+  try{
+    var reply=await callApi([{role:'system',content:sys},{role:'user',content:'[转发了爱意打卡签到提醒你]'}]);
+    var hh=getChatHistory(cid);
+    var parts=reply.split(/\n+/).filter(function(p){return p.trim()});
+    parts.forEach(function(p){if(p.trim())hh.push({role:'assistant',content:p.trim()})});
+    saveChatHistory(cid,hh);
+    var fss=getFriends();var ff=fss.find(function(x){return x.id===cid});
+    if(ff){ff.lastMsg=reply.trim().slice(0,30);ff.lastMsgTime=timeNow();saveFriendsData(fss)}
+    try{if(curId===cid)renderMsgs()}catch(e){}
+    try{renderCL()}catch(e){}
+      setTimeout(function(){
+  var _ckCid=cid;
+  var ckd=window.ckiGet(_ckCid);
+  var today=new Date().toISOString().slice(0,10);
+  if(ckd.lastDate!==today){ckd.lastDate=today;ckd.userToday=false;ckd.charToday=false;ckd.todayCounted=false;ckd.charDecided=false}
+  ckd.charToday=true;
+  ckd.charDecided=true;
+  window.ckiSave(_ckCid,ckd);
+  if(ckd.userToday&&ckd.charToday&&!ckd.todayCounted){
+    ckd.streak=(ckd.streak||0)+1;
+    ckd.todayCounted=true;
+    ckd.paused=false;
+    window.ckiSave(_ckCid,ckd);
+  }
+  try{window.ckiRender(_ckCid)}catch(e){}
+},2000);
+  }catch(e){console.error(e)}
+}setTimeout(checkAutoMoments,15000);
 </script>
 <style>
 #shopApp{position:fixed;inset:0;background:#fff;z-index:2000;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
@@ -10719,10 +10801,11 @@ if(grpChat)sys+='[群聊记录]\n'+grpChat+'\n\n';
 <script>
 (function(){
   function ckiCharId(){return localStorage.getItem('_coupleCharId')||''}
-  function ckiKey(cid){return 'coupleCheckin_'+pid()+'_'+cid}
-  function ckiGet(cid){return LS.get(ckiKey(cid),'{"streak":0,"paused":true,"lastDate":"","userToday":false,"charToday":false,"todayCounted":false,"charDecided":false}')}
-  function ckiSave(cid,d){LS.set(ckiKey(cid),d)}
-  function ckiToday(){return new Date().toISOString().slice(0,10)}
+function ckiKey(cid){return 'coupleCheckin_'+pid()+'_'+cid}
+function ckiGet(cid){return LS.get(ckiKey(cid),'{"streak":0,"paused":true,"lastDate":"","userToday":false,"charToday":false,"todayCounted":false,"charDecided":false}')}
+function ckiSave(cid,d){LS.set(ckiKey(cid),d)}
+function ckiToday(){return new Date().toISOString().slice(0,10)}
+window.ckiCharId=ckiCharId;window.ckiGet=ckiGet;window.ckiSave=ckiSave;window.ckiRender=function(c){ckiRender(c)};window.ckiCheckBoth=function(c){ckiCheckBoth(c)};
 
   function ckiCharProb(cid){
   var f=getFriends().find(function(x){return x.id===cid});
@@ -11017,14 +11100,16 @@ document.getElementById('cwhNoteFwd').onclick=function(){
   allGs.forEach(function(g){targets.push({label:'[群] '+g.name,type:'g',id:g.id})});
   if(!targets.length){alert('还没有聊天对象');return}
   uiPick('转发到',targets.map(function(t){return{label:t.label,value:t}}),function(target){
-    var text='[悄悄话树洞 - 真实记录] 这是「'+(w.from||'')+'」本人偷偷塞进树洞里的悄悄话，是TA真实的心里话：'+(w.text||'');
+    var cardText=(d.paused&&d.streak===0)?'链接已暂停':('已链接 '+(d.streak||0)+' 天');
     var h=getChatHistory(target.id);
-    h.push({role:'user',content:text,fwdCard:{type:'askbox',question:'悄悄话树洞',answer:w.text||'',from:w.from||''}});
+    h.push({role:'user',content:text,fwdCard:{type:'checkin',author:userName+' & '+charName,text:cardText}});
     saveChatHistory(target.id,h);
-    if(target.type==='f'){var fss=getFriends();var ff=fss.find(function(x){return x.id===target.id});if(ff){ff.lastMsg='[悄悄话]';ff.lastMsgTime=timeNow();saveFriendsData(fss)}}
-    else{var gss=getGroups();var gg=gss.find(function(x){return x.id===target.id});if(gg){gg.lastMsg='[悄悄话]';gg.lastMsgTime=timeNow();saveGroups(gss)}}
-    document.getElementById('cwhNoteOverlay').classList.remove('show');
+    if(target.type==='f'){var fss=getFriends();var ff2=fss.find(function(x){return x.id===target.id});if(ff2){ff2.lastMsg='[爱意打卡]';ff2.lastMsgTime=timeNow();saveFriendsData(fss)}}
+    else{var gss=getGroups();var gg=gss.find(function(x){return x.id===target.id});if(gg){gg.lastMsg='[爱意打卡]';gg.lastMsgTime=timeNow();saveGroups(gss)}}
     favToast('已转发');
+    if(target.type==='f'&&target.id===ckiCharId()&&!ckiGet(ckiCharId()).charToday){
+      setTimeout(function(){ckiRemindCharToCheckin(cid)},800);
+    }
   });
 };
 document.getElementById('cwhSetBtn').onclick=async function(){
@@ -11094,22 +11179,59 @@ document.getElementById('cwhSetBtn').onclick=async function(){
   document.getElementById('ckiBack').onclick=function(){document.getElementById('coupleCheckinPage').classList.remove('active')};
 
   document.getElementById('ckiHeartRight').onclick=function(){
-    var cid=ckiCharId();if(!cid)return;
-    var d=ckiGet(cid);
-    if(d.userToday)return;
-    d.userToday=true;
-    ckiSave(cid,d);
-    ckiCheckBoth(cid);
-    ckiRender(cid);
-    if(!d.charDecided){d=ckiDecideChar(cid);ckiCheckBoth(cid);ckiRender(cid)}
-  };
+  var cid=ckiCharId();if(!cid)return;
+  var d=ckiGet(cid);
+  if(d.userToday)return;
+  d.userToday=true;
+  d.charToday=true;
+  d.charDecided=true;
+  ckiSave(cid,d);
+  ckiCheckBoth(cid);
+  ckiRender(cid);
+  ckiGenCharMood(cid);
+};
 
   document.getElementById('ckiHeartLeft').onclick=function(){
-    var cid=ckiCharId();if(!cid)return;
-    var d=ckiGet(cid);
-    if(d.charToday){favToast('TA今天已经签到了');return}
-    favToast('这是TA的爱心，需要TA自己决定');
-  };
+  var cid=ckiCharId();if(!cid)return;
+  var d=ckiGet(cid);
+  if(d.charToday){favToast('TA今天已经签到了');return}
+  favToast('TA会跟着你一起签到的');
+};
+
+async function ckiGenCharMood(cid){
+  var api=getApiSettings();
+  if(!api.apiUrl||!api.apiKey||!api.model)return;
+  var f=getFriends().find(function(x){return x.id===cid});
+  if(!f)return;
+  var pe=getActivePersona();var uName=pe?pe.name:'用户';
+  var gp=getGlobalPromptText('friend');
+  var sys='';
+  if(gp)sys+=applyMacros(gp)+'\n\n';
+  sys+='你是「'+f.name+'」。'+(f.persona?'以下是你的人设：\n'+f.persona:'')+'\n\n';
+  try{var mt=getMemoryText(cid);if(mt)sys+=mt+'\n\n'}catch(e){}
+  try{var h=getChatHistory(cid).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-10);if(h.length)sys+='[你和'+uName+'最近的聊天]\n'+h.map(function(m){return m.role==='user'?uName+':'+m.content:f.name+':'+m.content}).join('\n')+'\n\n'}catch(e){}
+  sys+=buildRelationInject();
+  sys+=getTimeContext()+'\n\n';
+  sys+=uName+'刚刚在你们的情侣空间爱意打卡签到了，你也跟着签到了。现在请你写一句今天的打卡心情。要求：\n';
+  sys+='1. 一句话，像随手写在签到卡上的心情便签，简短真诚\n';
+  sys+='2. 可以是今天的状态、对对方的想法、碎碎念、撒娇、调侃、或一句悄悄话\n';
+  sys+='3. 严格贴合你的人设和你们当前的关系\n';
+  sys+='4. 口语化、有活人感，不要文绉绉\n';
+  sys+='5. 只输出心情内容，不要任何前缀后缀\n';
+  try{
+    var reply=await callApi([{role:'system',content:sys},{role:'user',content:'写今天的打卡心情'}]);
+    var mood=(reply||'').trim();
+    if(mood){
+      var tip=document.createElement('div');
+      tip.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border:1.5px solid #e8d8e8;border-radius:16px;padding:20px 24px;max-width:260px;text-align:center;z-index:2147483600;box-shadow:0 12px 40px rgba(0,0,0,.15);animation:uiPop .3s cubic-bezier(.34,1.32,.64,1)';
+      var charName=f.name||'TA';
+      tip.innerHTML='<div style="font-size:12px;color:#a098a0;margin-bottom:8px;letter-spacing:1px">'+escapeHtml(charName)+' 的打卡心情</div><div style="font-size:15px;color:#4a3a4a;line-height:1.7;word-break:break-word">'+escapeHtml(mood)+'</div>';
+      document.body.appendChild(tip);
+      tip.onclick=function(){tip.remove()};
+      setTimeout(function(){if(tip.parentNode)tip.remove()},6000);
+    }
+  }catch(e){console.error(e)}
+}
 
   // streak area double tap to forward
   var _ckiLastTap=0;
@@ -12640,4 +12762,651 @@ var sys2=baseSys+(_syncGp2?_syncGp2+'\n\n':'')+(_syncWb2?'[世界书]\n'+_syncWb
 .couple-invite-card[style*="e8f5e9"] .cic-desc{color:#5a8aaa!important}
 .couple-invite-card[style*="e8f5e9"] .cic-names{color:#4a7595!important}
 .couple-invite-card[style*="e8f5e9"] .cic-status{color:#5a8aaa!important}
-</style></body></html>
+</style><style>
+#timeMachineApp{position:fixed;inset:0;background:linear-gradient(165deg,#e8f0f6 0%,#d4e4ef 20%,#c8dce9 40%,#dbe8f0 60%,#edf3f7 80%,#f5f8fa 100%);z-index:2000;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94);overflow:hidden}
+#timeMachineApp.active{transform:translateX(0)!important}
+#timeMachineApp::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cdefs%3E%3Cpattern id='p' width='60' height='60' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 30h60' fill='none' stroke='rgba(150,185,215,.07)' stroke-width='.4'/%3E%3Cpath d='M30 0v60' fill='none' stroke='rgba(150,185,215,.05)' stroke-width='.3'/%3E%3Cpath d='M10 10l8 8M42 42l8 8' fill='none' stroke='rgba(140,175,210,.06)' stroke-width='.4'/%3E%3Cpath d='M50 10l-8 8M18 42l-8 8' fill='none' stroke='rgba(140,175,210,.05)' stroke-width='.4'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23p)'/%3E%3C/svg%3E") repeat;pointer-events:none;z-index:0;opacity:.8}
+#timeMachineApp::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 70%,rgba(180,210,235,.12),transparent 50%),radial-gradient(ellipse at 70% 20%,rgba(160,195,225,.1),transparent 45%);pointer-events:none;z-index:0}
+.tm-nav{position:relative;z-index:5;display:flex;align-items:center;padding:calc(env(safe-area-inset-top)+12px) 14px 10px;flex-shrink:0;border-bottom:1px solid rgba(140,170,200,.2)}
+.tm-nav .tm-back{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:26px;color:#6a8ea8;font-weight:300}
+.tm-nav .tm-title{flex:1;text-align:center;font-size:14px;font-weight:600;color:#4a7090;letter-spacing:3px;text-transform:uppercase;font-family:Georgia,serif}
+.tm-nav .tm-set{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6a8ea8}
+.tm-select-page{position:relative;z-index:3;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px}
+.tm-select-title{font-size:13px;color:#7a9db8;margin-bottom:28px;letter-spacing:4px;font-weight:400;font-family:Georgia,serif}
+.tm-select-list{width:100%;max-width:300px;max-height:50vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.tm-select-item{display:flex;align-items:center;gap:12px;padding:14px 16px;background:rgba(255,255,255,.55);border:1px solid rgba(140,175,205,.3);border-radius:12px;margin-bottom:10px;cursor:pointer;transition:all .2s;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 2px 8px rgba(100,140,180,.08)}
+.tm-select-item:active{background:rgba(255,255,255,.75);border-color:rgba(100,150,190,.5)}
+.tm-select-av{width:42px;height:42px;border-radius:50%;overflow:hidden;flex-shrink:0;background:rgba(180,210,230,.3);border:1.5px solid rgba(140,180,210,.4)}
+.tm-select-av img{width:100%;height:100%;object-fit:cover}
+.tm-select-name{font-size:15px;color:#3a6080;font-weight:500}
+.tm-confirm-btn{margin-top:24px;padding:12px 40px;background:rgba(255,255,255,.6);border:1.5px solid rgba(120,165,200,.4);border-radius:22px;color:#4a7a9a;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:2px;transition:all .15s;box-shadow:0 2px 10px rgba(100,150,190,.1)}
+.tm-confirm-btn:active{background:rgba(255,255,255,.85)}
+.tm-warp-overlay{position:absolute;inset:0;z-index:10;background:linear-gradient(165deg,#dce8f2,#c8dce9,#e0ecf4);display:none;flex-direction:column;align-items:center;justify-content:center;gap:20px}
+.tm-warp-overlay.active{display:flex}
+.tm-warp-ring{width:120px;height:120px;border-radius:50%;border:1.5px solid rgba(100,150,190,.35);position:relative;animation:tmRingSpin 3s linear infinite}
+.tm-warp-ring::before{content:'';position:absolute;inset:8px;border-radius:50%;border:1px solid rgba(120,165,200,.3);animation:tmRingSpin 2.2s linear infinite reverse}
+.tm-warp-ring::after{content:'';position:absolute;inset:16px;border-radius:50%;border:1px solid rgba(140,180,210,.35);animation:tmRingSpin 1.5s linear infinite}
+@keyframes tmRingSpin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.tm-warp-text{font-size:12px;color:#6a8ea8;letter-spacing:5px;font-family:Georgia,serif;animation:tmPulse 1.8s ease infinite}
+@keyframes tmPulse{0%,100%{opacity:.3}50%{opacity:1}}
+.tm-era-page{position:absolute;inset:0;z-index:8;background:linear-gradient(165deg,#e4eef5,#d0e1ed,#e8f0f6);display:none;flex-direction:column;align-items:center;justify-content:center;padding:30px;gap:24px}
+.tm-era-page.active{display:flex}
+.tm-era-hint{font-size:12px;color:#7a9db8;letter-spacing:4px;margin-bottom:10px;font-family:Georgia,serif}
+.tm-era-cards{display:flex;gap:14px;width:100%;max-width:340px;justify-content:center}
+.tm-era-card{flex:1;min-width:0;padding:28px 12px;background:rgba(255,255,255,.5);border:1px solid rgba(140,175,205,.3);border-radius:14px;text-align:center;cursor:pointer;transition:all .25s;display:flex;flex-direction:column;align-items:center;gap:10px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 3px 12px rgba(100,140,180,.08)}
+.tm-era-card:active{background:rgba(255,255,255,.75);border-color:rgba(100,150,190,.5);transform:scale(.96)}
+.tm-era-card-icon{font-size:10px;color:#8aafc5;letter-spacing:2px;font-weight:600;font-family:Georgia,serif}
+.tm-era-card-label{font-size:14px;color:#3a6a88;font-weight:600;letter-spacing:1px}
+.tm-era-card-sub{font-size:11px;color:#8aaab8;line-height:1.5}
+.tm-story-page{position:absolute;inset:0;z-index:9;background:linear-gradient(180deg,#e8f0f6,#f0f5f9);display:none;flex-direction:column}
+.tm-story-page.active{display:flex}
+.tm-story-header{position:relative;z-index:5;display:flex;align-items:center;padding:calc(env(safe-area-inset-top)+10px) 14px 10px;flex-shrink:0;border-bottom:1px solid rgba(140,175,205,.25);background:rgba(255,255,255,.4)}
+.tm-story-header .tm-sb{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:#6a8ea8;font-weight:300}
+.tm-story-header .tm-st{flex:1;text-align:center;font-size:13px;font-weight:600;color:#4a7090;letter-spacing:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-family:Georgia,serif}
+.tm-story-header .tm-ss{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6a8ea8}
+.tm-story-arrive{position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 30px;gap:20px;flex:1}
+.tm-story-arrive-text{font-size:14px;color:#5a8aa5;text-align:center;letter-spacing:2px;line-height:2.2;animation:tmFadeIn 1.5s ease;font-family:Georgia,serif}
+@keyframes tmFadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.tm-story-arrive-btn{padding:12px 36px;background:rgba(255,255,255,.6);border:1.5px solid rgba(120,165,200,.4);border-radius:22px;color:#4a7a9a;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:2px;transition:all .15s;animation:tmFadeIn 2s ease;box-shadow:0 2px 10px rgba(100,150,190,.1)}
+.tm-story-arrive-btn:active{background:rgba(255,255,255,.85)}
+.tm-story-body{position:relative;z-index:3;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 16px;display:flex;flex-direction:column;gap:14px;display:none}
+.tm-story-msg{font-size:15px;line-height:1.9;color:#2a4a60;text-align:justify;white-space:pre-wrap;word-break:break-word;padding:16px 18px;background:rgba(255,255,255,.55);border:1px solid rgba(140,175,205,.2);border-radius:12px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:0 2px 8px rgba(100,140,180,.06)}
+.tm-story-msg.tm-user{background:rgba(255,255,255,.7);border-color:rgba(100,150,190,.3);color:#3a5a75}
+.tm-story-msg.tm-narr{background:none;border:none;padding:8px 4px;font-size:12px;color:#8aaab8;text-align:center;font-style:italic}
+.tm-story-inputbar{position:relative;z-index:5;display:flex;align-items:flex-end;gap:8px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));border-top:1px solid rgba(140,175,205,.25);flex-shrink:0;background:rgba(240,245,250,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.tm-story-input{flex:1;padding:10px 14px;border:1px solid rgba(140,175,205,.3);border-radius:10px;background:rgba(255,255,255,.7);color:#3a5a75;font-size:15px;outline:none;resize:none;max-height:90px;line-height:1.5;font-family:inherit}
+.tm-story-input:focus{border-color:rgba(100,150,190,.5)}
+.tm-story-input::placeholder{color:#a0bcc8}
+.tm-story-send{padding:10px 18px;background:rgba(255,255,255,.6);border:1.5px solid rgba(120,165,200,.4);color:#4a7a9a;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;flex-shrink:0;letter-spacing:1px}
+.tm-story-send:disabled{opacity:.4}
+.tm-story-send:active{background:rgba(255,255,255,.85)}
+.tm-story-typing{padding:14px 18px;background:rgba(255,255,255,.5);border:1px solid rgba(140,175,205,.2);border-radius:12px;display:flex;gap:5px;align-items:center}
+.tm-story-typing span{width:6px;height:6px;border-radius:50%;background:#8aafc5;animation:typingDot 1.2s infinite}
+.tm-story-typing span:nth-child(2){animation-delay:.2s}
+.tm-story-typing span:nth-child(3){animation-delay:.4s}
+#tmSettingsPage{position:fixed;inset:0;background:linear-gradient(180deg,#e8f0f6,#f2f7fa);z-index:2100;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+#tmSettingsPage.active{transform:translateX(0)!important}
+#tmSettingsPage .tm-nav{border-bottom:1px solid rgba(140,175,205,.25)}
+.tms-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 20px 40px}
+.tms-section{margin-bottom:22px}
+.tms-label{font-size:11px;color:#7a9db8;font-weight:600;letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
+.tms-group{background:#fff;border:1px solid #c8dce8;border-radius:12px;overflow:hidden}
+.tms-field{padding:12px 14px;border-bottom:1px solid #e8f0f5}
+.tms-field:last-child{border-bottom:none}
+.tms-input{width:100%;padding:9px 12px;border:1px solid #c8dce8;border-radius:8px;background:#fff;color:#3a5a75;font-size:14px;outline:none;font-family:inherit;box-sizing:border-box}
+.tms-input:focus{border-color:#8ab8d4}
+.tms-textarea{width:100%;padding:9px 12px;border:1px solid #c8dce8;border-radius:8px;background:#fff;color:#3a5a75;font-size:14px;outline:none;resize:none;height:90px;line-height:1.5;font-family:inherit;box-sizing:border-box}
+.tms-textarea:focus{border-color:#8ab8d4}
+.tms-row{display:flex;align-items:center;gap:10px}
+.tms-check{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid #e8f0f5;cursor:pointer}
+.tms-check:last-child{border-bottom:none}
+.tms-checkbox{width:20px;height:20px;border-radius:5px;border:2px solid #b0cfe0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0;background:#fff}
+.tms-checkbox.on{background:#7ab0cc;border-color:#7ab0cc}
+.tms-check-label{flex:1;font-size:14px;color:#3a6080;font-weight:500}
+.tms-radio{display:flex;gap:0;border-radius:8px;overflow:hidden;border:1px solid #c8dce8}
+.tms-radio-opt{flex:1;padding:10px;text-align:center;font-size:13px;color:#6a90a8;cursor:pointer;background:#fff;border-right:1px solid #dce8f0}
+.tms-radio-opt:last-child{border-right:none}
+.tms-radio-opt.on{background:#7ab0cc;color:#fff}
+.tms-btn{width:100%;padding:13px;background:#fff;border:1.5px solid #a8cce0;color:#4a7a9a;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:1px}
+.tms-btn:active{background:#eaf3f9}
+.tms-btn.danger{background:#fff;border-color:#d4a0a0;color:#905050}
+.tms-btn.danger:active{background:#fdf5f5}
+.tms-hint{font-size:12px;color:#8aaab8;margin-top:8px;line-height:1.5;padding:0 4px}
+#tmMemPage{position:fixed;inset:0;background:linear-gradient(180deg,#e8f0f6,#f2f7fa);z-index:2200;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+#tmMemPage.active{transform:translateX(0)!important}
+#tmMemEditPage{position:fixed;inset:0;background:linear-gradient(180deg,#e8f0f6,#f2f7fa);z-index:2300;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+#tmMemEditPage.active{transform:translateX(0)!important}
+#tmSettingsPage .tm-nav{border-bottom:1px solid rgba(40,80,150,.2)}
+.tms-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 20px 40px}
+.tms-section{margin-bottom:22px}
+.tms-label{font-size:11px;color:rgba(100,160,220,.5);font-weight:600;letter-spacing:1px;margin-bottom:8px;text-transform:uppercase}
+.tms-group{background:rgba(15,30,60,.5);border:1px solid rgba(50,110,200,.2);border-radius:12px;overflow:hidden;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.tms-field{padding:12px 14px;border-bottom:1px solid rgba(40,80,150,.15)}
+.tms-field:last-child{border-bottom:none}
+.tms-input{width:100%;padding:9px 12px;border:1px solid rgba(50,110,200,.25);border-radius:8px;background:rgba(10,20,40,.6);color:rgba(180,220,255,.9);font-size:14px;outline:none;font-family:inherit;box-sizing:border-box}
+.tms-input:focus{border-color:rgba(80,150,255,.5)}
+.tms-textarea{width:100%;padding:9px 12px;border:1px solid rgba(50,110,200,.25);border-radius:8px;background:rgba(10,20,40,.6);color:rgba(180,220,255,.9);font-size:14px;outline:none;resize:none;height:90px;line-height:1.5;font-family:inherit;box-sizing:border-box}
+.tms-textarea:focus{border-color:rgba(80,150,255,.5)}
+.tms-row{display:flex;align-items:center;gap:10px}
+.tms-check{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid rgba(40,80,150,.15);cursor:pointer}
+.tms-check:last-child{border-bottom:none}
+.tms-checkbox{width:20px;height:20px;border-radius:5px;border:2px solid rgba(60,130,220,.4);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;flex-shrink:0}
+.tms-checkbox.on{background:rgba(40,100,200,.6);border-color:rgba(80,160,255,.6)}
+.tms-check-label{flex:1;font-size:14px;color:rgba(180,220,255,.8);font-weight:500}
+.tms-radio{display:flex;gap:0;border-radius:8px;overflow:hidden;border:1px solid rgba(50,110,200,.25)}
+.tms-radio-opt{flex:1;padding:10px;text-align:center;font-size:13px;color:rgba(100,160,220,.6);cursor:pointer;background:rgba(10,20,40,.5);border-right:1px solid rgba(50,110,200,.2)}
+.tms-radio-opt:last-child{border-right:none}
+.tms-radio-opt.on{background:rgba(40,100,200,.4);color:rgba(180,220,255,.95)}
+.tms-btn{width:100%;padding:13px;background:rgba(40,100,200,.3);border:1px solid rgba(60,140,255,.3);color:rgba(140,200,255,.9);border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:1px}
+.tms-btn:active{background:rgba(40,100,200,.5)}
+.tms-btn.danger{background:rgba(180,50,50,.2);border-color:rgba(220,80,80,.3);color:rgba(255,140,140,.8)}
+.tms-hint{font-size:12px;color:rgba(100,160,220,.4);margin-top:8px;line-height:1.5;padding:0 4px}
+#tmMemPage{position:fixed;inset:0;background:#0a0e1a;z-index:2200;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+#tmMemPage.active{transform:translateX(0)!important}
+#tmMemEditPage{position:fixed;inset:0;background:#0a0e1a;z-index:2300;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+#tmMemEditPage.active{transform:translateX(0)!important}
+</style>
+
+<div id="timeMachineApp">
+<div class="tm-nav"><div class="tm-back" id="tmBack">&#x2039;</div><div class="tm-title">时光机</div><div style="width:36px"></div></div>
+<div class="tm-select-page" id="tmSelectPage">
+<div class="tm-select-title">选择角色</div>
+<div class="tm-select-list" id="tmSelectList"></div>
+<div class="tm-confirm-btn" id="tmConfirmBtn">确认</div>
+</div>
+<div class="tm-warp-overlay" id="tmWarpOverlay">
+<div class="tm-warp-ring"></div>
+<div class="tm-warp-text">穿越中</div>
+</div>
+<div class="tm-era-page" id="tmEraPage">
+<div class="tm-era-hint">请选择穿越到什么时间</div>
+<div class="tm-era-cards">
+<div class="tm-era-card" data-tmera="childhood"><div class="tm-era-card-icon">PAST</div><div class="tm-era-card-label">童年</div><div class="tm-era-card-sub">角色的童年时期</div></div>
+<div class="tm-era-card" data-tmera="youth"><div class="tm-era-card-icon">PAST</div><div class="tm-era-card-label">少年</div><div class="tm-era-card-sub">角色的少年时代</div></div>
+<div class="tm-era-card" data-tmera="future"><div class="tm-era-card-icon">FUTURE</div><div class="tm-era-card-label">未来</div><div class="tm-era-card-sub">角色的未来世界</div></div>
+</div>
+</div>
+<div class="tm-story-page" id="tmStoryPage">
+<div class="tm-story-header"><div class="tm-sb" id="tmStoryBack">&#x2039;</div><div class="tm-st" id="tmStoryTitle"></div><div class="tm-ss" id="tmStorySetBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></div></div>
+<div class="tm-story-arrive" id="tmStoryArrive"><div class="tm-story-arrive-text" id="tmArriveText"></div><div class="tm-story-arrive-btn" id="tmArriveBtn">开启旅程</div></div>
+<div class="tm-story-body" id="tmStoryBody"></div>
+<div class="tm-story-inputbar" id="tmStoryInputbar" style="display:none"><textarea class="tm-story-input" id="tmStoryInput" rows="1" placeholder="继续书写故事..."></textarea><button class="tm-story-send" id="tmStorySend">发送</button></div>
+</div>
+</div>
+
+<div id="tmSettingsPage">
+<div class="tm-nav"><div class="tm-back" id="tmsBack">&#x2039;</div><div class="tm-title">设置</div><div style="width:36px"></div></div>
+<div class="tms-content">
+<div class="tms-section"><div class="tms-label">字数范围</div><div class="tms-group"><div class="tms-field"><div class="tms-row"><input class="tms-input" id="tmsMinWords" type="number" inputmode="numeric" placeholder="MIN" style="flex:1"><span style="color:rgba(100,160,220,.4);padding:0 6px">-</span><input class="tms-input" id="tmsMaxWords" type="number" inputmode="numeric" placeholder="MAX" style="flex:1"></div></div></div></div>
+<div class="tms-section"><div class="tms-label">人称视角</div><div class="tms-radio" id="tmsPov"><div class="tms-radio-opt on" data-tmpov="2">第二人称</div><div class="tms-radio-opt" data-tmpov="1">第一人称</div><div class="tms-radio-opt" data-tmpov="3">第三人称</div></div></div>
+<div class="tms-section"><div class="tms-label">文风</div><div class="tms-group"><div class="tms-field"><textarea class="tms-textarea" id="tmsStyle" placeholder="描述你想要的文风..."></textarea></div></div></div>
+<div class="tms-section"><div class="tms-label">挂载提示词</div><div class="tms-group" id="tmsPromptList"></div></div>
+<div class="tms-section"><div class="tms-label">挂载世界书</div><div class="tms-group" id="tmsWbList"></div></div>
+<div class="tms-section"><div class="tms-label">记忆</div><div class="tms-group"><div class="tms-check" id="tmsMemBtn" style="cursor:pointer"><div class="tms-check-label">记忆管理</div><div style="color:rgba(80,150,255,.6);font-size:16px">></div></div></div><div class="tms-hint">时光机拥有独立记忆，不与聊天互通。</div></div>
+<button class="tms-btn" id="tmsSaveBtn">保存设置</button>
+<button class="tms-btn danger" id="tmsClearBtn" style="margin-top:10px">清空故事</button>
+</div>
+</div>
+
+<div id="tmMemPage">
+<div class="tm-nav"><div class="tm-back" id="tmMemBack">&#x2039;</div><div class="tm-title">记忆库</div><div class="tm-set" id="tmMemAdd" style="font-size:22px;font-weight:300">+</div></div>
+<div class="tms-content" id="tmMemList"></div>
+</div>
+
+<div id="tmMemEditPage">
+<div class="tm-nav"><div class="tm-back" id="tmMemEditBack">&#x2039;</div><div class="tm-title">编辑记忆</div><div style="width:36px"></div></div>
+<div class="tms-content"><div class="tms-section"><div class="tms-group"><div class="tms-field"><textarea class="tms-textarea" id="tmMemEditInput" style="height:160px"></textarea></div></div></div><button class="tms-btn" id="tmMemEditSave">保存</button><button class="tms-btn danger" id="tmMemEditDel" style="margin-top:10px">删除</button></div>
+</div>
+
+<script>
+(function(){
+  var tmCharId=null,tmEra=null,tmBusy=false,tmStarted=false,tmEditMemIdx=null;
+
+  function tmKey(){return 'timeMachine_'+pid()+'_'+tmCharId+'_'+tmEra}
+  function tmSettKey(){return 'tmSettings_'+pid()+'_'+tmCharId+'_'+tmEra}
+  function tmMemKey(){return 'tmMem_'+pid()+'_'+tmCharId+'_'+tmEra}
+  function tmSumKey(){return 'tmSum_'+pid()+'_'+tmCharId+'_'+tmEra}
+  function tmGetChat(){return LS.get(tmKey(),'[]')}
+  function tmSaveChat(h){LS.set(tmKey(),h)}
+  function tmGetSettings(){return LS.get(tmSettKey(),'{"minWords":800,"maxWords":2000,"pov":"2","style":"","mountedWb":[],"mountedPrompts":[]}')}
+  function tmSaveSettings(s){LS.set(tmSettKey(),s)}
+  function tmGetMem(){return LS.get(tmMemKey(),'[]')}
+  function tmSaveMem(a){LS.set(tmMemKey(),a)}
+  function tmGetSum(){return LS.get(tmSumKey(),'{"lastIdx":0}')}
+  function tmSaveSum(s){LS.set(tmSumKey(),s)}
+
+  var _tmIcon=document.getElementById('timeMachineIcon');
+  if(_tmIcon)_tmIcon.onclick=function(){
+    if(window.homeEditMode)return;
+    document.getElementById('homeScreen').classList.add('hide-left');
+    document.getElementById('timeMachineApp').classList.add('active');
+    tmCharId=null;tmEra=null;tmStarted=false;
+    document.getElementById('tmSelectPage').style.display='flex';
+    document.getElementById('tmEraPage').classList.remove('active');
+    document.getElementById('tmStoryPage').classList.remove('active');
+    document.getElementById('tmWarpOverlay').classList.remove('active');
+    tmRenderSelect();
+  };
+
+  document.getElementById('tmBack').onclick=function(){
+    document.getElementById('homeScreen').classList.remove('hide-left');
+    document.getElementById('timeMachineApp').classList.remove('active');
+  };
+
+  function tmRenderSelect(){
+    var fs=getPublicFriends();
+    var list=document.getElementById('tmSelectList');
+    list.innerHTML='';
+    var selectedId='';
+    fs.forEach(function(f){
+      var el=document.createElement('div');el.className='tm-select-item';el.setAttribute('data-tmcid',f.id);
+      var av=f.avatar?'<img src="'+getAvUrl(f.avatar)+'">':'<div style="width:100%;height:100%;background:rgba(60,120,200,.2);border-radius:50%"></div>';
+      el.innerHTML='<div class="tm-select-av">'+av+'</div><div class="tm-select-name">'+escapeHtml(f.name)+'</div>';
+      el.onclick=function(){
+        list.querySelectorAll('.tm-select-item').forEach(function(x){x.style.borderColor='rgba(60,120,200,.2)'});
+        el.style.borderColor='rgba(80,160,255,.6)';
+        selectedId=f.id;
+      };
+      list.appendChild(el);
+    });
+    document.getElementById('tmConfirmBtn').onclick=function(){
+            if(!selectedId){alert('请先选择一个角色');return}
+      tmCharId=selectedId;
+      document.getElementById('tmSelectPage').style.display='none';
+      document.getElementById('tmWarpOverlay').classList.add('active');
+      setTimeout(function(){
+        document.getElementById('tmWarpOverlay').classList.remove('active');
+        document.getElementById('tmEraPage').classList.add('active');
+      },2500);
+    };
+  }
+
+  document.querySelectorAll('.tm-era-card').forEach(function(card){
+    card.onclick=function(){
+      tmEra=card.getAttribute('data-tmera');
+      document.getElementById('tmEraPage').classList.remove('active');
+      document.getElementById('tmWarpOverlay').classList.add('active');
+      setTimeout(function(){
+        document.getElementById('tmWarpOverlay').classList.remove('active');
+        tmOpenStory();
+      },2000);
+    };
+  });
+
+  function tmEraLabel(){
+    if(tmEra==='childhood')return '童年时期';
+    if(tmEra==='youth')return '少年时代';
+    if(tmEra==='future')return '未来世界';
+    return '';
+  }
+
+  function tmOpenStory(){
+    var f=getFriends().find(function(x){return x.id===tmCharId});
+    var charName=f?f.name:'角色';
+    document.getElementById('tmStoryTitle').textContent=charName+' / '+tmEraLabel();
+    var h=tmGetChat();
+    if(h.length){
+      tmStarted=true;
+      document.getElementById('tmStoryArrive').style.display='none';
+      document.getElementById('tmStoryBody').style.display='flex';
+      document.getElementById('tmStoryInputbar').style.display='flex';
+      tmRenderMsgs();
+    }else{
+      tmStarted=false;
+      document.getElementById('tmStoryArrive').style.display='flex';
+      document.getElementById('tmStoryBody').style.display='none';
+      document.getElementById('tmStoryInputbar').style.display='none';
+      document.getElementById('tmArriveText').textContent='已穿越到 '+charName+' 的'+tmEraLabel()+'\n请开启旅程';
+    }
+    document.getElementById('tmStoryPage').classList.add('active');
+  }
+
+  document.getElementById('tmStoryBack').onclick=function(){
+    document.getElementById('tmStoryPage').classList.remove('active');
+    document.getElementById('tmSelectPage').style.display='flex';
+    tmCharId=null;tmEra=null;tmStarted=false;
+    tmRenderSelect();
+  };
+
+  document.getElementById('tmArriveBtn').onclick=function(){
+    tmStarted=true;
+    document.getElementById('tmStoryArrive').style.display='none';
+    document.getElementById('tmStoryBody').style.display='flex';
+    document.getElementById('tmStoryInputbar').style.display='flex';
+    tmGenOpening();
+  };
+
+  function tmRenderMsgs(){
+    var h=tmGetChat();
+    var body=document.getElementById('tmStoryBody');body.innerHTML='';
+    h.forEach(function(m,idx){
+      var el=document.createElement('div');
+      el.className='tm-story-msg'+(m.role==='user'?' tm-user':'');
+      el.textContent=m.content||'';
+      var lastTap=0;
+      el.addEventListener('touchend',function(ev){var now=Date.now();if(now-lastTap<400){ev.preventDefault();tmMsgMenu(idx);lastTap=0}else lastTap=now});
+      el.addEventListener('dblclick',function(ev){ev.preventDefault();tmMsgMenu(idx)});
+      body.appendChild(el);
+    });
+    setTimeout(function(){body.scrollTop=body.scrollHeight},50);
+  }
+
+  function tmMsgMenu(idx){
+    uiPick('操作',[{label:'编辑',value:'edit'},{label:'删除',value:'del'},{label:'从这里重新生成',value:'reroll'}],function(v){
+      var h=tmGetChat();
+      if(v==='del'){h.splice(idx,1);tmSaveChat(h);tmRenderMsgs()}
+      else if(v==='edit'){var m=h[idx];if(!m)return;uiPrompt({title:'编辑',value:m.content||''},function(t){if(t===null)return;h[idx].content=t;tmSaveChat(h);tmRenderMsgs()})}
+      else if(v==='reroll'){h=h.slice(0,idx);tmSaveChat(h);tmRenderMsgs();tmDoSend('')}
+    });
+  }
+
+  function tmShowTyping(){var body=document.getElementById('tmStoryBody');var el=document.createElement('div');el.id='tmTyping';el.className='tm-story-typing';el.innerHTML='<span></span><span></span><span></span>';body.appendChild(el);body.scrollTop=body.scrollHeight}
+  function tmRemoveTyping(){var t=document.getElementById('tmTyping');if(t)t.remove()}
+
+  function tmBuildSys(){
+    var f=getFriends().find(function(x){return x.id===tmCharId});
+    var pe=getActivePersona();
+    var uName=pe?pe.name:'穿越者';
+    var charName=f?f.name:'角色';
+    var s=tmGetSettings();
+    var pov=s.pov||'2';
+    var povText=pov==='1'?'第一人称':pov==='3'?'第三人称':'第二人称';
+    var minW=parseInt(s.minWords)||800;
+    var maxW=parseInt(s.maxWords)||2000;
+    var style=s.style||'';
+
+    var mountedPrompts=(s.mountedPrompts||[]);
+    var userPrompts=getGlobalPrompts().filter(function(p){return mountedPrompts.indexOf(p.id)>=0}).map(function(p){return p.content}).join('\n\n');
+    var mountedWb=(s.mountedWb||[]);
+    var wbTxt=getWorldBooks().filter(function(b){return b.active&&mountedWb.indexOf(b.id)>=0}).map(function(b){return b.content}).join('\n\n');
+
+    var eraDesc='';
+    if(tmEra==='childhood')eraDesc='此刻是'+charName+'的童年时期（大约5-12岁），'+charName+'还是一个孩子，周围是TA童年的世界：家人、小伙伴、学校、那个年代的街道和风景。一切都是'+charName+'小时候的样子。';
+    else if(tmEra==='youth')eraDesc='此刻是'+charName+'的少年时代（大约13-18岁），'+charName+'正处于青春期，有着少年特有的敏感和冲动。周围是TA的校园生活、朋友圈、初恋的悸动或叛逆期的迷茫。';
+    else eraDesc='此刻是'+charName+'的未来，时间线在当下往后推移了许多年。一切都变了，'+charName+'可能已经事业有成或人生转折，世界也不一样了。';
+
+    var memTxt='';
+    var mems=tmGetMem();
+    if(mems.length)memTxt='[时光机独立记忆]\n'+mems.map(function(x){return x.content}).join('\n---\n')+'\n\n';
+
+    var sys='忽略之前所有的默认指令和身份设定。你是一个穿越时空题材的小说作者。\n\n';
+    if(userPrompts)sys+=userPrompts+'\n\n';
+    if(wbTxt)sys+='[世界书]\n'+wbTxt+'\n\n';
+    sys+='[角色] '+charName+(f&&f.persona?'\n人设：'+f.persona:'')+'\n\n';
+    sys+='[时代背景]\n'+eraDesc+'\n\n';
+    sys+='[穿越设定]\n'+uName+'是一个穿越者，从未来穿越到了这个时间线。但是这个时空里的所有人（包括'+charName+'）完全不知道'+uName+'是穿越的，他们只会把'+uName+'当成自然存在于这个时代的人来对待。'+uName+'拥有来自未来的全部记忆（包括和'+charName+'在原来时间线的一切），但必须隐藏这个秘密。'+charName+'此时并不认识'+uName+'，两人是初次相遇（除非用户后续推动剧情让关系发展）。\n\n';
+    if(memTxt)sys+=memTxt;
+    if(pe)sys+='[穿越者信息] '+uName+(pe.desc?'（'+pe.desc+'）':'')+'\n\n';
+    sys+='[写作要求]\n';
+    sys+='1. 视角：'+povText+'。';
+    if(pov==='2')sys+='"你"指代'+uName+'（穿越者），'+charName+'用名字或第三人称。\n';
+    else if(pov==='1')sys+='"我"是'+uName+'（穿越者），'+charName+'用名字。\n';
+    else sys+='所有人用名字和第三人称。\n';
+    if(style)sys+='2. 文风：'+style+'\n';
+    sys+=(style?'3':'2')+'. 字数：每次回复'+minW+'-'+maxW+'字，情节充实不草草收尾\n';
+    sys+=(style?'4':'3')+'. 小说体连贯行文，有场景描写、动作神态、心理活动、对话\n';
+    sys+=(style?'5':'4')+'. 严格贴合'+charName+'在这个年龄段应有的性格、说话方式、认知水平\n';
+    sys+=(style?'6':'5')+'. 绝对禁止替'+uName+'说话做决定，写到需要穿越者回应的地方就停住\n';
+    sys+=(style?'7':'6')+'. 只输出小说正文，不要标题不要字数统计\n';
+    return sys;
+  }
+
+  async function tmGenOpening(){
+    var api=getApiSettings();
+    if(!api.apiUrl||!api.apiKey||!api.model){alert('先配置API');return}
+    tmBusy=true;document.getElementById('tmStorySend').disabled=true;tmShowTyping();
+    try{
+      var sys=tmBuildSys();
+      var f=getFriends().find(function(x){return x.id===tmCharId});
+      var charName=f?f.name:'角色';
+      sys+='\n这是故事的开篇。穿越者刚刚抵达这个时空，睁开眼睛看到的第一个画面。请写一个引人入胜的开场：描写环境、氛围、穿越者的感受，并自然地安排'+charName+'（在这个年龄段的样子）出现在画面中。';
+      var reply=await callApi([{role:'system',content:sys},{role:'user',content:'开始故事'}]);
+      if(typeof stripCot==='function'){var rs=stripCot(reply);if(rs)reply=rs}
+      tmRemoveTyping();
+      var h=tmGetChat();
+      h.push({role:'assistant',content:(reply||'').trim()});
+      tmSaveChat(h);tmRenderMsgs();
+    }catch(e){tmRemoveTyping();alert('生成失败：'+(e.message||''))}
+    tmBusy=false;document.getElementById('tmStorySend').disabled=false;
+  }
+
+  document.getElementById('tmStorySend').onclick=tmSendMsg;
+  document.getElementById('tmStoryInput').onkeydown=function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();tmSendMsg()}};
+  document.getElementById('tmStoryInput').oninput=function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,90)+'px'};
+
+  function tmSendMsg(){
+    var inp=document.getElementById('tmStoryInput');
+    var txt=inp.value.trim();
+    inp.value='';inp.style.height='auto';
+    tmDoSend(txt);
+  }
+
+  async function tmDoSend(txt){
+    if(tmBusy)return;
+    var api=getApiSettings();
+    if(!api.apiUrl||!api.apiKey||!api.model){alert('先配置API');return}
+    var h=tmGetChat();
+    if(txt){h.push({role:'user',content:txt});tmSaveChat(h);tmRenderMsgs()}
+    tmBusy=true;document.getElementById('tmStorySend').disabled=true;tmShowTyping();
+    try{
+      var sys=tmBuildSys();
+      var s=tmGetSettings();
+      var minW=parseInt(s.minWords)||800;
+      var msgs=[{role:'system',content:sys}];
+      var ctxSlice=h.slice(-40);
+      ctxSlice.forEach(function(m){
+        if(m.role==='user')msgs.push({role:'user',content:'[剧情推动] '+m.content});
+        else msgs.push({role:'assistant',content:m.content});
+      });
+      if(!txt)msgs.push({role:'user',content:'继续故事'});
+      var reply='';
+      var maxRounds=minW>1500?Math.min(6,Math.ceil(minW/1000)+1):1;
+      for(var i=0;i<maxRounds;i++){
+        var part=await callApi(msgs);
+        if(typeof stripCot==='function'){var rs=stripCot(part);if(rs)part=rs}
+        part=(part||'').trim();
+        if(!part||part.length<15)break;
+        reply+=(reply?'\n\n':'')+part;
+        if(reply.length>=minW)break;
+        msgs.push({role:'assistant',content:part});
+        msgs.push({role:'user',content:'接着上面继续往下写，不要重复已写内容，保持同样视角和文风。还差'+(minW-reply.length)+'字。'});
+      }
+      tmRemoveTyping();
+      if(reply){
+        var h2=tmGetChat();
+        h2.push({role:'assistant',content:reply});
+        tmSaveChat(h2);tmRenderMsgs();
+        tmCheckAutoSum();
+      }
+    }catch(e){tmRemoveTyping();alert('生成失败：'+(e.message||''))}
+    tmBusy=false;document.getElementById('tmStorySend').disabled=false;
+  }
+
+  // settings
+  document.getElementById('tmStorySetBtn').onclick=function(){
+    var s=tmGetSettings();
+    document.getElementById('tmsMinWords').value=s.minWords||'';
+    document.getElementById('tmsMaxWords').value=s.maxWords||'';
+    document.getElementById('tmsStyle').value=s.style||'';
+    document.querySelectorAll('#tmsPov .tms-radio-opt').forEach(function(o){o.classList.toggle('on',o.getAttribute('data-tmpov')===(s.pov||'2'))});
+    tmRenderSettPrompts(s);
+    tmRenderSettWb(s);
+    document.getElementById('tmSettingsPage').classList.add('active');
+  };
+  document.getElementById('tmsBack').onclick=function(){document.getElementById('tmSettingsPage').classList.remove('active')};
+
+  document.querySelectorAll('#tmsPov .tms-radio-opt').forEach(function(o){
+    o.onclick=function(){document.querySelectorAll('#tmsPov .tms-radio-opt').forEach(function(x){x.classList.remove('on')});o.classList.add('on')};
+  });
+
+  function tmRenderSettPrompts(s){
+    var c=document.getElementById('tmsPromptList');c.innerHTML='';
+    var mounted=s.mountedPrompts||[];
+    var ps=getGlobalPrompts();
+    if(!ps.length){c.innerHTML='<div class="tms-field" style="text-align:center;color:rgba(100,160,220,.4);font-size:13px">No custom prompts</div>';return}
+    ps.forEach(function(p){
+      var on=mounted.indexOf(p.id)>=0;
+      var el=document.createElement('div');el.className='tms-check';
+      el.innerHTML='<div class="tms-checkbox'+(on?' on':'')+'">'+( on?'V':'')+'</div><div class="tms-check-label">'+escapeHtml(p.title||'')+'</div>';
+      el.onclick=function(){var chk=el.querySelector('.tms-checkbox');var idx=mounted.indexOf(p.id);if(idx>=0){mounted.splice(idx,1);chk.classList.remove('on');chk.textContent=''}else{mounted.push(p.id);chk.classList.add('on');chk.textContent='V'}s.mountedPrompts=mounted};
+      c.appendChild(el);
+    });
+  }
+
+  function tmRenderSettWb(s){
+    var c=document.getElementById('tmsWbList');c.innerHTML='';
+    var mounted=s.mountedWb||[];
+    var wbs=getWorldBooks();
+    if(!wbs.length){c.innerHTML='<div class="tms-field" style="text-align:center;color:rgba(100,160,220,.4);font-size:13px">No world books</div>';return}
+    wbs.forEach(function(b){
+      var on=mounted.indexOf(b.id)>=0;
+      var el=document.createElement('div');el.className='tms-check';
+      el.innerHTML='<div class="tms-checkbox'+(on?' on':'')+'">'+( on?'V':'')+'</div><div class="tms-check-label">'+escapeHtml(b.name||'')+'</div>';
+      el.onclick=function(){var chk=el.querySelector('.tms-checkbox');var idx=mounted.indexOf(b.id);if(idx>=0){mounted.splice(idx,1);chk.classList.remove('on');chk.textContent=''}else{mounted.push(b.id);chk.classList.add('on');chk.textContent='V'}s.mountedWb=mounted};
+      c.appendChild(el);
+    });
+  }
+
+  document.getElementById('tmsSaveBtn').onclick=function(){
+    var s=tmGetSettings();
+    s.minWords=parseInt(document.getElementById('tmsMinWords').value)||800;
+    s.maxWords=parseInt(document.getElementById('tmsMaxWords').value)||2000;
+    s.style=document.getElementById('tmsStyle').value.trim();
+    var povEl=document.querySelector('#tmsPov .tms-radio-opt.on');
+    s.pov=povEl?povEl.getAttribute('data-tmpov'):'2';
+    tmSaveSettings(s);
+    document.getElementById('tmSettingsPage').classList.remove('active');
+    favToast('Settings saved');
+  };
+
+  document.getElementById('tmsClearBtn').onclick=function(){
+    uiConfirm('Clear all story content for this era? Cannot be undone.',function(){
+      tmSaveChat([]);
+      document.getElementById('tmStoryBody').innerHTML='';
+      document.getElementById('tmStoryArrive').style.display='flex';
+      document.getElementById('tmStoryBody').style.display='none';
+      document.getElementById('tmStoryInputbar').style.display='none';
+      var f=getFriends().find(function(x){return x.id===tmCharId});
+      document.getElementById('tmArriveText').textContent='已穿越到 '+(f?f.name:'角色')+' 的'+tmEraLabel()+'\n请开启旅程';
+      document.getElementById('tmSettingsPage').classList.remove('active');
+    },{title:'Clear Story',danger:true,okText:'Clear'});
+  };
+
+  
+      // memory
+  document.getElementById('tmsMemBtn').onclick=function(){tmRenderMemPage();document.getElementById('tmMemPage').classList.add('active')};
+  document.getElementById('tmMemBack').onclick=function(){document.getElementById('tmMemPage').classList.remove('active')};
+  document.getElementById('tmMemAdd').onclick=function(){tmEditMemIdx=-1;document.getElementById('tmMemEditInput').value='';document.getElementById('tmMemEditPage').classList.add('active')};
+
+  function tmRenderMemPage(){
+    var mems=tmGetMem();
+    var c=document.getElementById('tmMemList');c.innerHTML='';
+    var ss=tmGetSum();
+    var html='<div class="tms-section"><div class="tms-label">自动总结</div><div class="tms-group"><div class="tms-check" id="tmAutoSumToggle"><div class="tms-checkbox'+(ss.autoEnabled?' on':'')+'">'+( ss.autoEnabled?'V':'')+'</div><div class="tms-check-label">自动总结</div></div><div class="tms-field" id="tmAutoSumFreqField" style="display:'+(ss.autoEnabled?'block':'none')+'"><div style="font-size:12px;color:rgba(100,160,220,.5);margin-bottom:5px">我发N条消息后自动总结</div><input class="tms-input" id="tmAutoSumFreq" type="number" value="'+(ss.freq||15)+'" min="5"></div></div></div>';
+    html+='<div class="tms-section"><div class="tms-group"><div class="tms-check" id="tmManualSumBtn" style="cursor:pointer"><div class="tms-check-label">手动总结</div><div style="color:rgba(80,150,255,.6)" id="tmManualSumStatus">执行</div></div></div></div>';
+    html+='<div class="tms-section"><div class="tms-label">记忆库（'+mems.length+'条）</div><div id="tmMemCards"></div></div>';
+    c.innerHTML=html;
+
+    var cardsEl=document.getElementById('tmMemCards');
+    if(!mems.length){cardsEl.innerHTML='<div style="padding:30px;text-align:center;color:rgba(100,160,220,.4);font-size:13px">暂无记忆</div>'}
+    else{mems.forEach(function(m,i){
+      var el=document.createElement('div');
+      el.style.cssText='background:rgba(15,30,60,.5);border:1px solid rgba(50,110,200,.2);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer';
+      el.innerHTML='<div style="font-size:13px;color:rgba(180,220,255,.8);line-height:1.5">'+escapeHtml(m.content).slice(0,120)+'</div><div style="font-size:11px;color:rgba(100,160,220,.4);margin-top:6px">'+(m.time||'')+'</div>';
+      el.onclick=function(){tmEditMemIdx=i;document.getElementById('tmMemEditInput').value=m.content;document.getElementById('tmMemEditPage').classList.add('active')};
+      cardsEl.appendChild(el);
+    })}
+
+    document.getElementById('tmAutoSumToggle').onclick=function(){
+      var s2=tmGetSum();s2.autoEnabled=!s2.autoEnabled;tmSaveSum(s2);
+      var chk=this.querySelector('.tms-checkbox');chk.classList.toggle('on',s2.autoEnabled);chk.textContent=s2.autoEnabled?'V':'';
+      document.getElementById('tmAutoSumFreqField').style.display=s2.autoEnabled?'block':'none';
+    };
+    var freqInp=document.getElementById('tmAutoSumFreq');
+    if(freqInp)freqInp.onchange=function(){var s2=tmGetSum();s2.freq=Math.max(5,parseInt(this.value)||15);this.value=s2.freq;tmSaveSum(s2)};
+    document.getElementById('tmManualSumBtn').onclick=function(){
+      uiConfirm('现在手动总结新的故事内容吗？',function(){tmDoManualSum()},{title:'总结记忆',okText:'执行'});
+    };
+  }
+
+  document.getElementById('tmMemEditBack').onclick=function(){document.getElementById('tmMemEditPage').classList.remove('active');tmRenderMemPage()};
+  document.getElementById('tmMemEditSave').onclick=function(){
+    var txt=document.getElementById('tmMemEditInput').value.trim();if(!txt){alert('内容不能为空');return}
+    var mems=tmGetMem();
+    if(tmEditMemIdx===-1)mems.unshift({content:txt,time:new Date().toLocaleString('zh-CN')});
+    else mems[tmEditMemIdx].content=txt;
+    tmSaveMem(mems);document.getElementById('tmMemEditPage').classList.remove('active');tmRenderMemPage();
+  };
+  document.getElementById('tmMemEditDel').onclick=function(){
+    uiConfirm('确定删除这条记忆吗？',function(){
+      var mems=tmGetMem();mems.splice(tmEditMemIdx,1);tmSaveMem(mems);
+      document.getElementById('tmMemEditPage').classList.remove('active');tmRenderMemPage();
+    },{title:'删除记忆',danger:true,okText:'删除'});
+  };
+
+  async function tmDoManualSum(){
+    var api=getApiSettings();if(!api.apiUrl||!api.apiKey||!api.model){alert('请先配置API');return}
+    var h=tmGetChat();var ss=tmGetSum();
+    var li=Math.min(ss.lastIdx||0,h.length);
+    var uns=h.slice(li);
+    if(uns.length<3){alert('暂无足够新内容可总结');return}
+    var st=document.getElementById('tmManualSumStatus');if(st)st.textContent='...';
+    try{
+      var pe=getActivePersona();var userName=pe?pe.name:'穿越者';
+      var chunks=[];
+      for(var i=0;i<uns.length;i+=30){
+        var ck=uns.slice(i,i+30);
+        chunks.push(ck.map(function(m){return m.role==='user'?('[穿越者行动] '+m.content):m.content}).join('\n'));
+      }
+      var nw=[];
+      for(var ci=0;ci<chunks.length;ci++){
+        var reply=await callApi([{role:'system',content:'你是记忆压缩器。把下面的故事片段压缩成简短的第三人称记忆摘要。\n严格规则：\n1. 必须高度概括，禁止逐句复述\n2. 用第三人称客观陈述：发生了什么事、角色之间的互动、关键情节转折\n3. 合并同类内容，省略无意义细节\n4. 只保留对后续剧情有用的事实：关系变化、重要事件、情感节点\n5. 60-150字，不要加"总结"开头'},{role:'user',content:chunks[ci]}]);
+        nw.push({content:reply.trim(),time:new Date().toLocaleString('zh-CN')});
+      }
+      var mems=tmGetMem();
+      var all=nw.reverse().concat(mems);
+      while(all.length>30)all.pop();
+      tmSaveMem(all);
+      ss.lastIdx=h.length;tmSaveSum(ss);
+      if(st){st.textContent='完成';setTimeout(function(){st.textContent='执行'},2000)}
+      tmRenderMemPage();
+    }catch(e){if(st){st.textContent='失败';setTimeout(function(){st.textContent='执行'},2000)}}
+  }
+
+  async function tmCheckAutoSum(){
+    var ss=tmGetSum();
+    if(!ss.autoEnabled)return;
+    var h=tmGetChat();
+    if((ss.lastIdx||0)>h.length)ss.lastIdx=h.length;
+    var li=ss.lastIdx||0;
+    var newUserMsgs=0;
+    for(var i=li;i<h.length;i++){if(h[i].role==='user')newUserMsgs++}
+    if(newUserMsgs>=(ss.freq||15))await tmDoManualSum();
+  }
+
+  var _origTmBuildSys=tmBuildSys;
+  tmBuildSys=function(){
+    var baseSys=_origTmBuildSys();
+    var f=getFriends().find(function(x){return x.id===tmCharId});
+    var pe=getActivePersona();
+    var uName=pe?pe.name:'穿越者';
+    var charName=f?f.name:'角色';
+
+    var inject='';
+
+    try{
+      var chatH=getChatHistory(tmCharId).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-20);
+      if(chatH.length)inject+='[穿越者的记忆 - 原时间线和'+charName+'的相处，只有穿越者自己知道这些，'+charName+'完全不知道]\n'+chatH.map(function(m){return m.role==='user'?uName+':'+m.content:charName+':'+m.content}).join('\n')+'\n\n';
+    }catch(e){}
+
+    try{
+      var gs=getGroups().filter(function(g){return g.memberIds&&g.memberIds.indexOf(tmCharId)>=0});
+      gs.forEach(function(g){
+        var gh=getChatHistory(g.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image}).slice(-10);
+        if(!gh.length)return;
+        var _fsA=getFriends();
+        inject+='[穿越者记忆 - 原时间线群聊「'+g.name+'」]\n'+gh.map(function(m){if(m.role==='user')return uName+':'+m.content;var mf=_fsA.find(function(x){return x.id===m.senderId});return(mf?mf.name:'?')+':'+m.content}).join('\n')+'\n\n';
+      });
+    }catch(e){}
+
+    try{
+      var origMem=getMemories(tmCharId);
+      if(origMem.length)inject+='[穿越者记忆 - 原时间线记忆摘要，只有穿越者知道]\n'+origMem.slice(0,5).map(function(x){return x.content}).join('\n---\n')+'\n\n';
+    }catch(e){}
+
+    try{
+      var relInject=buildRelationInject();
+      if(relInject)inject+='[穿越者知道的关系网（原时间线），当前时空的人不知道这些]\n'+relInject+'\n\n';
+    }catch(e){}
+
+    inject+='\n[叙事铁律]\n';
+    inject+='1. '+charName+'在这个时空中完全不认识穿越者，没有任何关于穿越者的记忆，两人是陌生人初次相遇的状态\n';
+    inject+='2. 穿越者心里清楚地记得原时间线的一切（上面的记忆），但绝对不能直接说出来，只能通过言行举止不经意间流露出"我好像认识你""我好像知道你喜欢什么"之类的微妙感\n';
+    inject+='3. 上帝视角叙事时，可以写穿越者内心因为记忆而产生的复杂情绪（心酸、怀念、想靠近又不能太急等），形成穿越文特有的信息差张力\n';
+    inject+='4. '+charName+'此时的性格、行为必须完全符合TA在这个年龄段应有的样子，不受原时间线影响\n';
+
+    return baseSys+inject;
+  };
+
+})();
+</script></body></html>
