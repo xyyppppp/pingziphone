@@ -1910,6 +1910,9 @@ setTimeout(function(){
 /* ===== 一起看 App（独立入口·可选多人·截帧Vision陪看）===== */
 (function(){
   var wtChars=[], log=[], curTitle='', snapping=false, snapTimer=null, videoEl=null, wtBili=null;
+var wtSubs=[];
+function parseSRT(text){var blocks=text.trim().replace(/\r\n/g,'\n').split('\n\n');var result=[];blocks.forEach(function(block){var lines=block.split('\n');if(lines.length<3)return;var tm=lines[1].match(/(\d{2}):(\d{2}):(\d{2})[,.](\d{3})\s*-->\s*(\d{2}):(\d{2}):(\d{2})[,.](\d{3})/);if(!tm)return;var start=+tm[1]*3600+ +tm[2]*60+ +tm[3]+ +tm[4]/1000;var end=+tm[5]*3600+ +tm[6]*60+ +tm[7]+ +tm[8]/1000;var txt=lines.slice(2).join(' ').replace(/<[^>]+>/g,'').trim();if(txt)result.push({start:start,end:end,text:txt})});return result}
+function getSubsAround(sec,range){range=range||60;if(!wtSubs.length)return '';var nearby=wtSubs.filter(function(s){return s.start>=sec-10&&s.start<=sec+range});if(!nearby.length){var closest=wtSubs.reduce(function(a,b){return Math.abs(a.start-sec)<Math.abs(b.start-sec)?a:b});var idx=wtSubs.indexOf(closest);nearby=wtSubs.slice(Math.max(0,idx-5),idx+20)}return nearby.map(function(s){return s.text}).join('\n')}
 
   var st=document.createElement('style');
 st.textContent=
@@ -2169,7 +2172,8 @@ async function genReply(triggerText,frame){
   sys+='\n\n【你们正在B站一起看这个视频（你看不到画面，但知道视频信息和此刻飘过的弹幕）】\n标题：'+(bi.title||'')+(bi.owner?'\nUP主：'+bi.owner:'')+(bi.desc?'\n简介：'+bi.desc.slice(0,200):'');
   if(seg.length)sys+='\n\n此刻视频里飘过的弹幕（大概反映演到哪、大家什么反应）：\n'+seg.map(function(x){return '· '+x}).join('\n');
   sys+='\n\n【重要】上面的弹幕只是给你参考"现在大概演到哪、气氛如何"的内部信息，绝对不要在回复里提到"弹幕"两个字，也不要复述、引用、点评弹幕本身。你要表现得像自己正在看这个视频、有自己的真实反应，就像跟对方一起追剧那样自然地聊你看到、想到的，而不是在念弹幕。';
-   } var uc=frame?[{type:'image_url',image_url:{url:frame}},{type:'text',text:triggerText||'现在这个画面你们怎么说？'}]:[{type:'text',text:triggerText||'你们来聊聊'}];
+   } var subText='';if(wtSubs.length){var _subSec=videoEl?videoEl.currentTime:(wtBili?Math.floor((Date.now()-wtBili.startTime)/1000):0);subText=getSubsAround(_subSec,45)}if(subText){sys+='\n\n【当前剧情字幕·你能读到这些台词，就像你正在看这部片子】\n'+subText+'\n请结合画面（如果有）和台词一起做出真实的观影反应：吐槽剧情、评价角色、猜后续发展、被某句台词触动。不要复述字幕原文，像真人追剧那样自然聊。\n'}
+var uc=frame?[{type:'image_url',image_url:{url:frame}},{type:'text',text:triggerText||'现在这个画面和台词你们怎么说？'}]:[{type:'text',text:triggerText||'你们来聊聊'}];
     var msgs=[{role:'system',content:sys}];
     var ctx=log.slice(-11);
     if(ctx.length&&ctx[ctx.length-1].role==='user')ctx=ctx.slice(0,-1);
@@ -2245,10 +2249,11 @@ async function genReply(triggerText,frame){
     document.getElementById('wtInfoBar').style.display='none';
     document.getElementById('wtAutoBtn').textContent='自动截帧 关';document.getElementById('wtAutoBtn').classList.remove('on');
     document.getElementById('wtDot').classList.remove('active');
-    document.getElementById('wtVideoWrap').innerHTML='<div class="wt-empty"><button class="wt-load-btn" id="wtUp">上传本地视频</button><div class="wt-or">或粘贴 mp4 直链/b站链接</div><div class="wt-url-row"><input class="wt-url-inp" id="wtUrl" placeholder="https://xxx.com/video.mp4"><button class="wt-url-ok" id="wtUrlOk">打开</button></div></div>';
+    document.getElementById('wtVideoWrap').innerHTML='<div class="wt-empty"><button class="wt-load-btn" id="wtUp">上传本地视频</button><div class="wt-or">或粘贴 mp4 直链/b站链接</div><div class="wt-url-row"><input class="wt-url-inp" id="wtUrl" placeholder="https://xxx.com/video.mp4"><button class="wt-url-ok" id="wtUrlOk">打开</button></div><div class="wt-or">上传 .srt 字幕文件（角色能读台词）</div><div class="wt-url-row"><input type="file" accept=".srt,.vtt" id="wtSubFile" style="font-size:13px;flex:1;color:#8e8e8e"></div></div>';
     document.getElementById('wtUp').onclick=function(){fileInput.click()};
     document.getElementById('wtUrlOk').onclick=function(){var u=document.getElementById('wtUrl').value.trim();if(u)loadVideoSrc(u,'')};
     document.getElementById('wtUrl').onkeydown=function(e){if(e.key==='Enter')document.getElementById('wtUrlOk').click()};
+var subInput=document.getElementById('wtSubFile');if(subInput)subInput.onchange=function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){wtSubs=parseSRT(ev.target.result);addRow('sys','已加载字幕 '+wtSubs.length+' 条，角色现在能读到台词了')};r.readAsText(f)};
   }
 
   window.getWatchMem=function(charId){try{var arr=LS.get('watchMem_'+pid()+'_'+charId,'[]');if(!arr.length)return '';return arr.slice(-8).join('\n')}catch(e){return ''}};
@@ -2311,7 +2316,7 @@ if(_watchIcon)_watchIcon.onclick=function(){
     snapping=!snapping;
     var btn=document.getElementById('wtAutoBtn'),dot=document.getElementById('wtDot');
     var onTxt=wtBili?'弹幕陪看 开':'自动截帧 开',offTxt=wtBili?'弹幕陪看 关':'自动截帧 关';
-    if(snapping){btn.textContent=onTxt;btn.classList.add('on');dot.classList.add('active');snapTimer=setInterval(function(){if(wtBili)askCharAboutFrame('');else if(videoEl&&!videoEl.paused&&!videoEl.ended)askCharAboutFrame('')},30000)}
+    if(snapping){btn.textContent=onTxt;btn.classList.add('on');dot.classList.add('active');snapTimer=setInterval(function(){if(wtBili)askCharAboutFrame('');else if(videoEl&&!videoEl.paused&&!videoEl.ended)askCharAboutFrame('');else if(wtSubs.length)askCharAboutFrame('')},30000)}
     else{btn.textContent=offTxt;btn.classList.remove('on');dot.classList.remove('active');if(snapTimer){clearInterval(snapTimer);snapTimer=null}}
   };
   document.getElementById('wtSend').onclick=wtSend;
