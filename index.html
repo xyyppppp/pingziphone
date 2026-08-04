@@ -12919,7 +12919,8 @@ var sys2=baseSys+(_syncGp2?_syncGp2+'\n\n':'')+(_syncWb2?'[世界书]\n'+_syncWb
 <div class="tms-content">
 <div class="tms-section"><div class="tms-label">字数范围</div><div class="tms-group"><div class="tms-field"><div class="tms-row"><input class="tms-input" id="tmsMinWords" type="number" inputmode="numeric" placeholder="MIN" style="flex:1"><span style="color:rgba(100,160,220,.4);padding:0 6px">-</span><input class="tms-input" id="tmsMaxWords" type="number" inputmode="numeric" placeholder="MAX" style="flex:1"></div></div></div></div>
 <div class="tms-section"><div class="tms-label">人称视角</div><div class="tms-radio" id="tmsPov"><div class="tms-radio-opt on" data-tmpov="2">第二人称</div><div class="tms-radio-opt" data-tmpov="1">第一人称</div><div class="tms-radio-opt" data-tmpov="3">第三人称</div></div></div>
-<div class="tms-section"><div class="tms-label">文风</div><div class="tms-group"><div class="tms-field"><textarea class="tms-textarea" id="tmsStyle" placeholder="描述你想要的文风..."></textarea></div></div></div>
+<div class="tms-section"><div class="tms-label">文风预设</div><div id="tmsPresetBar" style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px"></div><div class="tms-group"><div class="tms-field"><textarea class="tms-textarea" id="tmsStyle" placeholder="描述你想要的文风..."></textarea></div></div><div style="display:flex;gap:8px;margin-top:10px"><button class="tms-btn" id="tmsSavePreset" style="flex:1">保存为预设</button><button class="tms-btn danger" id="tmsDelPreset" style="flex:1;display:none">删除当前预设</button></div></div>
+<div class="tms-section"><div class="tms-label">开场白（留空则随机生成）</div><div class="tms-group"><div class="tms-field"><textarea class="tms-textarea" id="tmsOpening" placeholder="故事的第一段话..."></textarea></div></div><div class="tms-hint">填写后点开启旅程时可选择使用自定义开场白。</div></div>
 <div class="tms-section"><div class="tms-label">挂载提示词</div><div class="tms-group" id="tmsPromptList"></div></div>
 <div class="tms-section"><div class="tms-label">挂载世界书</div><div class="tms-group" id="tmsWbList"></div></div>
 <div class="tms-section"><div class="tms-label">记忆</div><div class="tms-group"><div class="tms-check" id="tmsMemBtn" style="cursor:pointer"><div class="tms-check-label">记忆管理</div><div style="color:rgba(80,150,255,.6);font-size:16px">></div></div></div><div class="tms-hint">时光机拥有独立记忆，不与聊天互通。</div></div>
@@ -12948,7 +12949,9 @@ var sys2=baseSys+(_syncGp2?_syncGp2+'\n\n':'')+(_syncWb2?'[世界书]\n'+_syncWb
   function tmSumKey(){return 'tmSum_'+pid()+'_'+tmCharId+'_'+tmEra}
   function tmGetChat(){return LS.get(tmKey(),'[]')}
   function tmSaveChat(h){LS.set(tmKey(),h)}
-  function tmGetSettings(){return LS.get(tmSettKey(),'{"minWords":800,"maxWords":2000,"pov":"2","style":"","mountedWb":[],"mountedPrompts":[]}')}
+  function tmGetSettings(){return LS.get(tmSettKey(),'{"minWords":800,"maxWords":2000,"pov":"2","style":"","opening":"","mountedWb":[],"mountedPrompts":[]}')}
+  function tmGetStylePresets(){return LS.get('tmStylePresets','[]')}
+  function tmSaveStylePresets(a){LS.set('tmStylePresets',a)}
   function tmSaveSettings(s){LS.set(tmSettKey(),s)}
   function tmGetMem(){return LS.get(tmMemKey(),'[]')}
   function tmSaveMem(a){LS.set(tmMemKey(),a)}
@@ -13049,12 +13052,24 @@ var sys2=baseSys+(_syncGp2?_syncGp2+'\n\n':'')+(_syncWb2?'[世界书]\n'+_syncWb
   };
 
   document.getElementById('tmArriveBtn').onclick=function(){
-    tmStarted=true;
-    document.getElementById('tmStoryArrive').style.display='none';
-    document.getElementById('tmStoryBody').style.display='flex';
-    document.getElementById('tmStoryInputbar').style.display='flex';
-    tmGenOpening();
-  };
+  uiPick('选择开场方式',[{label:'使用自定义开场白',value:'custom'},{label:'随机开场白',value:'random'}],function(v){
+    if(v==='custom'){
+      var s=tmGetSettings();
+      if(!s.opening||!s.opening.trim()){alert('你还没有填写开场白，请先去设置里填写');return}
+      tmStarted=true;
+      document.getElementById('tmStoryArrive').style.display='none';
+      document.getElementById('tmStoryBody').style.display='flex';
+      document.getElementById('tmStoryInputbar').style.display='flex';
+      tmGenOpeningCustom(s.opening.trim());
+    }else{
+      tmStarted=true;
+      document.getElementById('tmStoryArrive').style.display='none';
+      document.getElementById('tmStoryBody').style.display='flex';
+      document.getElementById('tmStoryInputbar').style.display='flex';
+      tmGenOpening();
+    }
+  });
+};
 
   function tmRenderMsgs(){
     var h=tmGetChat();
@@ -13132,23 +13147,42 @@ var sys2=baseSys+(_syncGp2?_syncGp2+'\n\n':'')+(_syncWb2?'[世界书]\n'+_syncWb
   }
 
   async function tmGenOpening(){
-    var api=getApiSettings();
-    if(!api.apiUrl||!api.apiKey||!api.model){alert('先配置API');return}
-    tmBusy=true;document.getElementById('tmStorySend').disabled=true;tmShowTyping();
-    try{
-      var sys=tmBuildSys();
-      var f=getFriends().find(function(x){return x.id===tmCharId});
-      var charName=f?f.name:'角色';
-      sys+='\n这是故事的开篇。穿越者刚刚抵达这个时空，睁开眼睛看到的第一个画面。请写一个引人入胜的开场：描写环境、氛围、穿越者的感受，并自然地安排'+charName+'（在这个年龄段的样子）出现在画面中。';
-      var reply=await callApi([{role:'system',content:sys},{role:'user',content:'开始故事'}]);
-      if(typeof stripCot==='function'){var rs=stripCot(reply);if(rs)reply=rs}
-      tmRemoveTyping();
-      var h=tmGetChat();
-      h.push({role:'assistant',content:(reply||'').trim()});
-      tmSaveChat(h);tmRenderMsgs();
-    }catch(e){tmRemoveTyping();alert('生成失败：'+(e.message||''))}
-    tmBusy=false;document.getElementById('tmStorySend').disabled=false;
-  }
+  var api=getApiSettings();
+  if(!api.apiUrl||!api.apiKey||!api.model){alert('先配置API');return}
+  tmBusy=true;document.getElementById('tmStorySend').disabled=true;tmShowTyping();
+  try{
+    var sys=tmBuildSys();
+    var f=getFriends().find(function(x){return x.id===tmCharId});
+    var charName=f?f.name:'角色';
+    sys+='\n这是故事的开篇。穿越者刚刚抵达这个时空，睁开眼睛看到的第一个画面。请写一个引人入胜的开场：描写环境、氛围、穿越者的感受，并自然地安排'+charName+'（在这个年龄段的样子）出现在画面中。';
+    var reply=await callApi([{role:'system',content:sys},{role:'user',content:'开始故事'}]);
+    if(typeof stripCot==='function'){var rs=stripCot(reply);if(rs)reply=rs}
+    tmRemoveTyping();
+    var h=tmGetChat();
+    h.push({role:'assistant',content:(reply||'').trim()});
+    tmSaveChat(h);tmRenderMsgs();
+  }catch(e){tmRemoveTyping();alert('生成失败：'+(e.message||''))}
+  tmBusy=false;document.getElementById('tmStorySend').disabled=false;
+}
+
+async function tmGenOpeningCustom(openingText){
+  var api=getApiSettings();
+  if(!api.apiUrl||!api.apiKey||!api.model){alert('先配置API');return}
+  tmBusy=true;document.getElementById('tmStorySend').disabled=true;tmShowTyping();
+  try{
+    var sys=tmBuildSys();
+    var f=getFriends().find(function(x){return x.id===tmCharId});
+    var charName=f?f.name:'角色';
+    sys+='\n这是故事的开篇。用户提供了开场白作为故事的起点，请在这段开场白的基础上继续往下写，自然地展开场景、描写环境和人物，让故事流畅地开始。\n\n用户提供的开场白：\n'+openingText;
+    var reply=await callApi([{role:'system',content:sys},{role:'user',content:'以这个开场白为起点，继续往下写'}]);
+    if(typeof stripCot==='function'){var rs=stripCot(reply);if(rs)reply=rs}
+    tmRemoveTyping();
+    var h=tmGetChat();
+    h.push({role:'assistant',content:openingText+'\n\n'+(reply||'').trim()});
+    tmSaveChat(h);tmRenderMsgs();
+  }catch(e){tmRemoveTyping();alert('生成失败：'+(e.message||''))}
+  tmBusy=false;document.getElementById('tmStorySend').disabled=false;
+}
 
   document.getElementById('tmStorySend').onclick=tmSendMsg;
   document.getElementById('tmStoryInput').onkeydown=function(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();tmSendMsg()}};
@@ -13203,17 +13237,66 @@ var sys2=baseSys+(_syncGp2?_syncGp2+'\n\n':'')+(_syncWb2?'[世界书]\n'+_syncWb
   }
 
   // settings
-  document.getElementById('tmStorySetBtn').onclick=function(){
-    var s=tmGetSettings();
-    document.getElementById('tmsMinWords').value=s.minWords||'';
-    document.getElementById('tmsMaxWords').value=s.maxWords||'';
-    document.getElementById('tmsStyle').value=s.style||'';
-    document.querySelectorAll('#tmsPov .tms-radio-opt').forEach(function(o){o.classList.toggle('on',o.getAttribute('data-tmpov')===(s.pov||'2'))});
-    tmRenderSettPrompts(s);
-    tmRenderSettWb(s);
-    document.getElementById('tmSettingsPage').classList.add('active');
-  };
-  document.getElementById('tmsBack').onclick=function(){document.getElementById('tmSettingsPage').classList.remove('active')};
+  var _tmActivePresetId='';
+
+function tmRenderPresetBar(s){
+  var bar=document.getElementById('tmsPresetBar');if(!bar)return;
+  bar.innerHTML='';
+  var presets=tmGetStylePresets();
+  presets.forEach(function(p){
+    var tag=document.createElement('div');
+    tag.style.cssText='padding:6px 14px;border-radius:18px;font-size:13px;cursor:pointer;border:1px solid '+(p.id===_tmActivePresetId?'#7ab0cc':'#c8dce8')+';color:'+(p.id===_tmActivePresetId?'#fff':'#6a90a8')+';background:'+(p.id===_tmActivePresetId?'#7ab0cc':'#fff');
+    tag.textContent=p.name;
+    tag.onclick=function(){
+      _tmActivePresetId=p.id;
+      document.getElementById('tmsStyle').value=p.style||'';
+      tmRenderPresetBar(s);
+      document.getElementById('tmsDelPreset').style.display='block';
+    };
+    bar.appendChild(tag);
+  });
+  document.getElementById('tmsDelPreset').style.display=_tmActivePresetId?'block':'none';
+}
+
+document.getElementById('tmStorySetBtn').onclick=function(){
+  var s=tmGetSettings();
+  document.getElementById('tmsMinWords').value=s.minWords||'';
+  document.getElementById('tmsMaxWords').value=s.maxWords||'';
+  document.getElementById('tmsStyle').value=s.style||'';
+  document.getElementById('tmsOpening').value=s.opening||'';
+  _tmActivePresetId=s.activePresetId||'';
+  document.querySelectorAll('#tmsPov .tms-radio-opt').forEach(function(o){o.classList.toggle('on',o.getAttribute('data-tmpov')===(s.pov||'2'))});
+  tmRenderPresetBar(s);
+  tmRenderSettPrompts(s);
+  tmRenderSettWb(s);
+  document.getElementById('tmSettingsPage').classList.add('active');
+};
+document.getElementById('tmsBack').onclick=function(){document.getElementById('tmSettingsPage').classList.remove('active')};
+
+document.getElementById('tmsSavePreset').onclick=function(){
+  var style=document.getElementById('tmsStyle').value.trim();
+  if(!style){alert('请先填写文风');return}
+  uiPrompt({title:'预设名称',placeholder:'给这个文风起个名字'},function(name){
+    if(!name||!name.trim())return;
+    var presets=tmGetStylePresets();
+    var id='tmp'+Date.now();
+    presets.push({id:id,name:name.trim(),style:style});
+    tmSaveStylePresets(presets);
+    _tmActivePresetId=id;
+    tmRenderPresetBar(tmGetSettings());
+    favToast('已保存预设');
+  });
+};
+
+document.getElementById('tmsDelPreset').onclick=function(){
+  if(!_tmActivePresetId)return;
+  uiConfirm('确定删除这个文风预设吗？',function(){
+    tmSaveStylePresets(tmGetStylePresets().filter(function(x){return x.id!==_tmActivePresetId}));
+    _tmActivePresetId='';
+    document.getElementById('tmsStyle').value='';
+    tmRenderPresetBar(tmGetSettings());
+  },{title:'删除预设',danger:true,okText:'删除'});
+};
 
   document.querySelectorAll('#tmsPov .tms-radio-opt').forEach(function(o){
     o.onclick=function(){document.querySelectorAll('#tmsPov .tms-radio-opt').forEach(function(x){x.classList.remove('on')});o.classList.add('on')};
@@ -13248,16 +13331,18 @@ var sys2=baseSys+(_syncGp2?_syncGp2+'\n\n':'')+(_syncWb2?'[世界书]\n'+_syncWb
   }
 
   document.getElementById('tmsSaveBtn').onclick=function(){
-    var s=tmGetSettings();
-    s.minWords=parseInt(document.getElementById('tmsMinWords').value)||800;
-    s.maxWords=parseInt(document.getElementById('tmsMaxWords').value)||2000;
-    s.style=document.getElementById('tmsStyle').value.trim();
-    var povEl=document.querySelector('#tmsPov .tms-radio-opt.on');
-    s.pov=povEl?povEl.getAttribute('data-tmpov'):'2';
-    tmSaveSettings(s);
-    document.getElementById('tmSettingsPage').classList.remove('active');
-    favToast('Settings saved');
-  };
+  var s=tmGetSettings();
+  s.minWords=parseInt(document.getElementById('tmsMinWords').value)||800;
+  s.maxWords=parseInt(document.getElementById('tmsMaxWords').value)||2000;
+  s.style=document.getElementById('tmsStyle').value.trim();
+  s.opening=document.getElementById('tmsOpening').value.trim();
+  s.activePresetId=_tmActivePresetId;
+  var povEl=document.querySelector('#tmsPov .tms-radio-opt.on');
+  s.pov=povEl?povEl.getAttribute('data-tmpov'):'2';
+  tmSaveSettings(s);
+  document.getElementById('tmSettingsPage').classList.remove('active');
+  favToast('设置已保存');
+};
 
   document.getElementById('tmsClearBtn').onclick=function(){
     uiConfirm('Clear all story content for this era? Cannot be undone.',function(){
