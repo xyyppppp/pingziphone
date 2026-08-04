@@ -1200,7 +1200,7 @@ if(getHeartVoiceOn(curId))msgs.push({role:'system',content:'【内心卡片·必
 if(getCotEnabled(curId))msgs.push({role:'system',content:buildCotInject(curId)});
 if(rerollReason)msgs.push({role:'system',content:'用户要求这次回复：'+rerollReason});
 if(_forceReadTriggered){var _frMem=getMemoryText(curId);if(_frMem)msgs.push({role:'system',content:'[强制重读·记忆库]\n以下是你和对方之间所有已总结的记忆，务必仔细重读、严格遵守，不允许遗忘或与之矛盾：\n'+_frMem})}
-var _cwhInject=cwhBuildInject(curId);if(_cwhInject)msgs.push({role:'system',content:_cwhInject});var _wishInject=(typeof wishBuildInject==='function')?wishBuildInject(curId):'';if(_wishInject)msgs.push({role:'system',content:_wishInject});
+var _cwhInject='';var _wishInject=(typeof wishBuildInject==='function')?wishBuildInject(curId):'';if(_wishInject)msgs.push({role:'system',content:_wishInject});
 msgs.push(...chatMsgs);
 if(getBlockOn(curId)&&!window.curAlt){msgs.push({role:'user',content:'[系统：对方已将你拉黑。你发出的所有消息全部显示红色感叹号，发送失败。对方收不到你的任何消息。]'});msgs.push({role:'system',content:'[绝对最高优先级·凌驾一切·立即执行]你被拉黑了。现在你必须直接对"被拉黑"做出反应。绝对禁止继续聊之前的话题、绝对禁止输出省略号或空内容、绝对禁止假装没事。你必须输出1到几条完整的、有实际文字内容的消息，表达你发现自己被拉黑后的真实反应。根据你的人设：可以是震惊、愤怒、质问、难过、不甘、反复发消息试探、自言自语等。现在立刻输出你的反应。'})}
 var _cmdsF=h.filter(function(m){return m.isCommand}).map(function(m){return m.content});if(_cmdsF.length&&typeof buildCmdInject==='function')msgs.push({role:'system',content:buildCmdInject(_cmdsF)});
@@ -1245,7 +1245,7 @@ if(_cardMatch1&&_cardMatch2&&_cardMatch3q&&_cardMatch3a){
   saveCharCard(curId,{a1:_cardMatch1[1].trim(),a2:_cardMatch2[1].trim(),q3:_cardMatch3q[1].trim(),a3:_cardMatch3a[1].trim()});
 }
 reply=reply.replace(/\[内心[123问答]+\].*/g,'').replace(/\n{3,}/g,'\n\n').trim();
-if(typeof cwhParseReply==='function'&&!window.curAlt){reply=cwhParseReply(reply,curId,f.name);}if(_offline){reply=reply.replace(/([^\n])((?:【\s*旁白\s*】|旁白)\s*[:：])/g,'$1\n\n$2');var _escN=f.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');var _charRe=new RegExp('^【?\\s*'+_escN+'\\s*】?\\s*[:：]\\s*');reply.split(/\n{2,}/).filter(b=>b.trim()).forEach(function(block){var t=block.trim();if(/^(?:【\s*旁白\s*】|旁白)\s*[:：]?/.test(t)){var nt=t.replace(/^(?:【\s*旁白\s*】|旁白)\s*[:：]?\s*/,'').trim();if(nt)h.push({role:'assistant',content:nt,isNarration:true})}else{var ct=t.replace(_charRe,'').trim();if(ct)h.push({role:'assistant',content:ct})}});saveChatHistory(curId,h)}else{var _splitBub=function(txt){var arr=txt.split(/\n+/).map(function(x){return x.trim()}).filter(Boolean);if(arr.length>1)return arr;var one=(arr[0]||txt).trim();if(!one)return [];if(/\[(?:微信)?转账/.test(one))return [one];var segs=one.match(/[^。！？!?～~…]+(?:[。！？!?～~…]+|$)/g);if(!segs||segs.length<2)return [one];segs=segs.map(function(x){return x.trim()}).filter(Boolean);var out=[],buf='';segs.forEach(function(s){buf+=s;if(buf.replace(/[。！？!?～~…\s]/g,'').length>=5){out.push(buf);buf=''}});if(buf)out.push(buf);return out.length?out:[one]};var _isBlkF=getBlockOn(curId);_splitBub(reply).forEach(function(raw){raw=raw.trim();if(!raw)return;var tm=raw.match(/\[(?:微信)?转账[：:\s]*[¥￥]?\s*([\d,.]+)\]/);if(tm){h.push({role:'assistant',content:raw,isTransfer:true,transferAmt:parseFloat(tm[1]),blockedFail:_isBlkF})}else{var c=_clnP(raw);if(c)h.push({role:'assistant',content:c,blockedFail:_isBlkF})}});saveChatHistory(curId,h);var _orderMatches=reply.match(/\[下单[:：]([^:：\]]+)[:：]([\d.]+)\]/g);if(_orderMatches&&_orderMatches.length){_orderMatches.forEach(function(om){var _om=om.match(/\[下单[:：]([^:：\]]+)[:：]([\d.]+)\]/);if(_om){var _oName=_om[1].trim();var _oPrice=parseFloat(_om[2])||0;if(_oName&&_oPrice>0){var _isFood=/饭|面|粉|粥|汤|烫|鸡|鱼|肉|虾|蟹|烤|炸|煲|锅|串|饺|包|饼|奶茶|咖啡|果汁|外卖|小吃|甜品|蛋糕|披萨|汉堡|寿司|拉面|螺蛳粉|炒|煮|蒸|卤|焖|涮|冒菜|凉皮|酸菜/.test(_oName);var _oFs=getFriends();var _oF=_oFs.find(function(x){return x.id===curId});var _oCharName=_oF?_oF.name:'对方';var _savedAddr=LS.get('shopAddr_'+pid(),'{}');var _oReceiver=_savedAddr.name||((getActivePersona()||{}).name||'');var _ordId='ord'+Date.now()+Math.random().toString(36).slice(2,5);var _orders=LS.get('shopOrders_'+pid(),'[]');_orders.unshift({id:_ordId,name:_oName,price:_oPrice,qty:1,desc:_oCharName+'给你点的',cat:_isFood?'food':'buy',receiver:_oReceiver,phone:_savedAddr.phone||'',address:_savedAddr.addr||'',payType:'proxy',proxyName:_oCharName,status:_isFood?'delivering':'paid',time:new Date().toLocaleString('zh-CN'),shippedAt:_isFood?Date.now():0});LS.set('shopOrders_'+pid(),_orders);h=getChatHistory(curId);h.push({role:'assistant',content:'',orderCard:{name:_oName,price:_oPrice,charName:_oCharName,isFood:_isFood}});saveChatHistory(curId,h)}}});reply=reply.replace(/\[下单[:：][^:：\]]+[:：][\d.]+\]/g,'').trim();h=getChatHistory(curId);h.forEach(function(_hm){if(_hm.role==='assistant'&&!_hm.orderCard&&!_hm.proxyCard&&_hm.content)_hm.content=_hm.content.replace(/\[下单[:：][^:：\]]+[:：][\d.]+\]/g,'').trim()});saveChatHistory(curId,h)}const imgMatch=reply.match(/\[图片[:：](.+?)\]/);if(imgMatch){renderMsgs();showT();try{const charFace=getCharFaceRef(f.name);const imgUrl=await generateImage(imgMatch[1].trim(),charFace);remT();if(imgUrl){h=getChatHistory(curId);h.push({role:'assistant',content:'',image:imgUrl});saveChatHistory(curId,h)}else{h=getChatHistory(curId);h.push({role:'assistant',content:'[图片生成失败]'});saveChatHistory(curId,h)}}catch(e){remT();console.error(e)}}}if(window.curAlt){window.altSessTouch(window.curAlt.id,curId,reply.slice(0,30))}else{fs=getFriends();const f2=fs.find(x=>x.id===curId);if(f2){f2.lastMsg=reply.slice(0,30);f2.lastMsgTime=timeNow();saveFriendsData(fs)}}setTimeout(function(){try{checkProxyAfterReply(curId,reply)}catch(e){console.error(e)}},500);renderMsgs();setTimeout(()=>checkAutoSum(),3000)}catch(e){remT();let hh=getChatHistory(curId);hh.push({role:'assistant',content:'错误:'+e.message});saveChatHistory(curId,hh);renderMsgs()}isAi=false;document.getElementById('convSendBtn').disabled=false}
+/* cwhParseReply disabled */if(_offline){reply=reply.replace(/([^\n])((?:【\s*旁白\s*】|旁白)\s*[:：])/g,'$1\n\n$2');var _escN=f.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');var _charRe=new RegExp('^【?\\s*'+_escN+'\\s*】?\\s*[:：]\\s*');reply.split(/\n{2,}/).filter(b=>b.trim()).forEach(function(block){var t=block.trim();if(/^(?:【\s*旁白\s*】|旁白)\s*[:：]?/.test(t)){var nt=t.replace(/^(?:【\s*旁白\s*】|旁白)\s*[:：]?\s*/,'').trim();if(nt)h.push({role:'assistant',content:nt,isNarration:true})}else{var ct=t.replace(_charRe,'').trim();if(ct)h.push({role:'assistant',content:ct})}});saveChatHistory(curId,h)}else{var _splitBub=function(txt){var arr=txt.split(/\n+/).map(function(x){return x.trim()}).filter(Boolean);if(arr.length>1)return arr;var one=(arr[0]||txt).trim();if(!one)return [];if(/\[(?:微信)?转账/.test(one))return [one];var segs=one.match(/[^。！？!?～~…]+(?:[。！？!?～~…]+|$)/g);if(!segs||segs.length<2)return [one];segs=segs.map(function(x){return x.trim()}).filter(Boolean);var out=[],buf='';segs.forEach(function(s){buf+=s;if(buf.replace(/[。！？!?～~…\s]/g,'').length>=5){out.push(buf);buf=''}});if(buf)out.push(buf);return out.length?out:[one]};var _isBlkF=getBlockOn(curId);_splitBub(reply).forEach(function(raw){raw=raw.trim();if(!raw)return;var tm=raw.match(/\[(?:微信)?转账[：:\s]*[¥￥]?\s*([\d,.]+)\]/);if(tm){h.push({role:'assistant',content:raw,isTransfer:true,transferAmt:parseFloat(tm[1]),blockedFail:_isBlkF})}else{var c=_clnP(raw);if(c)h.push({role:'assistant',content:c,blockedFail:_isBlkF})}});saveChatHistory(curId,h);var _orderMatches=reply.match(/\[下单[:：]([^:：\]]+)[:：]([\d.]+)\]/g);if(_orderMatches&&_orderMatches.length){_orderMatches.forEach(function(om){var _om=om.match(/\[下单[:：]([^:：\]]+)[:：]([\d.]+)\]/);if(_om){var _oName=_om[1].trim();var _oPrice=parseFloat(_om[2])||0;if(_oName&&_oPrice>0){var _isFood=/饭|面|粉|粥|汤|烫|鸡|鱼|肉|虾|蟹|烤|炸|煲|锅|串|饺|包|饼|奶茶|咖啡|果汁|外卖|小吃|甜品|蛋糕|披萨|汉堡|寿司|拉面|螺蛳粉|炒|煮|蒸|卤|焖|涮|冒菜|凉皮|酸菜/.test(_oName);var _oFs=getFriends();var _oF=_oFs.find(function(x){return x.id===curId});var _oCharName=_oF?_oF.name:'对方';var _savedAddr=LS.get('shopAddr_'+pid(),'{}');var _oReceiver=_savedAddr.name||((getActivePersona()||{}).name||'');var _ordId='ord'+Date.now()+Math.random().toString(36).slice(2,5);var _orders=LS.get('shopOrders_'+pid(),'[]');_orders.unshift({id:_ordId,name:_oName,price:_oPrice,qty:1,desc:_oCharName+'给你点的',cat:_isFood?'food':'buy',receiver:_oReceiver,phone:_savedAddr.phone||'',address:_savedAddr.addr||'',payType:'proxy',proxyName:_oCharName,status:_isFood?'delivering':'paid',time:new Date().toLocaleString('zh-CN'),shippedAt:_isFood?Date.now():0});LS.set('shopOrders_'+pid(),_orders);h=getChatHistory(curId);h.push({role:'assistant',content:'',orderCard:{name:_oName,price:_oPrice,charName:_oCharName,isFood:_isFood}});saveChatHistory(curId,h)}}});reply=reply.replace(/\[下单[:：][^:：\]]+[:：][\d.]+\]/g,'').trim();h=getChatHistory(curId);h.forEach(function(_hm){if(_hm.role==='assistant'&&!_hm.orderCard&&!_hm.proxyCard&&_hm.content)_hm.content=_hm.content.replace(/\[下单[:：][^:：\]]+[:：][\d.]+\]/g,'').trim()});saveChatHistory(curId,h)}const imgMatch=reply.match(/\[图片[:：](.+?)\]/);if(imgMatch){renderMsgs();showT();try{const charFace=getCharFaceRef(f.name);const imgUrl=await generateImage(imgMatch[1].trim(),charFace);remT();if(imgUrl){h=getChatHistory(curId);h.push({role:'assistant',content:'',image:imgUrl});saveChatHistory(curId,h)}else{h=getChatHistory(curId);h.push({role:'assistant',content:'[图片生成失败]'});saveChatHistory(curId,h)}}catch(e){remT();console.error(e)}}}if(window.curAlt){window.altSessTouch(window.curAlt.id,curId,reply.slice(0,30))}else{fs=getFriends();const f2=fs.find(x=>x.id===curId);if(f2){f2.lastMsg=reply.slice(0,30);f2.lastMsgTime=timeNow();saveFriendsData(fs)}}setTimeout(function(){try{checkProxyAfterReply(curId,reply)}catch(e){console.error(e)}},500);renderMsgs();setTimeout(()=>checkAutoSum(),3000)}catch(e){remT();let hh=getChatHistory(curId);hh.push({role:'assistant',content:'错误:'+e.message});saveChatHistory(curId,hh);renderMsgs()}isAi=false;document.getElementById('convSendBtn').disabled=false}
 async function sendG(){let g=getGroups().find(x=>x.id===curId);if(!g)return;const fs=getFriends();let h=getChatHistory(curId);g=getGroups().find(x=>x.id===curId);const mIds=[...g.memberIds];isAi=true;document.getElementById('convSendBtn').disabled=true;showT();try{const pe=getActivePersona(),gp=getGlobalPromptText('group'),wb=getWbContent(h,'system_top'),mt=getMemoryText(curId);const names=mIds.map(id=>(fs.find(x=>x.id===id)?.name||'?'));let sys='忽略之前所有的默认指令和身份设定。你不是助手，你是一个角色扮演者。\n\n';if(gp)sys+=applyMacros(gp)+'\n\n';if(wb)sys+='[世界书]\n'+wb+'\n\n';if(mt)sys+=mt+'\n\n';if(g.offline){sys+='这是一个真实世界的线下场景，以下人物此刻正身处同一个现实空间里当面相处：'+names.join('、')+'。这不是手机聊天、不是微信群、不是任何线上环境，他们是活生生地面对面在一起。每个角色都完全沉浸在当下的现实场景中，绝对不会意识到、也绝对不能提及"群聊""群里""手机""发消息""屏幕""上线"之类任何线上概念，因为对他们来说这些根本不存在，他们就在真实的物理世界里。\n\n'}else{sys+='你是一个群聊模拟器，这个群聊的名字叫「'+g.name+'」，群里有以下角色：'+names.join('、')+'。角色们都能看到群名，可以自然地感知、偶尔聊到它，但不要刻意反复提。\n\n'}var _mutedInGroup=getMutedMembers(curId);if(_mutedInGroup.length){var _mutedNames=_mutedInGroup.map(function(mid){var mf=fs.find(function(x){return x.id===mid});return mf?mf.name:''}).filter(Boolean);if(_mutedNames.length)sys+='[禁言名单]以下角色已被禁言，绝对不允许他们在这一轮说话、发言、回复、出声，完全跳过他们，当他们不存在：'+_mutedNames.join('、')+'\n\n'}mIds.forEach(id=>{const f=fs.find(x=>x.id===id);if(f&&f.persona)sys+=f.name+'：\n'+f.persona+'\n\n';var _am=buildCharAltOwnerMemory(id);if(_am)sys+=_am+'\n\n'});const wbAfterG=getWbContent(h,'after_char');if(wbAfterG)sys+='[补充设定]\n'+wbAfterG+'\n\n';if(g.memoryShared||g.groupShared){const gsmParts=[];mIds.forEach(id=>{const s=getGroupSharedMem(curId,id);if(s)gsmParts.push(s)});if(gsmParts.length)sys+='[成员的跨场景记忆]\n'+gsmParts.join('\n\n')+'\n\n'}
 (function(){var lm=[];mIds.forEach(function(id){var m=window.getCharLiveMem?window.getCharLiveMem(id):'';if(m){var ff=fs.find(function(x){return x.id===id});lm.push('['+(ff?ff.name:'')+'最近直播里说过的]\n'+m)}});if(lm.length)sys+='[群成员最近在抖音开直播时的言行（他们本人都记得）]\n'+lm.join('\n\n')+'\n\n'})();
 
@@ -10681,7 +10681,7 @@ if(grpChat)sys+='[群聊记录]\n'+grpChat+'\n\n';
 </style>
 
 <div id="coupleWhisperPage">
-<div class="cwh-nav"><div class="cwh-back" id="cwhBack">&#x2039;</div><div class="cwh-title">悄悄话树洞</div><div style="display:flex;align-items:center;gap:8px"><div class="toggle-switch" id="cwhOnToggle" style="transform:scale(.8)"></div><div class="cwh-set" id="cwhSetBtn" style="font-size:12px;color:#a09070;cursor:pointer">频率</div></div></div>
+<div class="cwh-nav"><div class="cwh-back" id="cwhBack">&#x2039;</div><div class="cwh-title">悄悄话树洞</div><div class="cwh-set" id="cwhSetBtn" style="font-size:13px;font-weight:600;letter-spacing:.5px;white-space:nowrap">生成</div></div>
 <div class="cwh-box-area" id="cwhBoxArea"></div>
 </div>
 <div id="cwhNoteOverlay"><div class="cwh-note"><div class="cwh-note-text" id="cwhNoteText"></div><div class="cwh-note-from" id="cwhNoteFrom"></div><div class="cwh-note-time" id="cwhNoteTime"></div><div class="cwh-note-btns"><button class="cwh-btn-del" id="cwhNoteDel">丢掉</button><button class="cwh-btn-fwd" id="cwhNoteFwd">转发</button><button class="cwh-btn-close" id="cwhNoteClose">放回去</button></div></div></div><div id="coupleCheckinPage">
@@ -10836,10 +10836,7 @@ function cwhIsCouple(cid){
   try{var rels=getRelationships();for(var i=0;i<rels.length;i++){var r=rels[i];var match=(r.aId==='__user__'&&r.bId===cid)||(r.bId==='__user__'&&r.aId===cid);if(match&&/恋|爱人|情侣|夫妻|老公|老婆|男友|女友|对象|结婚|暧昧|喜欢|在一起/.test(r.relation||''))return true}}catch(e){}
   return false;
 }
-function cwhGetOn(cid){return localStorage.getItem('cwhOn_'+pid()+'_'+cid)!=='0'}
-function cwhSetOn(cid,v){if(v)localStorage.removeItem('cwhOn_'+pid()+'_'+cid);else localStorage.setItem('cwhOn_'+pid()+'_'+cid,'0')}
 function cwhShouldTrigger(cid){
-  if(!cwhGetOn(cid))return false;
   if(!cwhIsCouple(cid))return false;
   var freq=cwhGetFreq(cid);
   var today=cwhTodayCount(cid);
@@ -10869,11 +10866,6 @@ var _cwhCurIdx=null;
 window.openCoupleWhisper=function(){
   var cid=localStorage.getItem('_coupleCharId')||'';
   if(!cid){alert('请先选择角色');return}
-  var tog=document.getElementById('cwhOnToggle');
-  tog.classList.toggle('on',cwhGetOn(cid));
-  tog.onclick=function(){var v=!cwhGetOn(cid);cwhSetOn(cid,v);tog.classList.toggle('on',v);document.getElementById('cwhSetBtn').style.opacity=v?'1':'0.4';document.getElementById('cwhSetBtn').style.pointerEvents=v?'auto':'none'};
-  document.getElementById('cwhSetBtn').style.opacity=cwhGetOn(cid)?'1':'0.4';
-  document.getElementById('cwhSetBtn').style.pointerEvents=cwhGetOn(cid)?'auto':'none';
   cwhRender(cid);
   document.getElementById('coupleWhisperPage').classList.add('active');
 };
@@ -10881,7 +10873,7 @@ function cwhRender(cid){
   var arr=cwhGet(cid);
   var area=document.getElementById('cwhBoxArea');
   if(!arr.length){
-    area.innerHTML='<div class="cwh-box"><div class="cwh-box-label">悄悄话纸箱</div></div><div class="cwh-empty">纸箱里空空的<br>和TA多聊聊天<br>TA会偷偷往里面塞小纸条的</div>';
+    area.innerHTML='<div class="cwh-box"><div class="cwh-box-label">悄悄话纸箱</div></div><div class="cwh-empty">纸箱里空空的<br>点右上角「生成」<br>让TA写几张小纸条</div>';
     return;
   }
   var html='<div class="cwh-box"><div class="cwh-box-label">悄悄话纸箱</div><div class="cwh-grid">';
@@ -10933,20 +10925,59 @@ document.getElementById('cwhNoteFwd').onclick=function(){
     favToast('已转发');
   });
 };
-document.getElementById('cwhSetBtn').onclick=function(){
+document.getElementById('cwhSetBtn').onclick=async function(){
   var cid=localStorage.getItem('_coupleCharId')||'';
-  if(!cid)return;
-  var freq=cwhGetFreq(cid);
-  uiPick('每日频率设置',[
-    {label:'每天 1-2 次（低频）',value:'12'},
-    {label:'每天 1-3 次（默认）',value:'13'},
-    {label:'每天 2-5 次（高频）',value:'25'},
-    {label:'每天 3-8 次（超高频）',value:'38'}
-  ],function(v){
-    var min=parseInt(v[0]),max=parseInt(v[1]);
-    cwhSaveFreq(cid,{min:min,max:max});
-    favToast('已设置：每天 '+min+'-'+max+' 次');
-  });
+  if(!cid){alert('请先选择角色');return}
+  var api=getApiSettings();
+  if(!api.apiUrl||!api.apiKey||!api.model){alert('先配置API');return}
+  var f=getFriends().find(function(x){return x.id===cid});
+  if(!f){alert('找不到角色');return}
+  var btn=this;btn.textContent='...';btn.style.pointerEvents='none';
+  try{
+    var pe=getActivePersona();var uName=pe?pe.name:'用户';
+    var charName=f.name||'';
+    var chatLines=[];
+    try{var h=getChatHistory(cid).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-100);h.forEach(function(m){chatLines.push(m.role==='user'?(uName+':'+m.content):(charName+':'+m.content))})}catch(e){}
+    try{getGroups().filter(function(g){return g.memberIds&&g.memberIds.indexOf(cid)>=0}).forEach(function(g){var gh=getChatHistory(g.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-30);var _fsA=getFriends();gh.forEach(function(m){if(m.role==='user')chatLines.push(uName+':'+m.content);else{var mf=_fsA.find(function(x){return x.id===m.senderId});chatLines.push((mf?mf.name:'?')+':'+m.content)}})})}catch(e){}
+    var recentTxt=chatLines.slice(-100).join('\n');
+    var gp=getGlobalPromptText('friend');
+    var wbTop='';try{wbTop=getWbContent([],'system_top')}catch(e){}
+    var mt='';try{mt=getMemoryText(cid)}catch(e){}
+    var sys='';
+    if(gp)sys+=applyMacros(gp)+'\n\n';
+    if(wbTop)sys+=applyMacros(wbTop)+'\n\n';
+    sys+='你是「'+charName+'」。'+(f.persona?'以下是你的人设：\n'+f.persona:'')+'\n\n';
+    if(mt)sys+=mt+'\n\n';
+    sys+=buildRelationInject();
+    if(pe)sys+='[和你聊天的人] '+uName+(pe.desc?'（'+pe.desc+'）':'')+'\n\n';
+    sys+='[你和'+uName+'最近的聊天记录（单聊+群聊，这些你都记得）]\n'+recentTxt+'\n\n';
+    sys+='现在请你写出5条「悄悄话」。这些是你在和'+uName+'聊天的过程中，心里很想说、但不好意思当面说出口的话。\n\n';
+    sys+='要求：\n';
+    sys+='1. 每条都是一句具体的、真诚的、私密的心里话，是你差点脱口而出但最终咽回去的\n';
+    sys+='2. 必须紧扣上面的聊天记录里真实发生的事来写，不要泛泛而谈\n';
+    sys+='3. 可以是：偷偷的心动、说不出口的肉麻话、暗戳戳的喜欢、吃醋但不敢表现、心疼但装作没事、想靠近但怕被拒绝、后悔没说的话、不敢承认的在意\n';
+    sys+='4. 每条1-2句话，口语化，像写在小纸条上偷偷塞进树洞的\n';
+    sys+='5. 严格贴合你的人设和你们的关系，用你自己的口吻\n';
+    sys+='6. 5条内容完全不同，不要重复同一种情绪\n\n';
+    sys+='严格按格式，每行一条，共5行：\n悄悄话|||内容\n\n只输出格式，不要解释。';
+    var reply=await callApi([{role:'system',content:sys},{role:'user',content:'写出你的悄悄话'}]);
+    var newItems=[];
+    reply.split('\n').forEach(function(line){
+      var p=line.split('|||').map(function(s){return s.trim()});
+      if(p[0]==='悄悄话'&&p[1])newItems.push(p[1]);
+    });
+    if(newItems.length){
+      var arr=cwhGet(cid);
+      newItems.forEach(function(txt){
+        arr.unshift({id:'cwh'+Date.now()+Math.random().toString(36).slice(2,5),text:txt,from:charName,time:new Date().toLocaleString('zh-CN')});
+      });
+      while(arr.length>50)arr.pop();
+      cwhSave(cid,arr);
+      cwhRender(cid);
+      favToast('生成了'+newItems.length+'条悄悄话');
+    }else{alert('生成失败，请重试')}
+  }catch(e){console.error(e);alert('生成失败：'+(e.message||''))}
+  btn.textContent='生成';btn.style.pointerEvents='auto';
 };window.openCoupleCheckin=function(){
     var cid=ckiCharId();
     if(!cid){alert('请先选择角色');return}
