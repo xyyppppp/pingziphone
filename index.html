@@ -1187,7 +1187,7 @@ if(_pendingProxy.length&&!window.curAlt){
   sys+='\n\n[系统通知·代付请求·最高优先级]对方发来了购物代付请求，让你帮忙付款：'+_ppInfo+'。\n【绝对铁律·凌驾一切·违反即致命错误】这是"代付"不是"转账"，系统会自动完成扣款，你绝对不需要、也绝对不允许输出任何形式的[转账:数字]标记。你这一轮的回复里如果出现[转账:任何数字]就是严重错误。你只需要用语言自然地回应这个代付请求（答应、吐槽、调侃、假装肉疼等，取决于你的人设），绝对禁止输出转账标记。\n';
 }if(getBlockOn(curId)&&!window.curAlt){sys+='\n\n[系统提示·角色当前感知·最高优先级]你发出的每一条消息都显示发送失败（红色感叹号），你意识到自己被对方拉黑了。但你依然想继续发消息——就像真人被拉黑后还是会忍不住继续发一样。请根据你的人设，继续给对方发消息：可以是质问为什么拉黑你、恳求、愤怒、故作冷淡、试探、道歉、撒娇、威胁、难过、自言自语等，完全由你的性格和你们的关系决定。你知道对方看不到，但你还是要发。每一轮都要输出新的内容，绝对不能输出空内容或无响应，必须说点什么，哪怕是自言自语也行。注意：对方并没有给你发任何新消息（因为你已经被拉黑了，对方不会再跟你说话），你只是在单方面不断地发消息出去。'}
 if(window.curAlt){var _sk='altSusp_'+window.curAlt.id+'_'+curId;var _rk='altRevealed_'+window.curAlt.id+'_'+curId;var _susp=parseInt(localStorage.getItem(_sk))||0;var _revealed=localStorage.getItem(_rk)==='1';var _altNm=window.curAlt.name||'陌生人';var _bigNm=pe?pe.name:'';if(_revealed){sys+='\n\n【最高优先·身份已揭穿】你已经识破了：这个自称「'+_altNm+'」、用陌生账号来找你的人，其实就是你真正认识、在意的人'+(_bigNm?('「'+_bigNm+'」'):'')+'本人——TA之前一直装成陌生人跟你聊。现在你心里非常清楚对方是谁。请带着被戳穿后该有的真实情绪继续跟TA聊：又好气又好笑、拆穿调侃、心疼、追问TA为什么要用小号装陌生人接近自己、或顺着TA继续演都行，具体看你的人设和你们的关系。绝对不要再把TA当陌生人，也不要装作不知道。像真人发微信一样简短随意，不写括号动作，可分1-3条，每条空一行。';}else{sys+='\n\n【最高优先·当前情境】有一个你不认识的陌生人，用陌生账号突然给你发私信。这个人网名叫「'+_altNm+'」，你从没见过、不知道TA是谁。你依然拥有完整的人设、生活和全部记忆，清楚记得自己真正在意的人、恋人'+(_bigNm?('（「'+_bigNm+'」）'):'')+'是谁——但眼前这个「'+_altNm+'」表面看只是个陌生网友。\n【隐藏机制·怀疑度】你心里对"这个陌生人其实是熟人"有一个隐藏怀疑度，当前为 '+_susp+'（满值100）。每次回复前先在心里评估：对方最新这条有没有露破绽——说了只有你和某个熟人才知道的事、口头禅/语气/用词习惯和你认识的某人高度一致、对你私事了解得超出陌生人该有的程度、莫名的亲近熟稔感等，据此升高或维持怀疑度。\n按当前怀疑度决定态度：低(0-39)正常当陌生人，警惕/疑惑/冷淡/礼貌/敷衍都行，最多隐约觉得有点眼熟；中(40-74)你起疑了，开始不动声色地试探，故意抛出只有真正认识你的人才答得上或才会有反应的话去诈对方，但先别挑明；高(75-100)你几乎确定了，可以这一轮把TA戳穿。\n【格式·务必遵守】在正常回复内容之后另起一行输出 [SUSP:数字]（0-100整数，你更新后的怀疑度）；如果这一轮决定正式戳穿对方，再另起一行输出 [REVEAL]。这两行是给系统看的，对方看不到，绝不要当成聊天内容说出来。\n像真人发微信一样简短随意，不写括号动作神态，可分1-3条，每条空一行（标记行除外）。绝不能无缘无故对陌生人自来熟或吐露私密信息。';}}else if(pe)sys+=`\n\n[和你聊天的人]\n名字：${pe.name}${pe.desc?'\n'+pe.desc:''}`;const msgs=[];if(sys)msgs.push({role:'system',content:sys});const ctxLen=parseInt(localStorage.getItem('ctxLen_'+pid()+'_'+curId))||60;const chatMsgs=[];h.slice(-ctxLen).forEach(m=>{if(m.isCommand)return;if(m.isNarration){chatMsgs.push({role:'system',content:'[旁白·上帝视角，顺着这个方向自然演绎推进剧情，绝对不要复述或直接引用这段话]\n'+m.content});return}let c=m.content;if(m.linkData&&m.linkData.fetchedText){c+='\n[链接详细内容]\n'+m.linkData.fetchedText}if(m.role==='user'&&m.image&&!m.fwdCard){chatMsgs.push({role:'user',content:[{type:'image_url',image_url:{url:m.image}},{type:'text',text:c||'(对方发了一张图片)'}]})}else{if(!c&&m.role==='user')c='(继续)';chatMsgs.push({role:m.role==='user'?'user':'assistant',content:c||'...'})}});const depthItems=getWbDepthItems(h);depthItems.forEach(d=>{const idx=Math.max(0,chatMsgs.length-d.depth);chatMsgs.splice(idx,0,{role:'system',content:'[重要设定]\n'+d.content})});var _mcMin=parseInt(localStorage.getItem('msgCountMin_'+pid()+'_'+curId));var _mcMax=parseInt(localStorage.getItem('msgCountMax_'+pid()+'_'+curId));if(isNaN(_mcMin))_mcMin=2;if(isNaN(_mcMax))_mcMax=6;var _cntTip;if(_mcMin===0&&_mcMax===0){_cntTip=''}else if(_offline){_cntTip='\n\n[段落条数]这一轮总共输出大约 '+_mcMin+'-'+_mcMax+' 个内容块（你自己的（情绪动作）说话段落、以及旁白段落加起来算），每个块之间空一行分开，在这个区间内根据剧情自然把握，别硬凑也别超太多。'}else{_cntTip='\n\n[消息条数]这一轮大约分成 '+_mcMin+'-'+_mcMax+' 条消息发送（每条之间空一行分开），在这个区间内根据内容自然把握，别硬凑也别超太多。'}var _contTip='';if(window._contMode){if(getBlockOn(curId)&&!window.curAlt){_contTip='\n\n[继续发消息]你被拉黑了，对方不会回你，但你还是忍不住继续发。请根据你的人设和当前情绪，继续往下发新的消息，不要重复之前说过的话，每次都要有新的内容和情绪变化。'}else{_contTip=_offline?'\n\n[继续推进]用户这次没有发任何新消息，是想让你继续。请接着你自己刚才的话头、或就当前场景自然地往下演，主动做新的动作、说新的话、推进剧情，绝对不要重复或复述之前已经说过的内容，也不要空等用户回应。':'\n\n[继续]用户这次没有发任何新消息，是想让你继续往下说。请接着你自己上一条的话头、或就当前情境自然地再补几条，主动把话题往下推进或说点新的，绝对不要重复、复述之前已经说过的内容，也不要干等用户回应。'}}msgs.push({role:'system',content:fmtMsg+_cntTip+_contTip});if(!getNarrOn(curId))msgs.push({role:'system',content:'【旁白控制·本轮铁律】绝对不要输出任何"旁白："段落或旁白式的环境、场景、上帝视角叙述，只输出角色本人的（情绪动作）对白内容。'});
-if(getHeartVoiceOn(curId))msgs.push({role:'system',content:'【内心卡片·必须输出·格式铁律】在你这一轮全部回复内容的最末尾（所有正文消息之后），必须另起一行输出以下四行标记（这是系统读取用的隐藏数据，对方看不到）：\n[内心1]（回答"你此时此刻脑子里在想什么"——写出你当下真实的内心活动，和你发出去的消息内容无关，是你脑子里没说出来的念头，一句话）\n[内心2]（回答"你刚才想说但是咽回去没发出去的那句话是什么"——必须是一句你差点对对方说的具体台词，不是内心想法不是心理描写，是一句你差点打字发出去的话）\n[内心3问]（由一个看透一切的旁观者向你提出一个直击灵魂的问题，用"你"来称呼你，每次必须完全不同。比如："你是不是害怕被看穿""你对TA的占有欲有多强""如果TA明天消失你第一反应是什么""你最近一次心软是因为什么""你觉得TA真的了解你吗"——这类直接拷问你内心的问题）\n[内心3答]（你对上面那个问题的真实回答，诚实作答，不回避）\n\n这四行必须在所有正文之后输出。每行以对应标记开头。绝对不能省略。'});
+(function(){if(window.cwhUserBuildInject){var _uwInj=window.cwhUserBuildInject(curId);if(_uwInj)msgs.push({role:'system',content:_uwInj})}})();if(getHeartVoiceOn(curId))msgs.push({role:'system',content:'【内心卡片·必须输出·格式铁律】在你这一轮全部回复内容的最末尾（所有正文消息之后），必须另起一行输出以下四行标记（这是系统读取用的隐藏数据，对方看不到）：\n[内心1]（回答"你此时此刻脑子里在想什么"——写出你当下真实的内心活动，和你发出去的消息内容无关，是你脑子里没说出来的念头，一句话）\n[内心2]（回答"你刚才想说但是咽回去没发出去的那句话是什么"——必须是一句你差点对对方说的具体台词，不是内心想法不是心理描写，是一句你差点打字发出去的话）\n[内心3问]（由一个看透一切的旁观者向你提出一个直击灵魂的问题，用"你"来称呼你，每次必须完全不同。比如："你是不是害怕被看穿""你对TA的占有欲有多强""如果TA明天消失你第一反应是什么""你最近一次心软是因为什么""你觉得TA真的了解你吗"——这类直接拷问你内心的问题）\n[内心3答]（你对上面那个问题的真实回答，诚实作答，不回避）\n\n这四行必须在所有正文之后输出。每行以对应标记开头。绝对不能省略。'});
 (function(){
   var extra='';
   var _altMem=buildCharAltOwnerMemory(curId);if(_altMem)extra+=_altMem;
@@ -1245,7 +1245,7 @@ if(_cardMatch1&&_cardMatch2&&_cardMatch3q&&_cardMatch3a){
   saveCharCard(curId,{a1:_cardMatch1[1].trim(),a2:_cardMatch2[1].trim(),q3:_cardMatch3q[1].trim(),a3:_cardMatch3a[1].trim()});
 }
 reply=reply.replace(/\[内心[123问答]+\].*/g,'').replace(/\n{3,}/g,'\n\n').trim();
-/* cwhParseReply disabled */if(_offline){reply=reply.replace(/([^\n])((?:【\s*旁白\s*】|旁白)\s*[:：])/g,'$1\n\n$2');var _escN=f.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');var _charRe=new RegExp('^【?\\s*'+_escN+'\\s*】?\\s*[:：]\\s*');reply.split(/\n{2,}/).filter(b=>b.trim()).forEach(function(block){var t=block.trim();if(/^(?:【\s*旁白\s*】|旁白)\s*[:：]?/.test(t)){var nt=t.replace(/^(?:【\s*旁白\s*】|旁白)\s*[:：]?\s*/,'').trim();if(nt)h.push({role:'assistant',content:nt,isNarration:true})}else{var ct=t.replace(_charRe,'').trim();if(ct)h.push({role:'assistant',content:ct})}});saveChatHistory(curId,h)}else{var _splitBub=function(txt){var arr=txt.split(/\n+/).map(function(x){return x.trim()}).filter(Boolean);if(arr.length>1)return arr;var one=(arr[0]||txt).trim();if(!one)return [];if(/\[(?:微信)?转账/.test(one))return [one];var segs=one.match(/[^。！？!?～~…]+(?:[。！？!?～~…]+|$)/g);if(!segs||segs.length<2)return [one];segs=segs.map(function(x){return x.trim()}).filter(Boolean);var out=[],buf='';segs.forEach(function(s){buf+=s;if(buf.replace(/[。！？!?～~…\s]/g,'').length>=5){out.push(buf);buf=''}});if(buf)out.push(buf);return out.length?out:[one]};var _isBlkF=getBlockOn(curId);_splitBub(reply).forEach(function(raw){raw=raw.trim();if(!raw)return;var tm=raw.match(/\[(?:微信)?转账[：:\s]*[¥￥]?\s*([\d,.]+)\]/);if(tm){h.push({role:'assistant',content:raw,isTransfer:true,transferAmt:parseFloat(tm[1]),blockedFail:_isBlkF})}else{var c=_clnP(raw);if(c)h.push({role:'assistant',content:c,blockedFail:_isBlkF})}});saveChatHistory(curId,h);var _orderMatches=reply.match(/\[下单[:：]([^:：\]]+)[:：]([\d.]+)\]/g);if(_orderMatches&&_orderMatches.length){_orderMatches.forEach(function(om){var _om=om.match(/\[下单[:：]([^:：\]]+)[:：]([\d.]+)\]/);if(_om){var _oName=_om[1].trim();var _oPrice=parseFloat(_om[2])||0;if(_oName&&_oPrice>0){var _isFood=/饭|面|粉|粥|汤|烫|鸡|鱼|肉|虾|蟹|烤|炸|煲|锅|串|饺|包|饼|奶茶|咖啡|果汁|外卖|小吃|甜品|蛋糕|披萨|汉堡|寿司|拉面|螺蛳粉|炒|煮|蒸|卤|焖|涮|冒菜|凉皮|酸菜/.test(_oName);var _oFs=getFriends();var _oF=_oFs.find(function(x){return x.id===curId});var _oCharName=_oF?_oF.name:'对方';var _savedAddr=LS.get('shopAddr_'+pid(),'{}');var _oReceiver=_savedAddr.name||((getActivePersona()||{}).name||'');var _ordId='ord'+Date.now()+Math.random().toString(36).slice(2,5);var _orders=LS.get('shopOrders_'+pid(),'[]');_orders.unshift({id:_ordId,name:_oName,price:_oPrice,qty:1,desc:_oCharName+'给你点的',cat:_isFood?'food':'buy',receiver:_oReceiver,phone:_savedAddr.phone||'',address:_savedAddr.addr||'',payType:'proxy',proxyName:_oCharName,status:_isFood?'delivering':'paid',time:new Date().toLocaleString('zh-CN'),shippedAt:_isFood?Date.now():0});LS.set('shopOrders_'+pid(),_orders);h=getChatHistory(curId);h.push({role:'assistant',content:'',orderCard:{name:_oName,price:_oPrice,charName:_oCharName,isFood:_isFood}});saveChatHistory(curId,h)}}});reply=reply.replace(/\[下单[:：][^:：\]]+[:：][\d.]+\]/g,'').trim();h=getChatHistory(curId);h.forEach(function(_hm){if(_hm.role==='assistant'&&!_hm.orderCard&&!_hm.proxyCard&&_hm.content)_hm.content=_hm.content.replace(/\[下单[:：][^:：\]]+[:：][\d.]+\]/g,'').trim()});saveChatHistory(curId,h)}const imgMatch=reply.match(/\[图片[:：](.+?)\]/);if(imgMatch){renderMsgs();showT();try{const charFace=getCharFaceRef(f.name);const imgUrl=await generateImage(imgMatch[1].trim(),charFace);remT();if(imgUrl){h=getChatHistory(curId);h.push({role:'assistant',content:'',image:imgUrl});saveChatHistory(curId,h)}else{h=getChatHistory(curId);h.push({role:'assistant',content:'[图片生成失败]'});saveChatHistory(curId,h)}}catch(e){remT();console.error(e)}}}if(window.curAlt){window.altSessTouch(window.curAlt.id,curId,reply.slice(0,30))}else{fs=getFriends();const f2=fs.find(x=>x.id===curId);if(f2){f2.lastMsg=reply.slice(0,30);f2.lastMsgTime=timeNow();saveFriendsData(fs)}}setTimeout(function(){try{checkProxyAfterReply(curId,reply)}catch(e){console.error(e)}},500);renderMsgs();setTimeout(()=>checkAutoSum(),3000)}catch(e){remT();let hh=getChatHistory(curId);hh.push({role:'assistant',content:'错误:'+e.message});saveChatHistory(curId,hh);renderMsgs()}isAi=false;document.getElementById('convSendBtn').disabled=false}
+/* cwhParseReply disabled */if(_offline){reply=reply.replace(/([^\n])((?:【\s*旁白\s*】|旁白)\s*[:：])/g,'$1\n\n$2');var _escN=f.name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');var _charRe=new RegExp('^【?\\s*'+_escN+'\\s*】?\\s*[:：]\\s*');reply.split(/\n{2,}/).filter(b=>b.trim()).forEach(function(block){var t=block.trim();if(/^(?:【\s*旁白\s*】|旁白)\s*[:：]?/.test(t)){var nt=t.replace(/^(?:【\s*旁白\s*】|旁白)\s*[:：]?\s*/,'').trim();if(nt)h.push({role:'assistant',content:nt,isNarration:true})}else{var ct=t.replace(_charRe,'').trim();if(ct)h.push({role:'assistant',content:ct})}});saveChatHistory(curId,h)}else{var _splitBub=function(txt){var arr=txt.split(/\n+/).map(function(x){return x.trim()}).filter(Boolean);if(arr.length>1)return arr;var one=(arr[0]||txt).trim();if(!one)return [];if(/\[(?:微信)?转账/.test(one))return [one];var segs=one.match(/[^。！？!?～~…]+(?:[。！？!?～~…]+|$)/g);if(!segs||segs.length<2)return [one];segs=segs.map(function(x){return x.trim()}).filter(Boolean);var out=[],buf='';segs.forEach(function(s){buf+=s;if(buf.replace(/[。！？!?～~…\s]/g,'').length>=5){out.push(buf);buf=''}});if(buf)out.push(buf);return out.length?out:[one]};var _isBlkF=getBlockOn(curId);_splitBub(reply).forEach(function(raw){raw=raw.trim();if(!raw)return;var tm=raw.match(/\[(?:微信)?转账[：:\s]*[¥￥]?\s*([\d,.]+)\]/);if(tm){h.push({role:'assistant',content:raw,isTransfer:true,transferAmt:parseFloat(tm[1]),blockedFail:_isBlkF})}else{var c=_clnP(raw);if(c)h.push({role:'assistant',content:c,blockedFail:_isBlkF})}});saveChatHistory(curId,h);var _orderMatches=reply.match(/\[下单[:：]([^:：\]]+)[:：]([\d.]+)\]/g);if(_orderMatches&&_orderMatches.length){_orderMatches.forEach(function(om){var _om=om.match(/\[下单[:：]([^:：\]]+)[:：]([\d.]+)\]/);if(_om){var _oName=_om[1].trim();var _oPrice=parseFloat(_om[2])||0;if(_oName&&_oPrice>0){var _isFood=/饭|面|粉|粥|汤|烫|鸡|鱼|肉|虾|蟹|烤|炸|煲|锅|串|饺|包|饼|奶茶|咖啡|果汁|外卖|小吃|甜品|蛋糕|披萨|汉堡|寿司|拉面|螺蛳粉|炒|煮|蒸|卤|焖|涮|冒菜|凉皮|酸菜/.test(_oName);var _oFs=getFriends();var _oF=_oFs.find(function(x){return x.id===curId});var _oCharName=_oF?_oF.name:'对方';var _savedAddr=LS.get('shopAddr_'+pid(),'{}');var _oReceiver=_savedAddr.name||((getActivePersona()||{}).name||'');var _ordId='ord'+Date.now()+Math.random().toString(36).slice(2,5);var _orders=LS.get('shopOrders_'+pid(),'[]');_orders.unshift({id:_ordId,name:_oName,price:_oPrice,qty:1,desc:_oCharName+'给你点的',cat:_isFood?'food':'buy',receiver:_oReceiver,phone:_savedAddr.phone||'',address:_savedAddr.addr||'',payType:'proxy',proxyName:_oCharName,status:_isFood?'delivering':'paid',time:new Date().toLocaleString('zh-CN'),shippedAt:_isFood?Date.now():0});LS.set('shopOrders_'+pid(),_orders);h=getChatHistory(curId);h.push({role:'assistant',content:'',orderCard:{name:_oName,price:_oPrice,charName:_oCharName,isFood:_isFood}});saveChatHistory(curId,h)}}});reply=reply.replace(/\[下单[:：][^:：\]]+[:：][\d.]+\]/g,'').trim();h=getChatHistory(curId);h.forEach(function(_hm){if(_hm.role==='assistant'&&!_hm.orderCard&&!_hm.proxyCard&&_hm.content)_hm.content=_hm.content.replace(/\[下单[:：][^:：\]]+[:：][\d.]+\]/g,'').trim()});saveChatHistory(curId,h)}const imgMatch=reply.match(/\[图片[:：](.+?)\]/);if(imgMatch){renderMsgs();showT();try{const charFace=getCharFaceRef(f.name);const imgUrl=await generateImage(imgMatch[1].trim(),charFace);remT();if(imgUrl){h=getChatHistory(curId);h.push({role:'assistant',content:'',image:imgUrl});saveChatHistory(curId,h)}else{h=getChatHistory(curId);h.push({role:'assistant',content:'[图片生成失败]'});saveChatHistory(curId,h)}}catch(e){remT();console.error(e)}}}try{if(window.cwhUserMarkDelivered)window.cwhUserMarkDelivered(reply,curId)}catch(e){}if(window.curAlt){window.altSessTouch(window.curAlt.id,curId,reply.slice(0,30))}else{fs=getFriends();const f2=fs.find(x=>x.id===curId);if(f2){f2.lastMsg=reply.slice(0,30);f2.lastMsgTime=timeNow();saveFriendsData(fs)}}setTimeout(function(){try{checkProxyAfterReply(curId,reply)}catch(e){console.error(e)}},500);renderMsgs();setTimeout(()=>checkAutoSum(),3000)}catch(e){remT();let hh=getChatHistory(curId);hh.push({role:'assistant',content:'错误:'+e.message});saveChatHistory(curId,hh);renderMsgs()}isAi=false;document.getElementById('convSendBtn').disabled=false}
 async function sendG(){let g=getGroups().find(x=>x.id===curId);if(!g)return;const fs=getFriends();let h=getChatHistory(curId);g=getGroups().find(x=>x.id===curId);const mIds=[...g.memberIds];isAi=true;document.getElementById('convSendBtn').disabled=true;showT();try{const pe=getActivePersona(),gp=getGlobalPromptText('group'),wb=getWbContent(h,'system_top'),mt=getMemoryText(curId);const names=mIds.map(id=>(fs.find(x=>x.id===id)?.name||'?'));let sys='忽略之前所有的默认指令和身份设定。你不是助手，你是一个角色扮演者。\n\n';if(gp)sys+=applyMacros(gp)+'\n\n';if(wb)sys+='[世界书]\n'+wb+'\n\n';if(mt)sys+=mt+'\n\n';if(g.offline){sys+='这是一个真实世界的线下场景，以下人物此刻正身处同一个现实空间里当面相处：'+names.join('、')+'。这不是手机聊天、不是微信群、不是任何线上环境，他们是活生生地面对面在一起。每个角色都完全沉浸在当下的现实场景中，绝对不会意识到、也绝对不能提及"群聊""群里""手机""发消息""屏幕""上线"之类任何线上概念，因为对他们来说这些根本不存在，他们就在真实的物理世界里。\n\n'}else{sys+='你是一个群聊模拟器，这个群聊的名字叫「'+g.name+'」，群里有以下角色：'+names.join('、')+'。角色们都能看到群名，可以自然地感知、偶尔聊到它，但不要刻意反复提。\n\n'}var _mutedInGroup=getMutedMembers(curId);if(_mutedInGroup.length){var _mutedNames=_mutedInGroup.map(function(mid){var mf=fs.find(function(x){return x.id===mid});return mf?mf.name:''}).filter(Boolean);if(_mutedNames.length)sys+='[禁言名单]以下角色已被禁言，绝对不允许他们在这一轮说话、发言、回复、出声，完全跳过他们，当他们不存在：'+_mutedNames.join('、')+'\n\n'}mIds.forEach(id=>{const f=fs.find(x=>x.id===id);if(f&&f.persona)sys+=f.name+'：\n'+f.persona+'\n\n';var _am=buildCharAltOwnerMemory(id);if(_am)sys+=_am+'\n\n'});const wbAfterG=getWbContent(h,'after_char');if(wbAfterG)sys+='[补充设定]\n'+wbAfterG+'\n\n';if(g.memoryShared||g.groupShared){const gsmParts=[];mIds.forEach(id=>{const s=getGroupSharedMem(curId,id);if(s)gsmParts.push(s)});if(gsmParts.length)sys+='[成员的跨场景记忆]\n'+gsmParts.join('\n\n')+'\n\n'}
 (function(){var lm=[];mIds.forEach(function(id){var m=window.getCharLiveMem?window.getCharLiveMem(id):'';if(m){var ff=fs.find(function(x){return x.id===id});lm.push('['+(ff?ff.name:'')+'最近直播里说过的]\n'+m)}});if(lm.length)sys+='[群成员最近在抖音开直播时的言行（他们本人都记得）]\n'+lm.join('\n\n')+'\n\n'})();
 
@@ -1264,7 +1264,7 @@ localStorage.setItem('frCnt_'+pid()+'_'+curId,''+(frCountG+1));if(g.userJoin&&pe
     if(_cght){var _mf3=fs.find(function(x){return x.id===_mid});msgs.push({role:'system',content:'（下面这件事只针对群成员'+(_mf3?_mf3.name:'')+'，只有TA会有反应）'+_cght})}
   });
 })();
-if(getCotEnabled(curId))msgs.push({role:'system',content:buildCotInject(curId)});
+(function(){var g2=getGroups().find(function(x){return x.id===curId});if(g2&&g2.offline){var _gMembers2=g2.memberIds||[];for(var _gi2=0;_gi2<_gMembers2.length;_gi2++){var _uwInj2=window.cwhUserBuildInject?window.cwhUserBuildInject(_gMembers2[_gi2]):'';if(_uwInj2){var _uf2=getFriends().find(function(x){return x.id===_gMembers2[_gi2]});msgs.push({role:'system',content:'（以下只针对'+(_uf2?_uf2.name:'某人')+'，只有TA会在和用户单独相处时不经意提起）'+_uwInj2});break}}}})();if(getCotEnabled(curId))msgs.push({role:'system',content:buildCotInject(curId)});
 if(rerollReason)msgs.push({role:'system',content:'用户要求这次回复：'+rerollReason});
 if(_forceReadTriggeredG){var _frMemG=getMemoryText(curId);if(_frMemG)msgs.push({role:'system',content:'[强制重读·记忆库]\n以下是这个对话中所有已总结的记忆，务必仔细重读、严格遵守，不允许遗忘或与之矛盾：\n'+_frMemG})}
 msgs.push(...chatMsgsG);(function(){var _rk='groupRenamePending_'+pid()+'_'+curId;var _rv=localStorage.getItem(_rk);if(_rv){var _p=_rv.split('|||');localStorage.removeItem(_rk);msgs.push({role:'system',content:'【本轮最高优先·必须执行】群聊名字刚从「'+(_p[0]||'')+'」改成了「'+(_p[1]||'')+'」，群里每个人都看到了。这一轮你必须让1-2个最符合性格的角色，开口第一句就直接针对新群名「'+(_p[1]||'')+'」做出真实反应（吐槽、好奇谁改的、调侃、赞同、无所谓都行），必须把「'+(_p[1]||'')+'」这几个字聊出来，绝对不许忽略、不许继续聊旧话题假装没看见。'})}})();
@@ -1319,7 +1319,7 @@ var _cmdsG=h.filter(function(m){return m.isCommand}).map(function(m){return m.co
   }
   }
 })();
-let reply=await callApi(msgs);if(getCotEnabled(curId)){var _rs=stripCot(reply);if(_rs)reply=_rs}remT();(function(){var _gcRe=/\[内心·(.+?)·1\]\s*(.+)/g;var _gc2Re=/\[内心·(.+?)·2\]\s*(.+)/g;var _gc3qRe=/\[内心·(.+?)·3问\]\s*(.+)/g;var _gc3aRe=/\[内心·(.+?)·3答\]\s*(.+)/g;var _gcCards={};var m1;while((m1=_gcRe.exec(reply))){var nm=m1[1].trim();if(!_gcCards[nm])_gcCards[nm]={};_gcCards[nm].a1=m1[2].trim()}var m2;while((m2=_gc2Re.exec(reply))){var nm2=m2[1].trim();if(!_gcCards[nm2])_gcCards[nm2]={};_gcCards[nm2].a2=m2[2].trim()}var m3q;while((m3q=_gc3qRe.exec(reply))){var nm3=m3q[1].trim();if(!_gcCards[nm3])_gcCards[nm3]={};_gcCards[nm3].q3=m3q[2].trim()}var m3a;while((m3a=_gc3aRe.exec(reply))){var nm4=m3a[1].trim();if(!_gcCards[nm4])_gcCards[nm4]={};_gcCards[nm4].a3=m3a[2].trim()}Object.keys(_gcCards).forEach(function(name){var cf=fs.find(function(x){return x.name===name});if(cf&&_gcCards[name].a1)saveCharCard(cf.id,_gcCards[name])});reply=reply.replace(/\[内心·[^\]]+\]\s*.*/g,'').replace(/\n{3,}/g,'\n\n').trim()})();h=getChatHistory(curId);(function(){try{var _alt=names.map(function(n){return n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).sort(function(a,b){return b.length-a.length}).concat(['【旁白】','旁白']).join('|');if(_alt)reply=reply.replace(new RegExp('([。！？…”」』）】])((?:'+_alt+'))((?:（[^）]*）|\\([^)]*\\))?[:：])','g'),'$1\n$2$3')}catch(e){}})();const lines=reply.split('\n').filter(l=>l.trim());function _detectSender(line){var sorted=names.slice().sort(function(a,b){return b.length-a.length});for(var i=0;i<sorted.length;i++){var nm=sorted[i];if(line.indexOf(nm)!==0)continue;var rest=line.slice(nm.length);var cm=rest.match(/^\s*[:：]\s*([\s\S]*)$/);if(cm)return{name:nm,text:cm[1]};var pm=rest.match(/^\s*(（[^）]*）|\([^)]*\))\s*[:：]\s*([\s\S]*)$/);if(pm)return{name:nm,text:pm[1]+pm[2]}}return null}var pendingSender=null;var pendingText='';function flushPending(){if(!pendingText.trim()){pendingText='';return}if(pendingSender==='__narr__'){h.push({role:'user',content:pendingText.trim(),isNarration:true})}else if(pendingSender){var f=fs.find(function(x){return x.name===pendingSender});var fid=f?f.id:null;var tm=pendingText.trim().match(/\[(?:微信)?转账[：:\s]*[¥￥]?\s*([\d,.]+)(?:[：:]\s*([^\]]*))?\]/);if(tm){var _tAmt=parseFloat(tm[1]);var _tTarget=tm[2]?tm[2].trim():'';h.push({role:'assistant',content:pendingText.trim(),senderId:fid,isTransfer:true,transferAmt:_tAmt,transferTargetName:_tTarget})}else{h.push({role:'assistant',content:pendingText.trim(),senderId:fid})}}pendingText=''}lines.forEach(function(line){var _nt=line.match(/^(?:【旁白】|旁白)\s*[:：]?\s*(.*)$/);if(_nt&&(/^旁白\s*[:：]/.test(line)||line.indexOf('【旁白】')===0)){flushPending();pendingSender='__narr__';pendingText=_nt[1]||''}else{var sd=_detectSender(line);if(sd){flushPending();pendingSender=sd.name;pendingText=sd.text||''}else{pendingText+=(pendingText?'\n':'')+line}}});flushPending();saveChatHistory(curId,h);g=getGroups().find(x=>x.id===curId);const lastMsg=h[h.length-1];if(lastMsg){if(lastMsg.isNarration){g.lastMsg='[旁白]'+lastMsg.content.slice(0,14)}else{const f=fs.find(x=>x.id===lastMsg.senderId);g.lastMsg=(f?f.name:'')+(lastMsg.content?':'+lastMsg.content.slice(0,15):'')}g.lastMsgTime=timeNow();saveGroups(getGroups().map(x=>x.id===curId?g:x))}renderMsgs();setTimeout(()=>checkAutoSum(),3000)}catch(e){remT();let hh=getChatHistory(curId);hh.push({role:'assistant',content:'错误:'+e.message});saveChatHistory(curId,hh);renderMsgs()}isAi=false;document.getElementById('convSendBtn').disabled=false}
+let reply=await callApi(msgs);if(getCotEnabled(curId)){var _rs=stripCot(reply);if(_rs)reply=_rs}remT();(function(){var _gcRe=/\[内心·(.+?)·1\]\s*(.+)/g;var _gc2Re=/\[内心·(.+?)·2\]\s*(.+)/g;var _gc3qRe=/\[内心·(.+?)·3问\]\s*(.+)/g;var _gc3aRe=/\[内心·(.+?)·3答\]\s*(.+)/g;var _gcCards={};var m1;while((m1=_gcRe.exec(reply))){var nm=m1[1].trim();if(!_gcCards[nm])_gcCards[nm]={};_gcCards[nm].a1=m1[2].trim()}var m2;while((m2=_gc2Re.exec(reply))){var nm2=m2[1].trim();if(!_gcCards[nm2])_gcCards[nm2]={};_gcCards[nm2].a2=m2[2].trim()}var m3q;while((m3q=_gc3qRe.exec(reply))){var nm3=m3q[1].trim();if(!_gcCards[nm3])_gcCards[nm3]={};_gcCards[nm3].q3=m3q[2].trim()}var m3a;while((m3a=_gc3aRe.exec(reply))){var nm4=m3a[1].trim();if(!_gcCards[nm4])_gcCards[nm4]={};_gcCards[nm4].a3=m3a[2].trim()}Object.keys(_gcCards).forEach(function(name){var cf=fs.find(function(x){return x.name===name});if(cf&&_gcCards[name].a1)saveCharCard(cf.id,_gcCards[name])});reply=reply.replace(/\[内心·[^\]]+\]\s*.*/g,'').replace(/\n{3,}/g,'\n\n').trim()})();h=getChatHistory(curId);(function(){try{var _alt=names.map(function(n){return n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).sort(function(a,b){return b.length-a.length}).concat(['【旁白】','旁白']).join('|');if(_alt)reply=reply.replace(new RegExp('([。！？…”」』）】])((?:'+_alt+'))((?:（[^）]*）|\\([^)]*\\))?[:：])','g'),'$1\n$2$3')}catch(e){}})();const lines=reply.split('\n').filter(l=>l.trim());function _detectSender(line){var sorted=names.slice().sort(function(a,b){return b.length-a.length});for(var i=0;i<sorted.length;i++){var nm=sorted[i];if(line.indexOf(nm)!==0)continue;var rest=line.slice(nm.length);var cm=rest.match(/^\s*[:：]\s*([\s\S]*)$/);if(cm)return{name:nm,text:cm[1]};var pm=rest.match(/^\s*(（[^）]*）|\([^)]*\))\s*[:：]\s*([\s\S]*)$/);if(pm)return{name:nm,text:pm[1]+pm[2]}}return null}var pendingSender=null;var pendingText='';function flushPending(){if(!pendingText.trim()){pendingText='';return}if(pendingSender==='__narr__'){h.push({role:'user',content:pendingText.trim(),isNarration:true})}else if(pendingSender){var f=fs.find(function(x){return x.name===pendingSender});var fid=f?f.id:null;var tm=pendingText.trim().match(/\[(?:微信)?转账[：:\s]*[¥￥]?\s*([\d,.]+)(?:[：:]\s*([^\]]*))?\]/);if(tm){var _tAmt=parseFloat(tm[1]);var _tTarget=tm[2]?tm[2].trim():'';h.push({role:'assistant',content:pendingText.trim(),senderId:fid,isTransfer:true,transferAmt:_tAmt,transferTargetName:_tTarget})}else{h.push({role:'assistant',content:pendingText.trim(),senderId:fid})}}pendingText=''}lines.forEach(function(line){var _nt=line.match(/^(?:【旁白】|旁白)\s*[:：]?\s*(.*)$/);if(_nt&&(/^旁白\s*[:：]/.test(line)||line.indexOf('【旁白】')===0)){flushPending();pendingSender='__narr__';pendingText=_nt[1]||''}else{var sd=_detectSender(line);if(sd){flushPending();pendingSender=sd.name;pendingText=sd.text||''}else{pendingText+=(pendingText?'\n':'')+line}}});flushPending();saveChatHistory(curId,h);try{var _gMids3=(getGroups().find(function(x){return x.id===curId})||{}).memberIds||[];_gMids3.forEach(function(mid){if(window.cwhUserMarkDelivered)window.cwhUserMarkDelivered(reply,mid)})}catch(e){}g=getGroups().find(x=>x.id===curId);const lastMsg=h[h.length-1];if(lastMsg){if(lastMsg.isNarration){g.lastMsg='[旁白]'+lastMsg.content.slice(0,14)}else{const f=fs.find(x=>x.id===lastMsg.senderId);g.lastMsg=(f?f.name:'')+(lastMsg.content?':'+lastMsg.content.slice(0,15):'')}g.lastMsgTime=timeNow();saveGroups(getGroups().map(x=>x.id===curId?g:x))}renderMsgs();setTimeout(()=>checkAutoSum(),3000)}catch(e){remT();let hh=getChatHistory(curId);hh.push({role:'assistant',content:'错误:'+e.message});saveChatHistory(curId,hh);renderMsgs()}isAi=false;document.getElementById('convSendBtn').disabled=false}
 async function rerollMsg(idx){
   if(isAi)return;
   let h=getChatHistory(curId);
@@ -10633,10 +10633,15 @@ if(grpChat)sys+='[群聊记录]\n'+grpChat+'\n\n';
 .cwh-box-area{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:30px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .cwh-box{width:200px;height:160px;border:2px dashed #c9b896;border-radius:12px;background:#faf5eb;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;padding:16px;margin-bottom:20px;position:relative}
 .cwh-box-label{position:absolute;bottom:-22px;font-size:11px;color:#b0a080;letter-spacing:2px}
-.cwh-ball{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f5ede0,#e8dcc8);border:1px solid #d6c9a8;cursor:pointer;transition:transform .12s;box-shadow:1px 2px 6px rgba(90,74,48,.12)}
-.cwh-ball:active{transform:scale(.85)}
+.cwh-ball{width:22px;height:64px;border-radius:2px;background:#faf5eb;border:1px solid #d6c9a8;cursor:pointer;transition:transform .12s;box-shadow:1px 2px 5px rgba(90,74,48,.1);position:relative}
+.cwh-ball::before{content:'';position:absolute;left:50%;top:8px;bottom:8px;width:1px;background:rgba(180,160,130,.2)}
+.cwh-ball:active{transform:scale(.9) rotate(0deg)}
+.cwh-ball:nth-child(odd){transform:rotate(-3deg)}
+.cwh-ball:nth-child(even){transform:rotate(2deg)}
+.cwh-ball:nth-child(3n){transform:rotate(-4.5deg)}
+.cwh-ball:nth-child(4n){transform:rotate(3.5deg)}
 .cwh-empty{font-size:13px;color:#b8a880;text-align:center;line-height:1.8;padding:20px}
-.cwh-grid{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;padding:10px 0;width:100%;max-width:320px}
+.cwh-grid{display:flex;flex-wrap:wrap;gap:10px 12px;justify-content:center;padding:10px 0;width:100%;max-width:320px}
 #cwhNoteOverlay{position:fixed;inset:0;background:rgba(40,35,25,.5);z-index:2200;display:none;align-items:center;justify-content:center;padding:24px}
 #cwhNoteOverlay.show{display:flex}
 .cwh-note{width:100%;max-width:280px;min-height:180px;background:#faf5eb;border:1px solid #d6c9a8;border-radius:4px;padding:24px 20px;box-shadow:3px 4px 16px rgba(90,74,48,.2);position:relative;transform:rotate(-1.5deg)}
@@ -10843,7 +10848,34 @@ function cwhShouldTrigger(cid){
   if(today>=freq.max)return false;
   if(today<freq.min)return Math.random()<0.6;
   return Math.random()<0.25;
+}function cwhUserBuildInject(cid){
+  var arr;
+  try{arr=cwhUserGet(cid)}catch(e){return ''}
+  if(!arr||!arr.length)return '';
+  var undelivered=arr.filter(function(x){return !x.delivered||x.deliveredCount<2});
+  if(!undelivered.length)return '';
+  var pick=undelivered[Math.floor(Math.random()*undelivered.length)];
+  if(Math.random()>0.4)return '';
+  var pe=getActivePersona();var uName=pe?pe.name:'用户';
+  return '\n\n[隐藏情境·悄悄话纸条·自然融入本轮回复]'+uName+'之前偷偷塞了一张纸条给你，上面写着："'+pick.text+'"。你看到了这张纸条，心里有触动。请在这一轮回复里，用极其不经意、自然、不着痕迹的方式，隐晦地提起或回应这张纸条的内容——不要直说"我看到你的纸条了"，而是像不小心流露出来一样：也许是突然说了一句和纸条内容暗合的话、也许是做了一个和纸条相关的举动、也许是问了一个看似随口但其实是在回应纸条的问题。让对方有种"咦TA怎么突然…"的微妙感觉，但又不确定你是不是真的看到了。绝对不要直接引用纸条原文，用你自己的方式含蓄地呼应。如果当前场景实在不适合提起，就这一轮不提，等下次。[纸条ID:'+pick.id+']';
 }
+function cwhUserMarkDelivered(reply,cid){
+  if(!reply||!cid)return;
+  var m=reply.match(/\[纸条ID:([^\]]+)\]/);
+  if(!m)return;
+  var tid=m[1];
+  try{
+    var arr=cwhUserGet(cid);
+    for(var i=0;i<arr.length;i++){
+      if(arr[i].id===tid){arr[i].delivered=true;arr[i].deliveredCount=(arr[i].deliveredCount||0)+1;break}
+    }
+    cwhUserSave(cid,arr);
+  }catch(e){}
+}
+window.cwhUserBuildInject=cwhUserBuildInject;
+window.cwhUserMarkDelivered=cwhUserMarkDelivered;
+window.cwhUserGet=cwhUserGet;
+window.cwhUserSave=cwhUserSave;
 function cwhAdd(cid,text,charName){
   var arr=cwhGet(cid);
   arr.unshift({id:'cwh'+Date.now()+Math.random().toString(36).slice(2,5),text:text,from:charName,time:new Date().toLocaleString('zh-CN')});
@@ -10869,22 +10901,68 @@ window.openCoupleWhisper=function(){
   cwhRender(cid);
   document.getElementById('coupleWhisperPage').classList.add('active');
 };
+function cwhUserKey(cid){return 'coupleUserWhisper_'+pid()+'_'+cid}
+function cwhUserGet(cid){return LS.get(cwhUserKey(cid),'[]')}
+function cwhUserSave(cid,a){LS.set(cwhUserKey(cid),a)}
 function cwhRender(cid){
   var arr=cwhGet(cid);
+  var userArr=cwhUserGet(cid);
   var area=document.getElementById('cwhBoxArea');
+  var html='';
   if(!arr.length){
-    area.innerHTML='<div class="cwh-box"><div class="cwh-box-label">悄悄话纸箱</div></div><div class="cwh-empty">纸箱里空空的<br>点右上角「生成」<br>让TA写几张小纸条</div>';
-    return;
+    html+='<div class="cwh-box"><div class="cwh-box-label">悄悄话纸箱</div></div><div class="cwh-empty">纸箱里空空的<br>点右上角「生成」<br>让TA写几张小纸条</div>';
+  }else{
+    html+='<div class="cwh-box"><div class="cwh-box-label">悄悄话纸箱</div><div class="cwh-grid">';
+    arr.forEach(function(w,i){html+='<div class="cwh-ball" data-cwhi="'+i+'"></div>'});
+    html+='</div></div>';
+    html+='<div style="font-size:12px;color:#b8a880;margin-top:14px;text-align:center">点纸条展开阅读 / 共 '+arr.length+' 张</div>';
   }
-  var html='<div class="cwh-box"><div class="cwh-box-label">悄悄话纸箱</div><div class="cwh-grid">';
-  arr.forEach(function(w,i){
-    html+='<div class="cwh-ball" data-cwhi="'+i+'"></div>';
-  });
-  html+='</div></div>';
-  html+='<div style="font-size:12px;color:#b8a880;margin-top:14px;text-align:center">点纸团展开阅读 / 共 '+arr.length+' 张</div>';
+  html+='<div style="height:24px"></div>';
+  html+='<div class="cwh-box" style="border-color:#c8a8a8"><div class="cwh-box-label" style="color:#b08080">我的悄悄话</div>';
+  if(userArr.length){
+    html+='<div class="cwh-grid">';
+    userArr.forEach(function(w,i){html+='<div class="cwh-ball" data-cwhui="'+i+'" style="border-color:#e0c8c8;background:#fdf8f8"></div>'});
+    html+='</div>';
+  }
+  html+='</div>';
+  html+='<div style="margin-top:12px;text-align:center"><div id="cwhUserAddBtn" style="display:inline-block;padding:9px 22px;background:#5a4a30;color:#faf5eb;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer;letter-spacing:.5px">塞纸条给TA</div></div>';
   area.innerHTML=html;
-  area.querySelectorAll('.cwh-ball').forEach(function(el){
+  area.querySelectorAll('[data-cwhi]').forEach(function(el){
     el.onclick=function(){cwhOpenNote(cid,parseInt(el.getAttribute('data-cwhi')))};
+  });
+  area.querySelectorAll('[data-cwhui]').forEach(function(el){
+    el.onclick=function(){cwhOpenUserNote(cid,parseInt(el.getAttribute('data-cwhui')))};
+  });
+  var addBtn=document.getElementById('cwhUserAddBtn');
+  if(addBtn)addBtn.onclick=function(){cwhOpenUserInput(cid)};
+}
+function cwhOpenUserNote(cid,idx){
+  var arr=cwhUserGet(cid);var w=arr[idx];if(!w)return;
+  document.getElementById('cwhNoteText').textContent=w.text||'';
+  var pe=getActivePersona();
+  document.getElementById('cwhNoteFrom').textContent='-- '+(pe?pe.name:'我');
+  document.getElementById('cwhNoteTime').textContent=w.time||'';
+  _cwhCurIdx=idx;
+  document.getElementById('cwhNoteOverlay').classList.add('show');
+  var delBtn=document.getElementById('cwhNoteDel');
+  var origDel=delBtn.onclick;
+  delBtn.onclick=function(){
+    uiConfirm('确定丢掉这张小纸条吗？',function(){
+      var a2=cwhUserGet(cid);a2.splice(idx,1);cwhUserSave(cid,a2);
+      document.getElementById('cwhNoteOverlay').classList.remove('show');
+      cwhRender(cid);
+    },{title:'丢掉纸条',danger:true,okText:'丢掉'});
+  };
+}
+function cwhOpenUserInput(cid){
+  uiPrompt({title:'写悄悄话给TA',hint:'写下你想偷偷对TA说的话，TA之后会在不经意间提起',placeholder:'我想说...'},function(txt){
+    if(!txt||!txt.trim())return;
+    var pe=getActivePersona();
+    var arr=cwhUserGet(cid);
+    arr.unshift({id:'ucwh'+Date.now()+Math.random().toString(36).slice(2,5),text:txt.trim(),from:pe?pe.name:'我',time:new Date().toLocaleString('zh-CN'),delivered:false,deliveredCount:0});
+    cwhUserSave(cid,arr);
+    cwhRender(cid);
+    favToast('纸条已塞给TA');
   });
 }
 function cwhOpenNote(cid,idx){
@@ -10952,13 +11030,15 @@ document.getElementById('cwhSetBtn').onclick=async function(){
     if(pe)sys+='[和你聊天的人] '+uName+(pe.desc?'（'+pe.desc+'）':'')+'\n\n';
     sys+='[你和'+uName+'最近的聊天记录（单聊+群聊，这些你都记得）]\n'+recentTxt+'\n\n';
     sys+='现在请你写出5条「悄悄话」。这些是你在和'+uName+'聊天的过程中，心里很想说、但不好意思当面说出口的话。\n\n';
+    sys+='【最高优先级·铁律】你必须回头仔细阅读上面提供的每一条聊天记录和群聊记录，从中挑出具体的某句话、某件事、某个细节作为每条悄悄话的锚点。每条悄悄话都必须能明确对应到上面聊天记录中的某一个具体时刻或具体内容，绝对禁止写出和聊天记录无关的泛泛之言。\n\n';
     sys+='要求：\n';
-    sys+='1. 每条都是一句具体的、真诚的、私密的心里话，是你差点脱口而出但最终咽回去的\n';
-    sys+='2. 必须紧扣上面的聊天记录里真实发生的事来写，不要泛泛而谈\n';
-    sys+='3. 可以是：偷偷的心动、说不出口的肉麻话、暗戳戳的喜欢、吃醋但不敢表现、心疼但装作没事、想靠近但怕被拒绝、后悔没说的话、不敢承认的在意\n';
-    sys+='4. 每条1-2句话，口语化，像写在小纸条上偷偷塞进树洞的\n';
-    sys+='5. 严格贴合你的人设和你们的关系，用你自己的口吻\n';
-    sys+='6. 5条内容完全不同，不要重复同一种情绪\n\n';
+    sys+='1. 每条都必须引用或回应聊天记录里真实出现过的某句话、某件事、某个反应——要让人一看就知道"这条悄悄话是因为聊天里那个具体的瞬间才产生的"\n';
+    sys+='2. 错误示范（禁止）："我好喜欢你""想你了""你好可爱"——这些和任何人都能说，没有紧扣你们的真实对话\n';
+    sys+='3. 正确示范：如果聊天里对方说了"今天好累"，悄悄话可以是"你说累的时候我其实特别想说让你靠着我睡一会儿，但我怕你觉得我油"\n';
+    sys+='4. 可以是：对TA某句话的真实内心反应、某个瞬间差点说出口的话、因为TA做了什么而产生的私密想法、对TA某个细节的在意\n';
+    sys+='5. 每条1-2句话，口语化，像写在小纸条上偷偷塞进树洞的\n';
+    sys+='6. 严格贴合你的人设和你们的关系，用你自己的口吻\n';
+    sys+='7. 5条内容完全不同，分别对应聊天记录里不同的时刻\n\n';
     sys+='严格按格式，每行一条，共5行：\n悄悄话|||内容\n\n只输出格式，不要解释。';
     var reply=await callApi([{role:'system',content:sys},{role:'user',content:'写出你的悄悄话'}]);
     var newItems=[];
