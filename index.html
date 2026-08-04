@@ -10725,14 +10725,36 @@ if(grpChat)sys+='[群聊记录]\n'+grpChat+'\n\n';
   function ckiToday(){return new Date().toISOString().slice(0,10)}
 
   function ckiCharProb(cid){
-    var f=getFriends().find(function(x){return x.id===cid});
-    if(!f||!f.persona)return 0.8;
-    var p=f.persona;
-    if(/冷淡|我行我素|随性|懒|自由|叛逆|不在乎|无所谓|放荡不羁|独来独往|高冷|疏离|冷漠/.test(p))return 0.55;
-    if(/认真|体贴|温柔|粘人|恋爱脑|在意|用心|细心|深情|专一|宠|甜/.test(p))return 0.93;
-    if(/忙|工作狂|事业|拼命/.test(p))return 0.65;
-    return 0.8;
-  }
+  var f=getFriends().find(function(x){return x.id===cid});
+  if(!f)return 0.8;
+  var base=0.8;
+  var p=f.persona||'';
+  if(/冷淡|我行我素|随性|懒|自由|叛逆|不在乎|无所谓|放荡不羁|独来独往|高冷|疏离|冷漠/.test(p))base=0.55;
+  else if(/认真|体贴|温柔|粘人|恋爱脑|在意|用心|细心|深情|专一|宠|甜/.test(p))base=0.93;
+  else if(/忙|工作狂|事业|拼命/.test(p))base=0.65;
+  var boost=0;
+  try{
+    var mem=getMemories(cid).slice(0,6).map(function(x){return x.content}).join(' ');
+    var longMem=getLongMemories(cid).slice(0,4).map(function(x){return x.content}).join(' ');
+    var allMem=mem+' '+longMem;
+    if(/喜欢|爱|在乎|想你|离不开|心动|恋人|情侣|暧昧|表白|在一起|牵挂|依赖|宝贝|亲爱/.test(allMem))boost+=0.12;
+    if(/吵架|冷战|分手|拉黑|生气|讨厌|烦|不理|删除|绝交|闹掰/.test(allMem))boost-=0.2;
+  }catch(e){}
+  try{
+    var pe=getActivePersona();var uName=pe?pe.name:'用户';
+    var h=getChatHistory(cid).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-10);
+    var recentTxt=h.map(function(m){return m.content}).join(' ');
+    if(/喜欢你|爱你|想你|晚安|早安|宝|亲|抱|心疼|舍不得/.test(recentTxt))boost+=0.08;
+    if(/滚|别烦|不想理你|分手|冷战|拉黑/.test(recentTxt))boost-=0.15;
+    if(h.length<3)boost-=0.05;
+  }catch(e){}
+  try{
+    var rels=(typeof getRelationships==='function')?getRelationships():[];
+    for(var i=0;i<rels.length;i++){var r=rels[i];if((r.aId==='__user__'&&r.bId===cid)||(r.bId==='__user__'&&r.aId===cid)){if(/恋|爱人|情侣|夫妻|老公|老婆|男友|女友|对象|结婚|暧昧/.test(r.relation||''))boost+=0.1;break}}
+  }catch(e){}
+  var final=Math.max(0.15,Math.min(0.98,base+boost));
+  return final;
+}
 
   function ckiNewDay(cid){
     var d=ckiGet(cid);
@@ -11553,7 +11575,7 @@ document.getElementById('cwhSetBtn').onclick=async function(){
 .csyncdet-btn-close{background:#f5f5f5;color:#666}
 </style>
 <div id="coupleSyncPage">
-<div class="csync-nav"><div class="csync-back" id="csyncBack">‹</div><div class="csync-title">默契测试</div><div style="display:flex;align-items:center;gap:6px"><div class="csync-lib" id="csyncLibBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><button class="csync-start" id="csyncStartBtn">开始</button></div></div>
+<div class="csync-nav"><div class="csync-back" id="csyncBack">‹</div><div class="csync-title">默契测试</div><div style="display:flex;align-items:center;gap:6px"><div class="csync-lib" id="csyncLibBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div><button class="csync-start" id="csyncRestartBtn" style="background:#555;font-size:12px;padding:6px 12px">重来</button><button class="csync-start" id="csyncStartBtn">开始</button></div></div>
 <div class="csync-body" id="csyncBody"></div>
 </div>
 <div id="coupleSyncLibPage">
@@ -11591,6 +11613,7 @@ function _syncLoad(){return LS.get(_syncPK(),'null')}
   };
 
   document.getElementById('csyncBack').onclick=function(){document.getElementById('coupleSyncPage').classList.remove('active')};
+document.getElementById('csyncRestartBtn').onclick=function(){var cid=syncCharId();if(!cid)return;_syncClear();_syncPhase='idle';_syncRound=[];_syncIdx=0;_syncScore=0;document.getElementById('csyncStartBtn').disabled=false;document.getElementById('csyncStartBtn').click()};
 
   document.getElementById('csyncStartBtn').onclick=async function(){
     if(_syncBusy)return;
@@ -11611,35 +11634,35 @@ function _syncLoad(){return LS.get(_syncPK(),'null')}
       sys+='你是一个情侣默契测试出题官。角色A是「'+charName+'」'+(f&&f.persona?'（'+f.persona.slice(0,150)+'）':'')+'，角色B是「'+uName+'」'+(pe&&pe.desc?'（'+pe.desc.slice(0,100)+'）':'')+'\n\n';
       try{var mt=getMemoryText(cid);if(mt)sys+='[两人的记忆]\n'+mt+'\n\n'}catch(e){}
       try{var h=getChatHistory(cid).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image}).slice(-20);if(h.length)sys+='[两人最近的聊天]\n'+h.map(function(m){return m.role==='user'?uName+':'+m.content:charName+':'+m.content}).join('\n')+'\n\n'}catch(e){}
-      sys+='请出10道默契测试题。三种类型混合：\n';
+      var _oldSyncQs=[];try{syncGetAll(cid).forEach(function(rec){(rec.questions||[]).forEach(function(q){if(q.question&&_oldSyncQs.indexOf(q.question)<0)_oldSyncQs.push(q.question)})})}catch(e){}
+      _oldSyncQs=_oldSyncQs.slice(-30);
+sys+='请出10道默契测试题。三种类型混合：\n';
       sys+='类型A（about_char）：关于'+charName+'本人的事实题，有标准答案，由'+uName+'来猜。例如："'+charName+'吃饭习惯用左手还是右手？"\n';
       sys+='类型B（about_user）：关于'+uName+'本人的事实题，有标准答案，由'+charName+'来猜。例如："'+uName+'最喜欢吃什么？"\n';
       sys+='类型C（both）：双方各自说出对方的某个特点，没有固定标准答案，靠互相认可。例如："说出对方的一个口头禅""说出对方最可爱的时刻"\n\n';
       sys+='要求：\n1. 问题具体有趣，贴合两人的关系和记忆，每题内容完全不同\n2. 涵盖日常习惯、喜好、记忆、小细节、性格等各方面\n3. 三种类型混合，大约各3-4题\n4. 每题一句话，简洁明了\n\n';
       sys+='严格按格式，每行一题，共10行：\n题|||类型|||问题内容\n\n类型只能是 about_char 或 about_user 或 both。只输出10行，不要解释。';
-      var reply=await callApi([{role:'system',content:sys},{role:'user',content:'出10道默契测试题'}]);
+      var _syncUserMsg='出10道全新的默契测试题，每道都要完全不同的角度和话题';
+      var reply=await callApi([{role:'system',content:sys},{role:'user',content:_syncUserMsg}]);
       var questions=[];
       reply.split('\n').forEach(function(line){
-        var p=line.split('|||').map(function(s){return s.trim()});
-        if(p[0]==='题'&&p[1]&&p[2]){
+        var raw=line.trim();
+        if(!raw||raw.length<4)return;
+        raw=raw.replace(/^\s*[\d]+\s*[.、,)]\s*/,'').replace(/^[-·]\s*/,'').trim();
+        var p=raw.split('|||').map(function(s){return s.trim()});
+        if(p.length>=3&&p[0].indexOf('\u9898')>=0){
           var t=p[1];
           if(t!=='about_char'&&t!=='about_user'&&t!=='both')t='both';
           questions.push({type:t,question:p[2]});
+        }else if(p.length>=2&&(p[0]==='about_char'||p[0]==='about_user'||p[0]==='both')){
+          questions.push({type:p[0],question:p[1]});
+        }else if(p.length>=3&&p[1]&&p[2]&&raw.indexOf('|||')>=0){
+          var t2=p[1];
+          if(t2!=='about_char'&&t2!=='about_user'&&t2!=='both')t2='both';
+          questions.push({type:t2,question:p[2]});
         }
       });
-      var fallbacks=[
-        {type:'both',question:'说出对方最近让你开心的一件事'},
-        {type:'about_char',question:charName+'睡觉喜欢开灯还是关灯'},
-        {type:'about_user',question:uName+'最讨厌别人做什么'},
-        {type:'both',question:'说出对方压力大时会做的事'},
-        {type:'about_char',question:charName+'手机里用得最多的App是什么'},
-        {type:'about_user',question:uName+'最想去的一个地方'},
-        {type:'both',question:'说出对方身上你最喜欢的一个特点'},
-        {type:'about_char',question:charName+'最怕什么'},
-        {type:'about_user',question:uName+'心情好时第一反应是做什么'},
-        {type:'both',question:'用一个词形容对方的性格'}
-      ];
-      while(questions.length<10){questions.push(fallbacks[questions.length])}
+      if(!questions.length){alert('出题失败，请重试');document.getElementById('csyncStartBtn').disabled=false;_syncBusy=false;return}
       _syncRound=questions.slice(0,10).map(function(q){return{type:q.type,question:q.question,charAnswer:'',userAnswer:'',correct:null,charApprove:null,userApprove:null}});
       _syncIdx=0;
       _syncPhase='playing';
