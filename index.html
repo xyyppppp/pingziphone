@@ -6867,6 +6867,7 @@ favToast('已转发到聊天');
 <div class="lns-section"><div class="lns-label">总结记忆</div><div class="lns-group"><div class="lns-check" id="lnsMemBtn" style="cursor:pointer"><div class="lns-check-label">记忆管理</div><div style="color:#a09060;font-size:16px">&#x203A;</div></div></div></div>
 <div class="lns-section"><div class="lns-label">外观</div><div class="lns-group"><div class="lns-check" id="lnsCssBtn" style="cursor:pointer"><div class="lns-check-label">长叙事界面CSS</div><div style="color:#a09060;font-size:16px">›</div></div></div></div>
 <button class="lns-btn" id="lnsSaveSettings" style="margin-top:10px">保存设置</button>
+<div class="lns-section" style="margin-top:22px"><div class="lns-label">导出</div><div class="lns-group"><div class="lns-check" id="lnExportBtn" style="cursor:pointer"><div class="lns-check-label">导出聊天记录</div><div style="color:#7ab0cc;font-size:16px">›</div></div></div></div>
 </div>
 </div>
 
@@ -7345,15 +7346,16 @@ return msgs;
     var pe=getActivePersona();var userName=pe?pe.name:'用户';
     try{
       var chunks=[];
-      for(var i=0;i<uns.length;i+=30){
-        var ck=uns.slice(i,i+30);
-        chunks.push(ck.map(function(m){return m.role==='user'?('[剧情推动]'+m.content):m.content}).join('\n'));
-      }
-      var nw=[];
-      for(var ci=0;ci<chunks.length;ci++){
-        var reply=await callApi([{role:'system',content:'你是记忆压缩器。把下面的故事片段压缩成简短的第三人称记忆摘要。规则：高度概括，禁止逐句复述，用第三人称客观陈述发生了什么，60-150字，不要加"总结"开头。'},{role:'user',content:chunks[ci]}]);
-        nw.push({content:reply,time:new Date().toLocaleString('zh-CN')});
-      }
+for(var i=0;i<uns.length;i+=3){
+  var ck=uns.slice(i,i+3);
+  if(ck.length<2)continue;
+  chunks.push(ck.map(function(m){return m.role==='user'?('穿越者:'+m.content):(m.content||'').slice(0,500)}).join('\n'));
+}
+var nw=[];
+for(var ci=0;ci<chunks.length;ci++){
+  var reply=await callApi([{role:'system',content:'你是记忆压缩器。把下面的内容压缩成一句话的记忆摘要，50字以内。用第三人称白描，只写发生了什么事，不要分析不要升华。直接输出摘要，不加任何前缀。'},{role:'user',content:chunks[ci]}]);
+  nw.push({content:reply.trim(),time:new Date().toLocaleString('zh-CN')});
+}
       var all=nw.reverse().concat(getMemories(curId));
       saveMemories(curId,all);
       ss.lastIdx=h.length;
@@ -12925,6 +12927,7 @@ var sys2=baseSys+(_syncGp2?_syncGp2+'\n\n':'')+(_syncWb2?'[世界书]\n'+_syncWb
 <div class="tms-section"><div class="tms-label">挂载世界书</div><div class="tms-group" id="tmsWbList"></div></div>
 <div class="tms-section"><div class="tms-label">记忆</div><div class="tms-group"><div class="tms-check" id="tmsMemBtn" style="cursor:pointer"><div class="tms-check-label">记忆管理</div><div style="color:rgba(80,150,255,.6);font-size:16px">></div></div></div><div class="tms-hint">时光机拥有独立记忆，不与聊天互通。</div></div>
 <button class="tms-btn" id="tmsSaveBtn">保存设置</button>
+<div class="tms-section" style="margin-top:22px"><div class="tms-label">导出</div><div class="tms-group"><div class="tms-check" id="tmExportBtn" style="cursor:pointer"><div class="tms-check-label">导出聊天记录</div><div style="color:rgba(80,150,255,.6);font-size:16px">›</div></div></div></div>
 <button class="tms-btn danger" id="tmsClearBtn" style="margin-top:10px">清空故事</button>
 </div>
 </div>
@@ -13439,14 +13442,12 @@ document.getElementById('tmsDelPreset').onclick=function(){
   }
 
   async function tmCheckAutoSum(){
-    var ss=tmGetSum();
-    if(!ss.autoEnabled)return;
-    var h=tmGetChat();
-    if((ss.lastIdx||0)>h.length)ss.lastIdx=h.length;
+    var h=tmGetChat();var ss=tmGetSum();
+    if((ss.lastIdx||0)>h.length)ss.lastIdx=0;
     var li=ss.lastIdx||0;
-    var newUserMsgs=0;
-    for(var i=li;i<h.length;i++){if(h[i].role==='user')newUserMsgs++}
-    if(newUserMsgs>=(ss.freq||15))await tmDoManualSum();
+    var newAiMsgs=0;
+    for(var i=li;i<h.length;i++){if(h[i].role==='assistant')newAiMsgs++}
+    if(newAiMsgs>=3)await tmDoManualSum();
   }
 
   var _origTmBuildSys=tmBuildSys;
@@ -13493,5 +13494,81 @@ document.getElementById('tmsDelPreset').onclick=function(){
     return baseSys+inject;
   };
 
+})();
+</script><script>
+(function(){
+  // 长叙事导出
+  var lnExpBtn=document.getElementById('lnExportBtn');
+  if(lnExpBtn)lnExpBtn.onclick=function(){
+    if(!curId)return;
+    var h=LS.get('lnChat_'+pid()+'_'+curId,'[]');
+    if(!h.length)return alert('暂无聊天记录');
+    var pe=getActivePersona();var userName=pe?pe.name:'用户';
+    var f=getFriends().find(function(x){return x.id===curId});
+    var chatName=f?f.name:'角色';
+    var lines=[];
+    lines.push('长叙事记录：'+userName+' 与 '+chatName);
+    lines.push('导出时间：'+new Date().toLocaleString('zh-CN'));
+    lines.push('');
+    lines.push('————————————————————————');
+    lines.push('');
+    h.forEach(function(m){
+      if(m.role==='user'){lines.push('[玩家推动] '+m.content);lines.push('')}
+      else{lines.push(m.content);lines.push('')}
+    });
+    var txt=lines.join('\n');
+    var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download=chatName+'_长叙事_'+new Date().toISOString().slice(0,10)+'.txt';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  };
+
+  // 时光机导出
+  var tmExpBtn=document.getElementById('tmExportBtn');
+  if(tmExpBtn)tmExpBtn.onclick=function(){
+    var cid=localStorage.getItem('_coupleCharId')||'';
+    var era=null;
+    try{
+      var sp=document.getElementById('tmStoryPage');
+      if(sp&&sp.classList.contains('active')){
+        var title=document.getElementById('tmStoryTitle').textContent||'';
+        if(title.indexOf('童年')>=0)era='childhood';
+        else if(title.indexOf('少年')>=0)era='youth';
+        else if(title.indexOf('未来')>=0)era='future';
+      }
+    }catch(e){}
+    if(!cid||!era){
+      var eras=['childhood','youth','future'];
+      var found=false;
+      for(var i=0;i<eras.length;i++){
+        var k='timeMachine_'+pid()+'_'+cid+'_'+eras[i];
+        var hh=LS.get(k,'[]');
+        if(hh.length){era=eras[i];found=true;break}
+      }
+      if(!found){alert('暂无聊天记录');return}
+    }
+    var key='timeMachine_'+pid()+'_'+cid+'_'+era;
+    var h=LS.get(key,'[]');
+    if(!h.length)return alert('暂无聊天记录');
+    var pe=getActivePersona();var userName=pe?pe.name:'穿越者';
+    var f=getFriends().find(function(x){return x.id===cid});
+    var chatName=f?f.name:'角色';
+    var eraName=era==='childhood'?'童年':(era==='youth'?'少年':'未来');
+    var lines=[];
+    lines.push('时光机记录：'+userName+' 穿越到 '+chatName+' 的'+eraName);
+    lines.push('导出时间：'+new Date().toLocaleString('zh-CN'));
+    lines.push('');
+    lines.push('————————————————————————');
+    lines.push('');
+    h.forEach(function(m){
+      if(m.role==='user'){lines.push('[穿越者] '+m.content);lines.push('')}
+      else{lines.push(m.content);lines.push('')}
+    });
+    var txt=lines.join('\n');
+    var blob=new Blob([txt],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download=chatName+'_时光机_'+eraName+'_'+new Date().toISOString().slice(0,10)+'.txt';
+    document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
+  };
 })();
 </script></body></html>
