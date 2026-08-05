@@ -2380,7 +2380,7 @@ function setNarrOn(id,v){if(v)localStorage.removeItem('narrOn_'+pid()+'_'+id);el
 
   if(s.platform==='mossland'){
     if(!s.apiUrl||!s.apiKey){alert('Mossland失败原因：地址或Key为空');return null}
-    try{var _mossBody={model:s.mossModel||'moss-tts',input:text.slice(0,2000),voice_id:voiceId||s.mossVoiceId||'',delivery_method:'base64',response_format:'mp3'};
+    try{var _mossBody={model:s.mossModel||'moss-tts',input:text.slice(0,2000),voice_id:voiceId||s.mossVoiceId||'',delivery_method:'audio',response_format:'mp3'};
       var _mossUrl=s.apiUrl.replace(/\/+$/,'');
       var r=null; try{r=await fetch(_mossUrl,{method:'POST',headers:{'Authorization':'Bearer '+cleanKey(s.apiKey),'Content-Type':'application/json'},body:JSON.stringify(_mossBody)})}catch(e2){} if(!r||!r.ok){try{r=await fetch('https://corsproxy.io/?'+encodeURIComponent(_mossUrl),{method:'POST',headers:{'Authorization':'Bearer '+cleanKey(s.apiKey),'Content-Type':'application/json'},body:JSON.stringify(_mossBody)})}catch(e3){}} if(!r||!r.ok){try{r=await fetch('https://thingproxy.freeboard.io/fetch/'+_mossUrl,{method:'POST',headers:{'Authorization':'Bearer '+cleanKey(s.apiKey),'Content-Type':'application/json'},body:JSON.stringify(_mossBody)})}catch(e4){}}
       if(!r||!r.ok){var _errTxt=r?await r.text().catch(function(){return ''}):'网络无法连接';alert('Mossland请求失败\n'+(r?'状态码：'+r.status+'\n':'')+'返回：'+_errTxt.slice(0,300));return null}
