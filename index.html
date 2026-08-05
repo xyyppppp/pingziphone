@@ -2380,29 +2380,22 @@ function setNarrOn(id,v){if(v)localStorage.removeItem('narrOn_'+pid()+'_'+id);el
 
 if(s.platform==='mossland'){
     if(!s.apiUrl||!s.apiKey){alert('Mossland失败原因：地址或Key为空');return null}
-    try{var _mossBody={model:s.mossModel||'moss-tts',input:text.slice(0,2000),voice_id:voiceId||s.mossVoiceId||'',response_format:'mp3'};
+    try{var _mossBody={model:s.mossModel||'moss-tts',input:text.slice(0,2000),voice_id:voiceId||s.mossVoiceId||'',delivery_method:'url',response_format:'mp3'};
     var _mossUrl=s.apiUrl.replace(/\/+$/,'');
     var r=null;
     try{r=await fetch(_mossUrl,{method:'POST',headers:{'Authorization':'Bearer '+cleanKey(s.apiKey),'Content-Type':'application/json'},body:JSON.stringify(_mossBody)})}catch(e2){}
     if(!r||!r.ok){try{r=await fetch('https://corsproxy.io/?'+encodeURIComponent(_mossUrl),{method:'POST',headers:{'Authorization':'Bearer '+cleanKey(s.apiKey),'Content-Type':'application/json'},body:JSON.stringify(_mossBody)})}catch(e3){}}
     if(!r||!r.ok){try{r=await fetch('https://thingproxy.freeboard.io/fetch/'+_mossUrl,{method:'POST',headers:{'Authorization':'Bearer '+cleanKey(s.apiKey),'Content-Type':'application/json'},body:JSON.stringify(_mossBody)})}catch(e4){}}
     if(!r||!r.ok){var _errTxt=r?await r.text().catch(function(){return ''}):'网络无法连接';alert('Mossland请求失败\n'+(r?'状态码：'+r.status+'\n':'')+'返回：'+_errTxt.slice(0,300));return null}
-    var ct=r.headers.get('content-type')||'';
-    if(ct.indexOf('audio')>=0||ct.indexOf('octet')>=0){
-        var blob=await r.blob();
-        return await blobToDataURL(blob);
-    }
     var d=await r.json();
-    if(d&&d.audio){return 'data:audio/mp3;base64,'+d.audio}
-    if(d&&d.data&&d.data.audio){return 'data:audio/mp3;base64,'+d.data.audio}
     if(d&&d.url){
         var ar=null;
         try{ar=await fetch(d.url)}catch(e5){}
-        if(!ar||!ar.ok){try{ar=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(d.url))}catch(e6){}}
-        if(!ar||!ar.ok){try{ar=await fetch('https://corsproxy.io/?'+encodeURIComponent(d.url))}catch(e7){}}
+        if(!ar||!ar.ok){try{ar=await fetch('https://pingziphone.2156650758.workers.dev/?url='+encodeURIComponent(d.url))}catch(e6){}}
+        if(!ar||!ar.ok){try{ar=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(d.url))}catch(e7){}}
         if(!ar||!ar.ok){alert('Mossland：音频下载失败\nURL:'+d.url.slice(0,100));return null}
-        var blob2=await ar.blob();
-        return await blobToDataURL(blob2);
+        var blob=await ar.blob();
+        return await blobToDataURL(blob);
     }
     alert('Mossland返回格式异常：'+JSON.stringify(d).slice(0,200));
     return null;
