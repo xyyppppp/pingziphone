@@ -2387,12 +2387,7 @@ function setNarrOn(id,v){if(v)localStorage.removeItem('narrOn_'+pid()+'_'+id);el
       var d=await r.json();
       if(d&&d.audio){return 'data:audio/mp3;base64,'+d.audio}
       if(d&&d.data&&d.data.audio){return 'data:audio/mp3;base64,'+d.data.audio}
-      if(d&&d.url){var ar=null;
-        try{ar=await fetch(d.url)}catch(e5){}
-        if(!ar||!ar.ok){try{ar=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(d.url))}catch(e6){}}
-        if(!ar||!ar.ok){try{ar=await fetch('https://corsproxy.io/?'+encodeURIComponent(d.url))}catch(e7){}}
-        if(!ar||!ar.ok){return d.url}
-        var blob=await ar.blob();return await blobToDataURL(blob)}
+      if(d&&d.url){return d.url}
       alert('Mossland返回格式异常：'+JSON.stringify(d).slice(0,200));
       return null;
     }catch(e){alert('Mossland异常：'+e.message);return null}
