@@ -2491,7 +2491,7 @@ function setNarrOn(id,v){if(v)localStorage.removeItem('narrOn_'+pid()+'_'+id);el
       if(src){
         document.querySelectorAll('.msg-voice-bar.playing').forEach(function(el){el.classList.remove('playing')});
         bar.classList.add('playing');
-        playVoice(src);
+        if(src.indexOf('http')===0){var _a=new Audio(src);_a.play().catch(function(){});_a.onended=function(){bar.classList.remove('playing')}}else{playVoice(src)}
       }
     },410);
   });
