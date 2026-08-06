@@ -415,7 +415,7 @@
 <div class="app-page" id="promptApp"><div class="nav-bar"><div class="nav-back" id="promptAppBack">‹</div><div class="nav-title">提示词</div><div class="nav-right" id="promptAddBtn">+</div></div><div class="settings-content"><div class="pt-hero"><div class="pt-hero-title">P R O M P T S</div><div class="pt-hero-sub">your rules</div></div><div id="promptList"></div></div></div>
 <div class="app-page" id="promptEditPage" style="z-index:5"><div class="nav-bar"><div class="nav-back" id="promptEditBack">‹</div><div class="nav-title" id="promptEditTitle">提示词</div><div class="nav-right"></div></div><div class="form-content"><div class="form-section"><div class="form-group"><div class="form-field"><label class="form-label">标题</label><input type="text" class="form-input" id="promptTitleInput"></div><div class="form-field"><label class="form-label">内容</label><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><button id="promptImportDocBtn" style="flex:none;padding:6px 14px;font-size:13px;background:#fff;color:#262626;border:1.5px solid #dbdbdb;border-radius:8px;font-weight:600;cursor:pointer">导入文档</button><span id="promptImportDocHint" style="font-size:12px;color:#8e8e8e"></span></div><input type="file" id="promptDocFileInput" accept=".txt,.md,.text,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none"><textarea class="form-textarea tall" id="promptContentInput"></textarea></div><div class="form-field"><div class="toggle-row"><span class="form-label" style="margin-bottom:0">启用</span><div class="toggle-switch on" id="promptEnableToggle"></div></div></div><div class="form-field"><label class="form-label">顺序（越小越优先）</label><select class="form-input" id="promptOrderSelect"></select></div></div></div><button class="form-button" id="savePromptBtn">保存</button><button class="form-button danger" id="deletePromptBtn" style="display:none">删除</button></div></div>
 <div class="app-page" id="worldBookApp"><div class="nav-bar"><div class="nav-back" id="worldBookBack">‹</div><div class="nav-title">世界书</div><div class="nav-right" id="wbAddBtn">+</div><div class="add-menu" id="wbAddMenu"><div class="add-menu-item" id="wbAddGlobalBtn" style="display:flex;align-items:center;gap:10px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>全局</div><div class="add-menu-item" id="wbAddLocalBtn" style="display:flex;align-items:center;gap:10px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg>局部</div></div></div><div class="settings-content"><div class="wb-hero"><div class="wb-hero-title">W O R L D  B O O K</div><div class="wb-hero-sub">lore & settings</div></div><div id="wbList"></div></div></div>
-<div class="app-page" id="wbEditPage" style="z-index:5"><div class="nav-bar"><div class="nav-back" id="wbEditBack">‹</div><div class="nav-title" id="wbEditTitle">世界书</div><div class="nav-right"></div></div><div class="form-content"><div class="form-section"><div class="form-group"><div class="form-field"><label class="form-label">名称</label><input type="text" class="form-input" id="wbNameInput"></div><div class="form-field"><label class="form-label">内容</label><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><button id="wbImportDocBtn" style="flex:none;padding:6px 14px;font-size:13px;background:#fff;color:#262626;border:1.5px solid #dbdbdb;border-radius:8px;font-weight:600;cursor:pointer">导入文档</button><span id="wbImportDocHint" style="font-size:12px;color:#8e8e8e"></span></div><input type="file" id="wbDocFileInput" accept=".txt,.md,.text,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none"><script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script><textarea class="form-textarea tall" id="wbContentInput"></textarea></div><div class="form-field"><div class="toggle-row"><span class="form-label" style="margin-bottom:0">全局注入</span><div class="toggle-switch on" id="wbGlobalToggle"></div></div></div><div class="form-field"><div class="toggle-row"><span class="form-label" style="margin-bottom:0">关键词触发</span><div class="toggle-switch" id="wbKeywordToggle"></div></div></div><div class="form-field" id="wbKeywordField" style="display:none"><label class="form-label">关键词(逗号分隔)</label><input type="text" class="form-input" id="wbKeywordsInput"></div><div class="form-field"><label class="form-label">注入位置</label><select class="form-input" id="wbPositionSelect"><option value="system_top">系统顶部（默认）</option><option value="after_char">人设之后</option><option value="depth">深度注入</option></select></div><div class="form-field" id="wbDepthField" style="display:none"><label class="form-label">深度（插入到最近第N条消息前）</label><input type="number" class="form-input" id="wbDepthInput" value="4" min="0" max="20"></div><div class="form-field" id="wbBindField" style="display:none"><label class="form-label">绑定角色（仅对TA生效）</label><select class="form-input" id="wbBindSelect"></select></div></div></div><button class="form-button" id="saveWbBtn">保存</button><button class="form-button danger" id="deleteWbBtn" style="display:none">删除</button></div></div>
+<div class="app-page" id="wbEditPage" style="z-index:5"><div class="nav-bar"><div class="nav-back" id="wbEditBack">‹</div><div class="nav-title" id="wbEditTitle">世界书</div><div class="nav-right"></div></div><div class="form-content"><div class="form-section"><div class="form-group"><div class="form-field"><label class="form-label">名称</label><input type="text" class="form-input" id="wbNameInput"></div><div class="form-field"><label class="form-label">内容</label><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><button id="wbImportDocBtn" style="flex:none;padding:6px 14px;font-size:13px;background:#fff;color:#262626;border:1.5px solid #dbdbdb;border-radius:8px;font-weight:600;cursor:pointer">导入文档</button><span id="wbImportDocHint" style="font-size:12px;color:#8e8e8e"></span></div><input type="file" id="wbDocFileInput" accept=".txt,.md,.text,.docx,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none"><script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.7/jsmediatags.min.js"></script><textarea class="form-textarea tall" id="wbContentInput"></textarea></div><div class="form-field"><div class="toggle-row"><span class="form-label" style="margin-bottom:0">全局注入</span><div class="toggle-switch on" id="wbGlobalToggle"></div></div></div><div class="form-field"><div class="toggle-row"><span class="form-label" style="margin-bottom:0">关键词触发</span><div class="toggle-switch" id="wbKeywordToggle"></div></div></div><div class="form-field" id="wbKeywordField" style="display:none"><label class="form-label">关键词(逗号分隔)</label><input type="text" class="form-input" id="wbKeywordsInput"></div><div class="form-field"><label class="form-label">注入位置</label><select class="form-input" id="wbPositionSelect"><option value="system_top">系统顶部（默认）</option><option value="after_char">人设之后</option><option value="depth">深度注入</option></select></div><div class="form-field" id="wbDepthField" style="display:none"><label class="form-label">深度（插入到最近第N条消息前）</label><input type="number" class="form-input" id="wbDepthInput" value="4" min="0" max="20"></div><div class="form-field" id="wbBindField" style="display:none"><label class="form-label">绑定角色（仅对TA生效）</label><select class="form-input" id="wbBindSelect"></select></div></div></div><button class="form-button" id="saveWbBtn">保存</button><button class="form-button danger" id="deleteWbBtn" style="display:none">删除</button></div></div>
 <div class="app-page" id="checkPhonePage"><div class="nav-bar"><div class="nav-back" id="checkPhoneBack">‹</div><div class="nav-title">查手机</div><div class="nav-right"></div></div><div class="cp-stage"><div class="cp-device"><div class="cp-notch"></div><div class="cp-screen" id="cpScreen"><div class="cp-island" id="cpIsland"><span id="cpIslandText">选择角色</span></div><div class="cp-statusbar"><span>9:41</span><span></span></div><div class="cp-grid"><div class="cp-widget cp-widget-tl" data-cpwidget="widget1"><span class="cp-widget-ph">点击上传</span></div><div class="cp-widget cp-widget-br" data-cpwidget="widget2"><span class="cp-widget-ph">点击上传</span></div><div class="cp-icon" id="cpWechatIcon"><div class="cp-ic" style="background:#07c160;border:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.7.9 3.2 2.3 4.2l-.6 1.8 2.1-1.1c.8.3 1.7.4 2.6.4.3 0 .7 0 1-.1-.2-.5-.3-1.1-.3-1.7 0-3.4 3.1-6.1 7-6.1.2 0 .5 0 .7 0C16.8 5.2 13.4 4 9.5 4zM7 8a.9.9 0 1 1 0 1.8A.9.9 0 0 1 7 8zm5 0a.9.9 0 1 1 0 1.8.9.9 0 0 1 0-1.8zM17.1 9c-3.2 0-5.8 2.2-5.8 5s2.6 5 5.8 5c.7 0 1.4-.1 2-.3l1.7.9-.5-1.5c1.2-.9 1.9-2.2 1.9-3.6 0-2.8-2.3-5-5.1-5zm-1.6 3a.8.8 0 1 1 0 1.6.8.8 0 0 1 0-1.6zm3.2 0a.8.8 0 1 1 0 1.6.8.8 0 0 1 0-1.6z"/></svg></div><span class="cp-lb">微信</span></div><div class="cp-icon" id="cpBrowserIcon"><div class="cp-ic" style="background:linear-gradient(180deg,#56ccf2,#2f80ed);border:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18M3 12h18"/></svg></div><span class="cp-lb">浏览器</span></div><div class="cp-icon" id="cpAlbumIcon"><div class="cp-ic" style="background:linear-gradient(135deg,#f5af19,#f12711);border:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M20 16l-4-4L7 19"/></svg></div><span class="cp-lb">相册</span></div><div class="cp-icon" id="cpNotesIcon"><div class="cp-ic" style="background:linear-gradient(180deg,#f9d423,#f6b93b);border:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg></div><span class="cp-lb">备忘录</span></div><div class="cp-icon" id="cpBeautyIcon"><div class="cp-ic" style="background:linear-gradient(135deg,#43e97b,#38f9d7);border:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6z"/></svg></div><span class="cp-lb">美化</span></div><div class="cp-icon" id="cpAlipayIcon"><div class="cp-ic" style="background:#1677ff;border:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10h18"/><circle cx="16" cy="14.5" r="1.3" fill="#fff" stroke="none"/></svg></div><span class="cp-lb">支付宝</span></div><div class="cp-icon" id="cpMusicIcon"><div class="cp-ic" style="background:linear-gradient(135deg,#fc5c7d,#e73827);border:none"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><span class="cp-lb">音乐</span></div><div class="cp-icon" id="cpDouyinIcon"><div class="cp-ic" style="background:#161823;border:none"><svg width="22" height="22" viewBox="0 0 48 48" fill="none"><path d="M33.3 8.3c-1.8-2-2.8-4.5-3-7.3h-5.8v26.6c0 2.8-2.2 5-5 5s-5-2.2-5-5 2.2-5 5-5c.5 0 1 .1 1.5.2v-5.9c-.5-.1-1-.1-1.5-.1-6 0-10.9 4.9-10.9 10.9S13.5 38.6 19.5 38.6s10.9-4.9 10.9-10.9V14.8c2.2 1.6 4.9 2.5 7.7 2.5V11.4c-1.8 0-3.5-.8-4.8-3.1z" fill="#fff"/></svg></div><span class="cp-lb">抖音</span></div><div class="cp-icon" id="cpHealthIcon"><div class="cp-ic" style="background:linear-gradient(135deg,#ff6b6b,#ee5a24);border:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.5z"/></svg></div><span class="cp-lb">健康</span></div></div></div></div></div></div><div class="app-page" id="cpBeautyApp"><div class="nav-bar"><div class="nav-back" id="cpBeautyBack">‹</div><div class="nav-title">美化</div><div class="nav-right"></div></div><div class="settings-content"><div class="settings-group"><div class="settings-item clickable" id="cpChangeWallpaperBtn"><div class="settings-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 16l-4-4L7 19"/></svg></div><div class="settings-item-label">修改壁纸</div><div class="settings-item-arrow">›</div></div><div class="settings-item clickable" id="cpIconSettingsBtn"><div class="settings-item-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div><div class="settings-item-label">修改图标</div><div class="settings-item-arrow">›</div></div></div><div class="form-hint" style="padding:12px 20px">这里的美化只作用于「查手机」里的这个模拟手机。</div></div><input type="file" id="cpWallpaperInput" accept="image/*" style="display:none"></div>
 <div class="app-page" id="cpIconSettingsPage"><div class="nav-bar"><div class="nav-back" id="cpIconSettingsBack">‹</div><div class="nav-title">修改图标</div><div class="nav-right"></div></div><div class="settings-content" id="cpIconSettingsList"></div><div class="form-hint" style="padding:12px 20px">点「上传」为对应图标设置相册图片，点「恢复」还原默认。</div><input type="file" id="cpIconUploadInput" accept="image/*" style="display:none"></div><div class="chat-app" id="cpWechatApp"><div class="chat-app-header"><div class="chat-app-back" id="cpWechatBack">‹</div><div class="chat-app-title" id="cpWechatTitle">微信</div><div class="chat-app-add" id="cpWxGenBtn" style="font-size:20px">☆</div></div><div class="chat-tab-content"><div class="chat-tab-page active"><div class="chat-list" id="cpChatList"></div><div class="empty-state" id="cpChatEmpty"><div class="empty-state-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg></div><div class="empty-state-text">点右上角 ☆ 生成聊天</div></div></div></div></div> <div class="chat-conversation" id="cpWxConv" style="z-index:62"><div class="conv-header"><div class="conv-back" id="cpWxConvBack">‹</div><div class="conv-title" id="cpWxConvTitle"></div><div class="conv-menu-btn" style="visibility:hidden">☰</div></div><div class="conv-messages" id="cpWxConvMsgs"></div><div class="conv-input-bar" id="cpWxInputBar" style="display:none"><textarea class="conv-input-field" id="cpWxInput" placeholder="用TA的手机发（TA可能会发现）..." rows="1"></textarea><button class="conv-send-btn" id="cpWxSendBtn">发送</button></div></div> <div class="app-page" id="cpNotesApp" style="background:#fff;z-index:63"><div class="nav-bar" style="background:#fbfbfb"><div class="nav-back" id="cpNotesBack" style="color:#e8a800">‹</div><div class="nav-title" id="cpNotesTitle" style="color:#000">备忘录</div><div class="nav-right" id="cpNotesGenBtn" style="cursor:pointer;font-size:20px;color:#e8a800">☆</div></div><div style="padding:10px 20px 4px;font-size:26px;font-weight:800;color:#000;background:#fff">备忘录</div><div class="settings-content" id="cpNotesList" style="background:#fff;padding:8px 0"></div><div class="empty-state" id="cpNotesEmpty" style="display:none"><div class="empty-state-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M6 3h8l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="12" y2="17"/></svg></div><div class="empty-state-text">点右上角 ☆ 生成备忘录</div></div></div> <div class="app-page" id="cpNoteDetail" style="background:#fff;z-index:64"><div class="nav-bar" style="background:#fbfbfb"><div class="nav-back" id="cpNoteDetailBack" style="color:#e8a800;width:auto;white-space:nowrap;font-size:15px;padding-right:8px">‹ 备忘录</div><div class="nav-title"></div><div class="nav-right"></div></div><div style="flex:1;overflow-y:auto;padding:16px 22px"><div id="cpNoteDetailTitle" style="font-size:22px;font-weight:700;margin-bottom:6px;color:#000"></div><div id="cpNoteDetailDate" style="font-size:12px;color:#999;margin-bottom:16px"></div><div id="cpNoteDetailBody" style="font-size:16px;line-height:1.7;color:#333;white-space:pre-wrap"></div></div></div><div class="app-page" id="cpBrowserApp" style="background:#f2f2f7;z-index:63"><div class="nav-bar" style="background:#f8f8f8"><div class="nav-back" id="cpBrowserBack" style="color:#007AFF">‹</div><div class="nav-title" id="cpBrowserTitle" style="color:#000">浏览器</div><div class="nav-right" id="cpBrowserGenBtn" style="cursor:pointer;font-size:20px;color:#007AFF">☆</div></div><div style="padding:10px 16px;background:#f8f8f8;border-bottom:1px solid #e0e0e0"><div style="background:#e3e3e8;border-radius:10px;padding:9px 14px;display:flex;align-items:center;gap:8px;color:#999;font-size:14px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>搜索或输入网站</div></div><div style="padding:14px 18px 4px;font-size:13px;color:#888">搜索记录</div><div class="settings-content" id="cpBrowserList" style="padding:4px 0;background:#f2f2f7"></div><div class="empty-state" id="cpBrowserEmpty" style="display:none"><div class="empty-state-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg></div><div class="empty-state-text">点右上角 ☆ 生成搜索记录</div></div></div><div class="app-page" id="cpAlipayApp" style="background:#f5f5f7;z-index:63"><div class="nav-bar" style="background:#1677ff"><div class="nav-back" id="cpAlipayBack" style="color:#fff">‹</div><div class="nav-title" id="cpAlipayTitle" style="color:#fff">支付宝</div><div class="nav-right" id="cpAlipayGenBtn" style="cursor:pointer;font-size:20px;color:#fff">☆</div></div><div style="background:linear-gradient(135deg,#1677ff,#3d8bff);padding:24px 22px 30px;color:#fff"><div style="font-size:14px;opacity:.9;margin-bottom:8px">总资产（元）</div><div id="cpAlipayBalance" style="font-size:38px;font-weight:700">--</div></div><div style="padding:14px 18px 6px;font-size:14px;color:#888;font-weight:600">账单</div><div class="settings-content" id="cpAlipayList" style="padding:0;background:#f5f5f7"></div><div class="empty-state" id="cpAlipayEmpty" style="display:none"><div class="empty-state-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.3" fill="#ccc" stroke="none"/></svg></div><div class="empty-state-text">点右上角 ☆ 生成账单</div></div></div><div class="app-page" id="cpAlipayDetail" style="background:#f5f5f7;z-index:64"><div class="nav-bar" style="background:#1677ff"><div class="nav-back" id="cpAlipayDetailBack" style="color:#fff">‹</div><div class="nav-title" style="color:#fff">账单详情</div><div class="nav-right"></div></div><div style="flex:1;overflow-y:auto"><div style="background:#fff;padding:30px 22px;text-align:center;border-bottom:8px solid #f0f0f2"><div id="cpAlipayDetailDesc" style="font-size:15px;color:#333;margin-bottom:14px"></div><div id="cpAlipayDetailAmount" style="font-size:34px;font-weight:700;color:#000"></div></div><div style="background:#fff;padding:8px 22px"><div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f2f2f2"><span style="color:#999;font-size:14px">当前状态</span><span id="cpAlipayDetailStatus" style="color:#333;font-size:14px"></span></div><div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f2f2f2"><span style="color:#999;font-size:14px">交易分类</span><span id="cpAlipayDetailType" style="color:#333;font-size:14px"></span></div><div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f2f2f2"><span style="color:#999;font-size:14px">交易时间</span><span id="cpAlipayDetailTime" style="color:#333;font-size:14px"></span></div><div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #f2f2f2"><span style="color:#999;font-size:14px">支付方式</span><span style="color:#333;font-size:14px">账户余额</span></div><div style="display:flex;justify-content:space-between;padding:14px 0"><span style="color:#999;font-size:14px">订单号</span><span id="cpAlipayDetailOrder" style="color:#333;font-size:13px"></span></div></div></div></div><div class="app-page" id="cpHealthApp" style="background:#000;z-index:63"><div class="nav-bar" style="background:#000;border-bottom:1px solid #222"><div class="nav-back" id="cpHealthBack" style="color:#fff">&#x2039;</div><div class="nav-title" style="color:#fff" id="cpHealthTitle">健康</div><div class="nav-right" id="cpHealthGenBtn" style="cursor:pointer;font-size:20px;color:#ff6b6b">&#9734;</div></div><div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#000;padding:0"><div id="cpHealthSummary" style="padding:20px 16px 10px"><div style="font-size:28px;font-weight:800;color:#fff;margin-bottom:4px" id="cpHealthOwnerName"></div><div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:20px">健康摘要</div><div id="cpHealthCards"></div></div></div></div><div class="app-page" id="cpHealthDetailPage" style="background:#000;z-index:64"><div class="nav-bar" style="background:#000;border-bottom:1px solid #222"><div class="nav-back" id="cpHealthDetailBack" style="color:#fff">&#x2039;</div><div class="nav-title" style="color:#fff" id="cpHealthDetailTitle">详情</div><div class="nav-right" id="cpHealthFwdBtn" style="cursor:pointer;color:#ff6b6b;font-size:15px;font-weight:500">转发</div></div><div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;background:#000;padding:20px 16px"><div id="cpHealthDetailBody" style="color:rgba(255,255,255,.88);font-size:15px;line-height:1.8;white-space:pre-wrap;word-break:break-word"></div></div></div><div class="app-page" id="cpAlbumApp" style="background:#000;z-index:63"><div class="nav-bar" style="background:#1c1c1e;border-bottom:1px solid #333"><div class="nav-back" id="cpAlbumBack" style="color:#0a84ff">‹</div><div class="nav-title" id="cpAlbumTitle" style="color:#fff">相册</div><div class="nav-right" id="cpAlbumGenBtn" style="cursor:pointer;font-size:20px;color:#0a84ff">☆</div></div><div style="flex:1;overflow-y:auto;background:#000;padding:2px"><div id="cpAlbumGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px"></div></div></div><div class="app-page" id="cpAlbumPreview" style="background:#000;z-index:64"><div class="nav-bar" style="background:#1c1c1e;border-bottom:1px solid #333"><div class="nav-back" id="cpAlbumPreviewBack" style="color:#0a84ff;width:auto;white-space:nowrap;font-size:14px;padding-right:8px">‹ 相册</div><div class="nav-title"></div><div class="nav-right"></div></div><div style="flex:1;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden"><div id="cpAlbumPreviewInner" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative"></div><div id="cpAlbumGenImgBtn" style="position:absolute;right:20px;bottom:24px;width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.15);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 16l-4-4L7 19"/></svg></div></div></div><div class="app-page" id="cpMusicApp" style="background:#f2f2f2;z-index:63"><div class="nav-bar" style="background:#fff"><div class="nav-back" id="cpMusicBack" style="color:#333">‹</div><div class="nav-title" id="cpMusicTitle" style="color:#000">音乐</div><div class="nav-right" id="cpMusicGenBtn" style="cursor:pointer;font-size:20px;color:#ec4141">☆</div></div><div style="flex:1;overflow-y:auto;background:#f2f2f2"><div style="background:linear-gradient(135deg,#3a3a4a,#2a2a35);padding:24px 20px 20px;color:#fff;display:flex;align-items:center;gap:16px"><div id="cpMusicAvatar" style="width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#555"></div><div style="flex:1;min-width:0"><div id="cpMusicName" style="font-size:18px;font-weight:600;margin-bottom:6px"></div><div id="cpMusicStats" style="font-size:12px;color:rgba(255,255,255,.7)"></div></div></div><div style="padding:14px 18px 6px;font-size:14px;color:#333;font-weight:600" id="cpMusicListTitle">创建的歌单</div><div id="cpMusicList" style="background:#f2f2f2"></div><div class="empty-state" id="cpMusicEmpty" style="display:none"><div class="empty-state-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div class="empty-state-text">点右上角 ☆ 生成歌单</div></div></div></div><div class="app-page" id="cpMusicDetail" style="background:#fff;z-index:64"><div class="nav-bar" style="background:#fff"><div class="nav-back" id="cpMusicDetailBack" style="color:#333">‹</div><div class="nav-title" style="color:#000">歌单</div><div class="nav-right"></div></div><div style="flex:1;overflow-y:auto"><div style="display:flex;gap:14px;padding:20px;background:linear-gradient(135deg,#4a4a55,#33333d);color:#fff"><div id="cpMusicDetailCover" style="width:100px;height:100px;border-radius:10px;overflow:hidden;flex-shrink:0;background:#666;display:flex;align-items:center;justify-content:center;font-size:40px">🎵</div><div style="flex:1;min-width:0"><div id="cpMusicDetailName" style="font-size:18px;font-weight:600;margin-bottom:8px;line-height:1.3"></div><div id="cpMusicDetailCreator" style="font-size:13px;color:rgba(255,255,255,.75);margin-bottom:8px"></div><div id="cpMusicDetailDesc" style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden"></div></div></div><div id="cpMusicDetailCount" style="padding:12px 18px;font-size:14px;color:#666;background:#fff;border-bottom:1px solid #f0f0f0"></div><div id="cpMusicSongList" style="background:#fff"></div></div></div><div class="chat-app" id="cpDouyinApp" style="background:#000"><div id="cpDyPages" style="width:100%;height:100%;display:flex;flex-direction:column"><div style="flex:1;position:relative;overflow:hidden"><div class="cpdy-tab-page active" id="cpDyTabHome" style="position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:14px">首页（仅展示）</div><div class="cpdy-tab-page" id="cpDyTabFriends" style="position:absolute;inset:0;background:#000;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.4);font-size:14px">朋友（仅展示）</div><div class="cpdy-tab-page" id="cpDyTabMsg" style="position:absolute;inset:0;background:#161823;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none"><div style="text-align:center;font-size:17px;font-weight:600;color:#fff;padding:14px 0 12px">消息</div><div class="chat-list" id="cpDyMsgList" style="background:#161823"></div><div class="empty-state" id="cpDyMsgEmpty" style="background:#161823;color:rgba(255,255,255,.5)"><div class="empty-state-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg></div><div class="empty-state-text">点消息页右上角生成</div></div></div><div class="cpdy-tab-page" id="cpDyTabMe" style="position:absolute;inset:0;background:#fafafa;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none"><div class="cpdy-me-header"><div class="cpdy-me-bg" id="cpdyMeBg"><div class="cpdy-me-back" id="cpdyBackBtn">x</div><div class="cpdy-me-user"><div class="cpdy-me-avatar" id="cpdyMeAvatar"></div><div><div class="cpdy-me-name" id="cpdyMeName"></div><div class="cpdy-me-dyid" id="cpdyMeDyid"></div></div></div></div><div class="cpdy-me-stats"><div class="cpdy-me-stat"><div class="cpdy-ms-num" id="cpdyMeLikes">0</div><div class="cpdy-ms-label">获赞</div></div><div class="cpdy-me-stat"><div class="cpdy-ms-num" id="cpdyMeFollow">0</div><div class="cpdy-ms-label">关注</div></div><div class="cpdy-me-stat"><div class="cpdy-ms-num" id="cpdyMeFans">0</div><div class="cpdy-ms-label">粉丝</div></div><div class="cpdy-me-edit" id="cpdyMeEdit">编辑主页</div></div><div class="cpdy-me-sign" id="cpdyMeSign"></div></div><div class="cpdy-me-tabs"><div class="cpdy-me-tab active" data-cpdytab="works">作品</div><div class="cpdy-me-tab" data-cpdytab="like">喜欢</div></div><div class="cpdy-me-content"><div class="cpdy-me-tabcon active" id="cpdyWorksGrid" data-cpdycon="works"></div><div class="cpdy-me-tabcon" id="cpdyLikeGrid" data-cpdycon="like"></div></div><div id="cpdyGenWorksBtn" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,.4);color:#fff;padding:7px 14px;border-radius:18px;font-size:13px;font-weight:600;cursor:pointer;z-index:5;letter-spacing:.5px">生成</div></div></div><div class="cpdy-navbar"><div class="cpdy-nav active" data-cpdynav="cpDyTabHome">首页</div><div class="cpdy-nav" data-cpdynav="cpDyTabFriends">朋友</div><div class="cpdy-nav" data-cpdynav="cpDyTabMsg">消息</div><div class="cpdy-nav" data-cpdynav="cpDyTabMe">我</div></div></div></div><div class="chat-conversation" id="cpDyConv" style="z-index:62;background:#f4f4f6"><div class="conv-header" style="background:#fff;border-bottom:1px solid #ededed"><div class="conv-back" id="cpDyConvBack">&#x2039;</div><div class="conv-title" id="cpDyConvTitle"></div><div class="conv-menu-btn" style="visibility:hidden"></div></div><div class="conv-messages" id="cpDyConvMsgs"></div><div class="conv-input-bar" id="cpDyInputBar" style="display:none"><textarea class="conv-input-field" id="cpDyInput" placeholder="用TA的手机发（TA可能会发现）..." rows="1"></textarea><button class="conv-send-btn" id="cpDySendBtn" style="background:#fe2c55">发送</button></div></div><div class="chat-conversation" id="cpDyStrangerPage" style="z-index:63;background:#f4f4f6"><div class="conv-header" style="background:#fff;border-bottom:1px solid #ededed"><div class="conv-back" id="cpDyStrangerBack">&#x2039;</div><div class="conv-title">陌生人消息</div><div class="conv-menu-btn" id="cpDyStrangerGenBtn" style="color:#fe2c55;font-size:20px;visibility:visible">&#9734;</div></div><div id="cpDyStrangerList" style="flex:1;overflow-y:auto;background:#f4f4f6"></div></div><div class="chat-conversation" id="cpDyStrangerConv" style="z-index:64;background:#f4f4f6"><div class="conv-header" style="background:#fff;border-bottom:1px solid #ededed"><div class="conv-back" id="cpDyStrangerConvBack">&#x2039;</div><div class="conv-title" id="cpDyStrangerConvTitle"></div><div class="conv-menu-btn" style="visibility:hidden"></div></div><div class="conv-messages" id="cpDyStrangerConvMsgs"></div><div class="conv-input-bar"><textarea class="conv-input-field" id="cpDyStrangerInput" placeholder="用TA的手机发（TA可能会发现）..." rows="1"></textarea><button class="conv-send-btn" id="cpDyStrangerSendBtn" style="background:#fe2c55">发送</button></div></div><div class="app-page" id="albumApp" style="background:#fff"><div class="nav-bar"><div class="nav-back" id="albumBack">‹</div><div class="nav-title">相册</div><div class="nav-right"></div></div><div id="albumCountBar" style="padding:8px 16px 4px;font-size:13px;color:#999;flex-shrink:0;background:#fff"></div><div id="albumGrid" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:2px;align-content:start;background:#fff"></div><div class="empty-state" id="albumEmpty" style="display:none"><div class="empty-state-icon"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 16l-4-4L7 19"/></svg></div><div class="empty-state-text">还没有图片<br>小手机里生成或发送过的图片<br>都会出现在这里</div></div></div> <div id="albumPreviewOverlay" style="position:fixed;inset:0;background:#000;z-index:2147483210;display:none;flex-direction:column"><div id="albumPreviewInner" style="flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:20px"></div><div style="display:flex;justify-content:center;gap:14px;padding:16px 0 calc(20px + env(safe-area-inset-bottom))"><button id="albumPreviewClose" style="padding:11px 30px;background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:22px;font-size:15px;cursor:pointer">关闭</button><button id="albumPreviewDel" style="padding:11px 30px;background:#FF3B30;color:#fff;border:none;border-radius:22px;font-size:15px;cursor:pointer">删除</button></div></div> <div class="app-page" id="relationApp"><div class="nav-bar"><div class="nav-back" id="relationBack">‹</div><div class="nav-title">关系</div><div class="nav-right"></div></div><div class="form-content"><div class="rel-hero"><div class="rel-hero-title">R E L A T I O N S</div><div class="rel-hero-sub">who's who</div></div><div class="form-section"><div class="form-section-header">选择人设（先选好人设再绑定关系）</div><div class="form-group" id="relationPersonaList"></div></div><div id="relationMain" style="display:none"><button class="form-button" id="relationAddBtn">＋ 添加关系</button><div class="form-section"><div class="form-section-header">已绑定关系</div><div class="form-group" id="relationList"></div></div><div class="form-hint"></div></div></div></div> <div class="msg-edit-overlay" id="relationEditOverlay" style="position:fixed;inset:0;z-index:99999"><div class="msg-edit-box" style="max-width:340px"><div style="font-size:17px;font-weight:600;margin-bottom:14px" id="relationEditTitle">添加关系</div><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px"><button id="relationNameA" style="flex:1;min-width:0;padding:10px 6px;border:1px solid #d1d1d6;border-radius:8px;background:#f5f5f7;font-size:14px;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">名字</button><input id="relationInput" style="flex:1.3;min-width:0;padding:10px 8px;border:1px solid #d1d1d6;border-radius:8px;font-size:14px;outline:none;text-align:center;font-family:inherit" placeholder="关系"><button id="relationNameB" style="flex:1;min-width:0;padding:10px 6px;border:1px solid #d1d1d6;border-radius:8px;background:#f5f5f7;font-size:14px;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">名字</button></div><div style="font-size:12px;color:#999;margin-bottom:14px;text-align:center;line-height:1.5">左边的人 和 右边的人 是什么关系<br>例如：填「恋人」「兄妹」「死对头」</div><div class="msg-edit-btns"><button class="msg-edit-cancel" id="relationEditCancel">取消</button><button id="relationEditDelete" style="display:none;padding:8px 16px;border:none;border-radius:6px;font-size:14px;font-weight:500;cursor:pointer;background:#FF3B30;color:#fff">删除</button><button class="msg-edit-save" id="relationEditSave">确认</button></div></div></div> <div class="app-page" id="askboxApp"><div class="nav-bar"><div class="nav-back" id="askboxBack">&#x2039;</div><div class="nav-title">提问箱</div><div class="nav-right" id="askboxMenuBtn">&#9776;</div></div><div class="ab-inner" id="askboxInner"><div class="ab-mailbox" id="askboxMailbox"><div class="ab-box"><div class="ab-slot" id="askboxSlot"></div><div class="ab-box-count" id="askboxCount"></div><div class="ab-box-label">提问箱</div></div></div></div><div class="ab-detail" id="askboxDetail"><div class="nav-bar" style="background:#f8f8fa;border-bottom:1px solid #e8e8e8"><div class="nav-back" id="askboxDetailBack">&#x2039;</div><div class="nav-title" style="color:#333;font-size:13px;letter-spacing:2px" id="askboxDetailTitle"></div><div class="nav-right"></div></div><div class="ab-detail-inner" id="askboxDetailInner"></div></div><div class="ab-menu-overlay" id="askboxMenuOverlay"><div class="ab-menu"><div class="ab-menu-item" id="abMenuAnswer">刷新提问</div><div class="ab-menu-item" id="abMenuVisitor">访客记录</div><div class="ab-menu-item" id="abMenuComment">留言板</div><div class="ab-menu-item" id="abMenuPost">公开发布</div><div class="ab-menu-item" style="color:#999" id="abMenuClose">关闭</div></div></div></div><!-- ===== bubble App ===== -->
 <style>
@@ -501,7 +501,7 @@
 <div class="conv-header"><div class="conv-back" id="convBack">‹</div><div class="conv-title" id="convTitle"></div><div class="conv-menu-btn" id="convMenuBtn">☰</div></div>
 <div class="conv-messages" id="convMessages"></div>
 <div class="conv-quote-bar" id="convQuoteBar"><div class="conv-quote-text" id="convQuoteText"></div><button class="conv-quote-close" id="convQuoteClose">×</button></div>
-<div class="conv-input-bar" id="convInputBar"><button class="conv-input-plus" id="convPlusBtn">+</button><button class="conv-input-plus" id="convStickerBtn" style="font-size:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><circle cx="9" cy="10" r="1" fill="#666" stroke="none"></circle><circle cx="15" cy="10" r="1" fill="#666" stroke="none"></circle><path d="M8.5 14.5c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8"></path></svg></button><div class="conv-plus-panel" id="convPlusMenu"><div class="cpp-pages"><div class="cpp-page"><div class="cpp-item" id="convRerollBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><polyline points="21 4 21 8 17 8"/></svg></div><span class="cpp-lb">重roll</span></div><div class="cpp-item" id="convTransferBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v11"/><path d="M14.5 9.3c0-1-1.1-1.7-2.5-1.7s-2.5.7-2.5 1.7 1.1 1.5 2.5 1.7 2.5.7 2.5 1.7-1.1 1.7-2.5 1.7-2.5-.7-2.5-1.7"/></svg></div><span class="cpp-lb">转账</span></div><div class="cpp-item" id="convGhostBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V10a7 7 0 0 1 14 0v10l-2.3-1.6L14.5 20l-2.5-1.6L9.5 20l-2.2-1.6z"/><circle cx="9.5" cy="10" r="1" fill="#5a5a5a" stroke="none"/><circle cx="14.5" cy="10" r="1" fill="#5a5a5a" stroke="none"/></svg></div><span class="cpp-lb">代发</span></div><div class="cpp-item" id="convPhotoBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 16l-4-4L7 19"/></svg></div><span class="cpp-lb">照片</span></div><div class="cpp-item" id="convVoiceMsgBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div><span class="cpp-lb">语音</span></div><div class="cpp-item" id="convNarrationBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="14" y2="17"/></svg></div><span class="cpp-lb">旁白</span></div><div class="cpp-item" id="convVoiceCallBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg></div><span class="cpp-lb">语音通话</span></div><div class="cpp-item" id="convVideoCallBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></svg></div><span class="cpp-lb">视频通话</span></div><div class="cpp-item" id="convCmdBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e6435a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 5 13h6l-1 9 8-11h-6l1-9z"/></svg></div><span class="cpp-lb">指令</span></div><div class="cpp-item" id="convLongNarrBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div><span class="cpp-lb">长叙事</span></div><div class="cpp-item" id="convFanwaiBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div><span class="cpp-lb">番外</span></div><div class="cpp-item" id="convLinkBtn" style="display:none"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15l6-6"/><path d="M11 6l1-1a4 4 0 0 1 6 6l-1 1"/><path d="M13 18l-1 1a4 4 0 0 1-6-6l1-1"/></svg></div><span class="cpp-lb">链接</span></div><div class="cpp-item" id="convAltRevealBtn" style="display:none"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e6435a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 18 0"/><path d="M8 12v-1a4 4 0 0 1 8 0v1"/><circle cx="8.5" cy="12.5" r="1.3"/><circle cx="15.5" cy="12.5" r="1.3"/><path d="M6 16.5c1.2 1 2.4 1.5 3.5 1.5M18 16.5c-1.2 1-2.4 1.5-3.5 1.5"/></svg></div><span class="cpp-lb">表明身份</span></div></div></div></div><textarea class="conv-input-field" id="convInput" placeholder="输入消息..." rows="1"></textarea><button class="conv-send-btn" id="convSendBtn">发送</button></div>
+<div class="conv-input-bar" id="convInputBar"><button class="conv-input-plus" id="convPlusBtn">+</button><button class="conv-input-plus" id="convStickerBtn" style="font-size:0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><circle cx="9" cy="10" r="1" fill="#666" stroke="none"></circle><circle cx="15" cy="10" r="1" fill="#666" stroke="none"></circle><path d="M8.5 14.5c1 1.2 2.2 1.8 3.5 1.8s2.5-.6 3.5-1.8"></path></svg></button><div class="conv-plus-panel" id="convPlusMenu"><div class="cpp-pages"><div class="cpp-page"><div class="cpp-item" id="convRerollBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><polyline points="21 4 21 8 17 8"/></svg></div><span class="cpp-lb">重roll</span></div><div class="cpp-item" id="convTransferBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v11"/><path d="M14.5 9.3c0-1-1.1-1.7-2.5-1.7s-2.5.7-2.5 1.7 1.1 1.5 2.5 1.7 2.5.7 2.5 1.7-1.1 1.7-2.5 1.7-2.5-.7-2.5-1.7"/></svg></div><span class="cpp-lb">转账</span></div><div class="cpp-item" id="convGhostBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V10a7 7 0 0 1 14 0v10l-2.3-1.6L14.5 20l-2.5-1.6L9.5 20l-2.2-1.6z"/><circle cx="9.5" cy="10" r="1" fill="#5a5a5a" stroke="none"/><circle cx="14.5" cy="10" r="1" fill="#5a5a5a" stroke="none"/></svg></div><span class="cpp-lb">代发</span></div><div class="cpp-item" id="convPhotoBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 16l-4-4L7 19"/></svg></div><span class="cpp-lb">照片</span></div><div class="cpp-item" id="convVoiceMsgBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg></div><span class="cpp-lb">语音</span></div><div class="cpp-item" id="convNarrationBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="14" y2="17"/></svg></div><span class="cpp-lb">旁白</span></div><div class="cpp-item" id="convVoiceCallBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L8 9.6a16 16 0 0 0 6 6l1.2-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6a2 2 0 0 1 1.7 2z"/></svg></div><span class="cpp-lb">语音通话</span></div><div class="cpp-item" id="convVideoCallBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></svg></div><span class="cpp-lb">视频通话</span></div><div class="cpp-item" id="convCmdBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e6435a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 5 13h6l-1 9 8-11h-6l1-9z"/></svg></div><span class="cpp-lb">指令</span></div><div class="cpp-item" id="convLongNarrBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div><span class="cpp-lb">长叙事</span></div><div class="cpp-item" id="convFanwaiBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg></div><span class="cpp-lb">番外</span></div><div class="cpp-item" id="convListenTogetherBtn"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><span class="cpp-lb">一起听</span></div><div class="cpp-item" id="convLinkBtn" style="display:none"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#5a5a5a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15l6-6"/><path d="M11 6l1-1a4 4 0 0 1 6 6l-1 1"/><path d="M13 18l-1 1a4 4 0 0 1-6-6l1-1"/></svg></div><span class="cpp-lb">链接</span></div><div class="cpp-item" id="convAltRevealBtn" style="display:none"><div class="cpp-ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e6435a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 18 0"/><path d="M8 12v-1a4 4 0 0 1 8 0v1"/><circle cx="8.5" cy="12.5" r="1.3"/><circle cx="15.5" cy="12.5" r="1.3"/><path d="M6 16.5c1.2 1 2.4 1.5 3.5 1.5M18 16.5c-1.2 1-2.4 1.5-3.5 1.5"/></svg></div><span class="cpp-lb">表明身份</span></div></div></div></div><textarea class="conv-input-field" id="convInput" placeholder="输入消息..." rows="1"></textarea><button class="conv-send-btn" id="convSendBtn">发送</button></div>
 <div class="sidebar-overlay" id="sidebarOverlay"><div class="sidebar-panel"><div class="sidebar-header">聊天设置</div><div class="sidebar-section" id="sidebarMemberSection" style="display:none"><div class="sidebar-section-title">成员管理</div><div class="sidebar-group" id="sidebarMembers"></div></div><div class="sidebar-section"><div class="sidebar-section-title">记忆</div><div class="form-hint" style="padding:0 14px 6px" id="memoryShareHint"></div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3 3 3 0 0 0 3-3V4a3 3 0 0 0-3 0z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3 3 3 0 0 1-3-3"/></svg></div><div class="sidebar-item-label" id="memoryShareLabel">记忆互通</div><div class="toggle-switch" id="memoryShareToggle"></div></div><div class="sidebar-item" id="memoryShareGroupItem" style="display:none"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 19c0-3 2.7-4.8 6-4.8s6 1.8 6 4.8"/><path d="M15.5 19c.2-2 1.6-3.2 3.5-3.2 1.6 0 3 .9 3.5 2.4"/></svg></div><div class="sidebar-item-label">和其他群互通</div><div class="toggle-switch" id="memoryShareGroupToggle"></div></div><div class="sidebar-item" id="sidebarMemorySummary" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><line x1="8" y1="12" x2="15" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div><div class="sidebar-item-label">总结记忆</div><div class="sidebar-item-arrow" style="color:#007AFF">›</div></div><div class="sidebar-item" id="sidebarContextBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="7" x2="20" y2="7"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="8" y1="17" x2="20" y2="17"/><circle cx="4" cy="7" r="1" fill="#555" stroke="none"/><circle cx="4" cy="12" r="1" fill="#555" stroke="none"/><circle cx="4" cy="17" r="1" fill="#555" stroke="none"/></svg></div><div class="sidebar-item-label">上下文</div><div class="sidebar-item-value" id="contextValue">60条</div><div class="sidebar-item-arrow">›</div></div><div class="sidebar-item" id="sidebarForceReadBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><polyline points="21 4 21 8 17 8"/></svg></div><div class="sidebar-item-label">强制读频率</div><div class="sidebar-item-value" id="forceReadValue">20次</div><div class="sidebar-item-arrow">›</div></div><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div><div class="sidebar-item-label">生成条数</div><input type="number" id="msgCountMin" min="0" max="20" style="width:44px;padding:6px;border:1px solid #d1d1d6;border-radius:6px;text-align:center;font-size:14px;outline:none"><span style="margin:0 6px;color:#999">-</span><input type="number" id="msgCountMax" min="0" max="20" style="width:44px;padding:6px;border:1px solid #d1d1d6;border-radius:6px;text-align:center;font-size:14px;outline:none"></div></div></div><div class="sidebar-section" id="sidebarOfflineSection" style="display:none"><div class="sidebar-section-title">模式</div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div><div class="sidebar-item-label">线下模式</div><div class="toggle-switch" id="offlineModeToggle"></div></div><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="14" y2="17"/></svg></div><div class="sidebar-item-label">旁白</div><div class="toggle-switch" id="narrationModeToggle"></div></div></div></div><div class="sidebar-section" id="sidebarAvatarChangeSection" style="display:none"><div class="sidebar-section-title">换头像</div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M6 21c0-3 2.7-5 6-5s6 2 6 5"/></svg></div><div class="sidebar-item-label">主动换头像</div><div class="toggle-switch" id="avatarChangeToggle"></div></div></div></div><div class="sidebar-section" id="sidebarCharAltSection"><div class="sidebar-section-title">角色小号</div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9c0-1.5 1-2.5 3-2.5 2.2 0 3.3 1 4.5 1s2.3-1 4.5-1c2 0 3 1 3 2.5 0 3.5-2.5 6-5 6-1.5 0-2.2-1-2.5-1s-1 1-2.5 1c-2.5 0-5-2.5-5-6z"/><circle cx="8" cy="11" r="1" fill="#555" stroke="none"/><circle cx="16" cy="11" r="1" fill="#555" stroke="none"/></svg></div><div class="sidebar-item-label">角色有小号</div><div class="toggle-switch" id="charAltToggle"></div></div></div></div><div class="sidebar-section" id="sidebarReverseCheckSection"><div class="sidebar-section-title">反查手机</div><div class="form-hint" style="padding:0 14px 6px"></div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><line x1="10" y1="18.5" x2="14" y2="18.5"/></svg></div><div class="sidebar-item-label">反查手机</div><div class="toggle-switch" id="reverseCheckToggle"></div></div><div class="sidebar-item" id="reverseCheckProbItem" style="display:none"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div class="sidebar-item-label">触发概率</div><div class="settings-item-value" id="reverseCheckProbValue">20%</div><div class="sidebar-item-arrow">></div></div></div></div><div class="sidebar-section" id="sidebarAutoMomentSection"><div class="sidebar-section-title">主动发朋友圈</div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.2"/></svg></div><div class="sidebar-item-label">主动发朋友圈</div><div class="toggle-switch" id="autoMomentToggle"></div></div><div class="sidebar-item" id="autoMomentFreqItem" style="display:none;cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div class="sidebar-item-label">发布频率</div><div class="settings-item-value" id="autoMomentFreqValue">每半小时</div><div class="sidebar-item-arrow">></div></div></div></div><div class="sidebar-section"><div class="sidebar-section-title">思维链</div><div class="form-hint" style="padding:0 14px 6px"></div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.5-1.3 4.5-3 5.5V17a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1v-2.5C6.3 13.5 5 11.5 5 9a7 7 0 0 1 7-7z"/><line x1="9" y1="21" x2="15" y2="21"/></svg></div><div class="sidebar-item-label">启用思维链</div><div class="toggle-switch" id="cotToggle"></div></div><div class="sidebar-item" id="sidebarCotBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div><div class="sidebar-item-label">编辑思考步骤</div><div class="sidebar-item-arrow">›</div></div></div></div><div class="sidebar-section"><div class="sidebar-section-title">外观</div><div class="sidebar-group"><div class="sidebar-item" id="chatBgBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10" r="1.5"/><path d="M21 16l-4-4L7 19"/></svg></div><div class="sidebar-item-label">聊天背景图</div><div class="sidebar-item-arrow" style="color:#007AFF">›</div></div><div class="sidebar-item" id="vcBgBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></svg></div><div class="sidebar-item-label">视频通话背景图</div><div class="sidebar-item-arrow" style="color:#007AFF">›</div></div><div class="sidebar-item" id="chatCssBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 0 0 0 18c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3.3-.4-.5-.8-.5-1.2 0-.8.7-1.5 1.5-1.5H17a4 4 0 0 0-4c0-4.4-4-8-9-8z"/><circle cx="7.5" cy="10.5" r="1.1" fill="#555" stroke="none"/><circle cx="12" cy="7.5" r="1.1" fill="#555" stroke="none"/><circle cx="16.5" cy="10.5" r="1.1" fill="#555" stroke="none"/></svg></div><div class="sidebar-item-label">聊天界面CSS</div><div class="sidebar-item-arrow" style="color:#007AFF">›</div></div><div class="sidebar-item" id="bubbleStyleBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-4 3v-3H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg></div><div class="sidebar-item-label">气泡样式</div><div class="sidebar-item-arrow" style="color:#007AFF">›</div></div></div></div><div class="sidebar-section"><div class="sidebar-section-title">拉黑</div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><div class="sidebar-item-label" style="color:#FF3B30">拉黑对方</div><div class="toggle-switch" id="blockToggle"></div></div></div></div><div class="sidebar-section"><div class="sidebar-section-title">心声</div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.5z"/></svg></div><div class="sidebar-item-label">心声</div><div class="toggle-switch" id="heartVoiceToggle"></div></div></div></div><div class="sidebar-section"><div class="sidebar-section-title">翻译</div><div class="sidebar-group"><div class="sidebar-item"><div class="sidebar-item-icon" style="font-size:16px;font-weight:700;color:#555;font-family:serif;letter-spacing:-1px">Aa</div><div class="sidebar-item-label">自动翻译</div><div class="toggle-switch" id="autoTransToggle"></div></div></div></div><input type="file" id="chatBgFileInput" accept="image/*" style="display:none"><div class="sidebar-section"><div class="sidebar-section-title">导出 / 导入</div><div class="sidebar-group"><div class="sidebar-item" id="exportChatRecordBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><div class="sidebar-item-label">导出聊天记录</div><div class="sidebar-item-arrow" style="color:#007AFF">下载</div></div><div class="sidebar-item" id="importChatRecordBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 14v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-5"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div class="sidebar-item-label">导入聊天记录</div><div class="sidebar-item-arrow" style="color:#007AFF">选择文件</div></div></div></div><input type="file" id="importChatFileInput" accept=".txt" style="display:none"><div class="sidebar-section"><div class="sidebar-section-title">危险操作</div><div class="sidebar-group"><div class="sidebar-item" id="clearChatBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 20 7"/><path d="M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/><path d="M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13"/></svg></div><div class="sidebar-item-label" style="color:#FF3B30">删除聊天记录</div></div><div class="sidebar-item" id="clearMemBtn" style="cursor:pointer"><div class="sidebar-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF3B30" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></div><div class="sidebar-item-label" style="color:#FF3B30">删除聊天记忆</div></div></div></div></div></div>
 <div class="sub-page" id="memorySummaryPage" style="z-index:75"><div class="nav-bar"><div class="nav-back" id="memorySummaryBack">‹</div><div class="nav-title">总结记忆</div><div class="nav-right"></div></div><div class="settings-content"><div class="settings-group" style="margin:10px 20px"><div class="settings-item"><div class="settings-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div class="settings-item-label">自动总结</div><div class="toggle-switch" id="autoSummaryToggle"></div></div><div class="form-field" id="autoSummaryFreqField" style="display:none"><label class="form-label">我发N条消息后自动总结</label><input type="number" class="form-input" id="autoSummaryFreq" value="20" min="5"></div></div><div class="settings-group" style="margin:10px 20px"><div class="settings-item" id="manualSummaryBtn" style="cursor:pointer"><div class="settings-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h8"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div><div class="settings-item-label">手动总结</div><div class="settings-item-arrow" id="manualSummaryStatus" style="color:#007AFF">执行</div></div><div class="settings-item" id="manualLongSumBtn" style="cursor:pointer"><div class="settings-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4v16H4z"/><path d="M10 4h4v16h-4z"/><path d="M16 4h4v16h-4z"/></svg></div><div class="settings-item-label">手动总结长期记忆</div><div class="settings-item-arrow" id="manualLongSumStatus" style="color:#007AFF">执行</div></div></div><div class="settings-group" style="margin:10px 20px"><div class="settings-item" id="memoryLibBtn" style="cursor:pointer"><div class="settings-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h4v16H4z"/><path d="M10 4h4v16h-4z"/><path d="M16 4h4v16h-4z"/></svg></div><div class="settings-item-label">记忆库</div><div class="settings-item-value" id="memoryCount">0条</div><div class="settings-item-arrow">›</div></div><div class="settings-item" id="longMemoryLibBtn" style="cursor:pointer"><div class="settings-item-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><line x1="8" y1="12" x2="15" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div><div class="settings-item-label">长期记忆库</div><div class="settings-item-value" id="longMemoryCount">0条</div><div class="settings-item-arrow">›</div></div></div></div></div></div></div>
 <div class="sub-page" id="memoryLibPage" style="z-index:76"><div class="nav-bar"><div class="nav-back" id="memoryLibBack">‹</div><div class="nav-title">记忆库</div><div class="nav-right" id="memoryAddBtn">+</div></div><div class="settings-content" id="memoryLibList"></div></div>
@@ -648,7 +648,7 @@ keys.forEach(function(k){
     try{renderCL()}catch(e){}
     try{updateMe()}catch(e){}
 });
-})();window.onerror=function(msg,url,line,col,err){alert('报错：'+msg+'\n行:'+line+' 列:'+col);return false};
+})();window.onerror=function(msg,url,line,col,err){console.error('报错：'+msg+'\n行:'+line+' 列:'+col);return true};
 function getTimeContext(){if(localStorage.getItem('timeAwareness')!=='1')return '';var now=new Date();var week=['日','一','二','三','四','五','六'];var h=now.getHours(),m=('0'+now.getMinutes()).slice(-2);var period='';if(h>=0&&h<6)period='凌晨';else if(h>=6&&h<9)period='早晨';else if(h>=9&&h<12)period='上午';else if(h>=12&&h<14)period='中午';else if(h>=14&&h<18)period='下午';else if(h>=18&&h<20)period='傍晚';else period='夜晚';return '[当前现实时间] '+now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日 星期'+week[now.getDay()]+' '+period+h+':'+m+'\n你和所有角色都能自然感知到这个时间。根据时段自然调整状态和话题（凌晨该困、早上刚醒、工作日可能在忙、周末放松等），但不要刻意报时，像真人一样对时间有隐性感知。'}
 const _cache={};const LS={get(k,d='[]'){if(_cache[k]!==undefined)return JSON.parse(JSON.stringify(_cache[k]));var raw=localStorage.getItem(k);var idbRaw=_idbData[k];if(idbRaw&&(!raw||idbRaw.length>raw.length))raw=idbRaw;if(raw==null&&!_idbReady)return JSON.parse(d);const v=JSON.parse(raw||d);_cache[k]=v;return JSON.parse(JSON.stringify(v))},set(k,v){_cache[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){if(_idbReady)IDB.put(k,JSON.stringify(v))}},rm(k){delete _cache[k];localStorage.removeItem(k)}};
 function pid(){return getActivePersonaId()||'default'}function migrateOldData(){if(!localStorage.getItem('chatFriends'))return;const p=pid();localStorage.setItem('chatFriends_'+p,localStorage.getItem('chatFriends'));localStorage.removeItem('chatFriends');if(localStorage.getItem('chatGroups')){localStorage.setItem('chatGroups_'+p,localStorage.getItem('chatGroups'));localStorage.removeItem('chatGroups')}const toMove=[];for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!k)continue;if(/^chat_[^_]/.test(k)&&!k.startsWith('chat_'+p+'_'))toMove.push(k);if(/^mem_[^_]/.test(k)&&!k.startsWith('mem_'+p+'_'))toMove.push(k);if(/^sumset_[^_]/.test(k)&&!k.startsWith('sumset_'+p+'_'))toMove.push(k)}toMove.forEach(k=>{const prefix=k.split('_')[0];const id=k.slice(prefix.length+1);localStorage.setItem(prefix+'_'+p+'_'+id,localStorage.getItem(k));localStorage.removeItem(k)})}migrateOldData();const BOT_ID='npc_bot'; const BOT_PERSONA='注意：线下模式可以加到群聊里面代替npc。\n这是一个负责扮演除了char和user之外其他npc的bot，负责走剧情，在群聊里扮演线下被提到的npc，注意是线下也就是见面以后，而不是线上通过手机聊天。是用来推动剧情发展的，输出格式为npcName：（情绪动作）说话内容。错误格式为bot：npcName：（情绪动作）说话内容。'; function ensureBot(){var fs=LS.get('chatFriends_'+pid());var bot=fs.find(function(x){return x.id===BOT_ID});if(!bot){fs.unshift({id:BOT_ID,name:'bot',persona:BOT_PERSONA,avatar:'https://i.postimg.cc/tg0pdJRx/1784737415802.jpg',appearance:'',faceRef:'',lastMsg:'',lastMsgTime:'',memoryShared:false,builtin:true});LS.set('chatFriends_'+pid(),fs)}else if(!bot.avatar){bot.avatar='https://i.postimg.cc/tg0pdJRx/1784737415802.jpg';LS.set('chatFriends_'+pid(),fs)}} function getFriends(){return LS.get('chatFriends_'+pid())}function saveFriendsData(f){LS.set('chatFriends_'+pid(),f)}function getPublicFriends(){return getFriends().filter(function(f){return f.id!==BOT_ID&&!f.isCharAlt})}function getGroups(){return LS.get('chatGroups_'+pid())}function saveGroups(g){LS.set('chatGroups_'+pid(),g)}function getChatHistory(id){if(window.curAlt&&window.curAlt.charId!=null&&String(id)===String(window.curAlt.charId))return LS.get('altchat_'+window.curAlt.id+'_'+id);return LS.get('chat_'+pid()+'_'+id)}function saveChatHistory(id,m){if(window.curAlt&&window.curAlt.charId!=null&&String(id)===String(window.curAlt.charId)){LS.set('altchat_'+window.curAlt.id+'_'+id,m);return}LS.set('chat_'+pid()+'_'+id,m)}function getApiSettings(){return LS.get('apiSettings','{}')}function getPersonas(){return LS.get('userPersonas')}function savePersonas(p){LS.set('userPersonas',p)}function getActivePersonaId(){return localStorage.getItem('activePersonaId')||''}function setActivePersonaId(id){
@@ -2398,27 +2398,27 @@ function setNarrOn(id,v){if(v)localStorage.removeItem('narrOn_'+pid()+'_'+id);el
   if(!s||!s.platform){alert('语音设置为空或无platform字段，当前值：'+JSON.stringify(s).slice(0,200));return null}
 
 if(s.platform==='mossland'){
-    if(!s.apiUrl||!s.apiKey){alert('Mossland失败原因：地址或Key为空');return null}
+    if(!s.apiUrl||!s.apiKey){console.log('Mossland：地址或Key为空');return null}
     try{var _mossBody={model:s.mossModel||'moss-tts',input:text.slice(0,2000),voice_id:voiceId||s.mossVoiceId||'',delivery_method:'url',response_format:'mp3'};
     var _mossUrl=s.apiUrl.replace(/\/+$/,'');
     var r=null;
     try{r=await fetch(_mossUrl,{method:'POST',headers:{'Authorization':'Bearer '+cleanKey(s.apiKey),'Content-Type':'application/json'},body:JSON.stringify(_mossBody)})}catch(e2){}
     if(!r||!r.ok){try{r=await fetch('https://corsproxy.io/?'+encodeURIComponent(_mossUrl),{method:'POST',headers:{'Authorization':'Bearer '+cleanKey(s.apiKey),'Content-Type':'application/json'},body:JSON.stringify(_mossBody)})}catch(e3){}}
     if(!r||!r.ok){try{r=await fetch('https://thingproxy.freeboard.io/fetch/'+_mossUrl,{method:'POST',headers:{'Authorization':'Bearer '+cleanKey(s.apiKey),'Content-Type':'application/json'},body:JSON.stringify(_mossBody)})}catch(e4){}}
-    if(!r||!r.ok){var _errTxt=r?await r.text().catch(function(){return ''}):'网络无法连接';alert('Mossland请求失败\n'+(r?'状态码：'+r.status+'\n':'')+'返回：'+_errTxt.slice(0,300));return null}
+    if(!r||!r.ok){var _errTxt=r?await r.text().catch(function(){return ''}):'网络无法连接';console.log('Mossland请求失败');return null}
     var d=await r.json();
     if(d&&d.url){
         var ar=null;
         try{ar=await fetch(d.url)}catch(e5){}
         if(!ar||!ar.ok){try{ar=await fetch('https://pingziphone.2156650758.workers.dev/?url='+encodeURIComponent(d.url))}catch(e6){}}
         if(!ar||!ar.ok){try{ar=await fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(d.url))}catch(e7){}}
-        if(!ar||!ar.ok){alert('Mossland：音频下载失败\nURL:'+d.url.slice(0,100));return null}
+        if(!ar||!ar.ok){console.log('Mossland：音频下载失败');return null}
         var blob=await ar.blob();
         return await blobToDataURL(blob);
     }
-    alert('Mossland返回格式异常：'+JSON.stringify(d).slice(0,200));
+    console.log('Mossland返回格式异常');
     return null;
-    }catch(e){alert('Mossland异常：'+e.message);return null}
+    }catch(e){console.log('Mossland异常：'+e.message);return null}
 }
   if(!s.apiUrl||!s.apiKey)return null;
   var url=s.apiUrl.replace(/\/+$/,'');
@@ -14650,4 +14650,1309 @@ if(lastUser){
 </script><script>(function(){function bsKey(){return 'bubbleStyle_'+pid()+'_'+curId}
 function bsGet(){return LS.get(bsKey(),'null')}
 function bsSetData(o){LS.set(bsKey(),o)}
-function bsRm(){LS.rm(bsKey())}function bsApply(){var el=document.getElementById('bubbleStyleCSS');if(!el){el=document.createElement('style');el.id='bubbleStyleCSS';document.head.appendChild(el)}if(!curId){el.textContent='';return}var customCss=localStorage.getItem('chatCss_'+pid()+'_'+curId);if(customCss&&customCss.trim()){el.textContent='';return}var s=bsGet();if(!s){el.textContent='';return}var css='';if(s.size&&s.size!==15)css+='#chatConversation .msg-bubble{font-size:'+s.size+'px !important}#chatConversation .conv-messages.offline-mode .msg-row.received .msg-bubble{font-size:'+s.size+'px !important}';if(s.myColor&&s.myColor!=='#95ec69')css+='#chatConversation .msg-row.sent .msg-bubble{background:'+s.myColor+' !important}';if(s.otherColor&&s.otherColor!=='#ffffff')css+='#chatConversation .msg-row.received .msg-bubble{background:'+s.otherColor+' !important}';if(s.myTextColor&&s.myTextColor!=='#000000')css+='#chatConversation .msg-row.sent .msg-bubble{color:'+s.myTextColor+' !important}';if(s.otherTextColor&&s.otherTextColor!=='#000000')css+='#chatConversation .msg-row.received .msg-bubble{color:'+s.otherTextColor+' !important}';el.textContent=css}document.getElementById('bubbleStyleBtn').onclick=function(){sidebarOverlay.classList.remove('show');setTimeout(function(){var s=bsGet()||{size:15,myColor:'#95ec69',otherColor:'#ffffff',myTextColor:'#000000',otherTextColor:'#000000'};document.getElementById('bsSize').value=s.size||15;document.getElementById('bsSizeVal').textContent=(s.size||15)+'px';document.getElementById('bsMyColor').value=s.myColor||'#95ec69';document.getElementById('bsMyColorText').value=s.myColor||'#95ec69';document.getElementById('bsOtherColor').value=s.otherColor||'#ffffff';document.getElementById('bsOtherColorText').value=s.otherColor||'#ffffff';document.getElementById('bsMyTextColor').value=s.myTextColor||'#000000';document.getElementById('bsMyTextColorText').value=s.myTextColor||'#000000';document.getElementById('bsOtherTextColor').value=s.otherTextColor||'#000000';document.getElementById('bsOtherTextColorText').value=s.otherTextColor||'#000000';document.getElementById('bubbleStyleOverlay').classList.add('show')},300)};document.getElementById('bsSize').oninput=function(){document.getElementById('bsSizeVal').textContent=this.value+'px'};document.getElementById('bsMyColor').oninput=function(){document.getElementById('bsMyColorText').value=this.value};document.getElementById('bsMyColorText').oninput=function(){var v=this.value.trim();if(/^#[0-9a-fA-F]{3,8}$/.test(v))document.getElementById('bsMyColor').value=v.length===7?v:v};document.getElementById('bsOtherColor').oninput=function(){document.getElementById('bsOtherColorText').value=this.value};document.getElementById('bsOtherColorText').oninput=function(){var v=this.value.trim();if(/^#[0-9a-fA-F]{3,8}$/.test(v))document.getElementById('bsOtherColor').value=v.length===7?v:v};document.getElementById('bsMyTextColor').oninput=function(){document.getElementById('bsMyTextColorText').value=this.value};document.getElementById('bsMyTextColorText').oninput=function(){var v=this.value.trim();if(/^#[0-9a-fA-F]{3,8}$/.test(v))document.getElementById('bsMyTextColor').value=v.length===7?v:v};document.getElementById('bsOtherTextColor').oninput=function(){document.getElementById('bsOtherTextColorText').value=this.value};document.getElementById('bsOtherTextColorText').oninput=function(){var v=this.value.trim();if(/^#[0-9a-fA-F]{3,8}$/.test(v))document.getElementById('bsOtherTextColor').value=v.length===7?v:v};document.getElementById('bsCancel').onclick=function(){document.getElementById('bubbleStyleOverlay').classList.remove('show')};document.getElementById('bsSave').onclick=function(){bsSetData({size:parseInt(document.getElementById('bsSize').value)||15,myColor:document.getElementById('bsMyColor').value,otherColor:document.getElementById('bsOtherColor').value,myTextColor:document.getElementById('bsMyTextColor').value,otherTextColor:document.getElementById('bsOtherTextColor').value});bsApply();document.getElementById('bubbleStyleOverlay').classList.remove('show');favToast('气泡样式已保存')};document.getElementById('bsReset').onclick=function(){bsRm();bsApply();document.getElementById('bubbleStyleOverlay').classList.remove('show');favToast('已恢复默认')};var _bsOrigRenderMsgs=renderMsgs;renderMsgs=function(){_bsOrigRenderMsgs.apply(this,arguments);try{bsApply()}catch(e){}}})();</script></html>
+function bsRm(){LS.rm(bsKey())}function bsApply(){var el=document.getElementById('bubbleStyleCSS');if(!el){el=document.createElement('style');el.id='bubbleStyleCSS';document.head.appendChild(el)}if(!curId){el.textContent='';return}var customCss=localStorage.getItem('chatCss_'+pid()+'_'+curId);if(customCss&&customCss.trim()){el.textContent='';return}var s=bsGet();if(!s){el.textContent='';return}var css='';if(s.size&&s.size!==15)css+='#chatConversation .msg-bubble{font-size:'+s.size+'px !important}#chatConversation .conv-messages.offline-mode .msg-row.received .msg-bubble{font-size:'+s.size+'px !important}';if(s.myColor&&s.myColor!=='#95ec69')css+='#chatConversation .msg-row.sent .msg-bubble{background:'+s.myColor+' !important}';if(s.otherColor&&s.otherColor!=='#ffffff')css+='#chatConversation .msg-row.received .msg-bubble{background:'+s.otherColor+' !important}';if(s.myTextColor&&s.myTextColor!=='#000000')css+='#chatConversation .msg-row.sent .msg-bubble{color:'+s.myTextColor+' !important}';if(s.otherTextColor&&s.otherTextColor!=='#000000')css+='#chatConversation .msg-row.received .msg-bubble{color:'+s.otherTextColor+' !important}';el.textContent=css}document.getElementById('bubbleStyleBtn').onclick=function(){sidebarOverlay.classList.remove('show');setTimeout(function(){var s=bsGet()||{size:15,myColor:'#95ec69',otherColor:'#ffffff',myTextColor:'#000000',otherTextColor:'#000000'};document.getElementById('bsSize').value=s.size||15;document.getElementById('bsSizeVal').textContent=(s.size||15)+'px';document.getElementById('bsMyColor').value=s.myColor||'#95ec69';document.getElementById('bsMyColorText').value=s.myColor||'#95ec69';document.getElementById('bsOtherColor').value=s.otherColor||'#ffffff';document.getElementById('bsOtherColorText').value=s.otherColor||'#ffffff';document.getElementById('bsMyTextColor').value=s.myTextColor||'#000000';document.getElementById('bsMyTextColorText').value=s.myTextColor||'#000000';document.getElementById('bsOtherTextColor').value=s.otherTextColor||'#000000';document.getElementById('bsOtherTextColorText').value=s.otherTextColor||'#000000';document.getElementById('bubbleStyleOverlay').classList.add('show')},300)};document.getElementById('bsSize').oninput=function(){document.getElementById('bsSizeVal').textContent=this.value+'px'};document.getElementById('bsMyColor').oninput=function(){document.getElementById('bsMyColorText').value=this.value};document.getElementById('bsMyColorText').oninput=function(){var v=this.value.trim();if(/^#[0-9a-fA-F]{3,8}$/.test(v))document.getElementById('bsMyColor').value=v.length===7?v:v};document.getElementById('bsOtherColor').oninput=function(){document.getElementById('bsOtherColorText').value=this.value};document.getElementById('bsOtherColorText').oninput=function(){var v=this.value.trim();if(/^#[0-9a-fA-F]{3,8}$/.test(v))document.getElementById('bsOtherColor').value=v.length===7?v:v};document.getElementById('bsMyTextColor').oninput=function(){document.getElementById('bsMyTextColorText').value=this.value};document.getElementById('bsMyTextColorText').oninput=function(){var v=this.value.trim();if(/^#[0-9a-fA-F]{3,8}$/.test(v))document.getElementById('bsMyTextColor').value=v.length===7?v:v};document.getElementById('bsOtherTextColor').oninput=function(){document.getElementById('bsOtherTextColorText').value=this.value};document.getElementById('bsOtherTextColorText').oninput=function(){var v=this.value.trim();if(/^#[0-9a-fA-F]{3,8}$/.test(v))document.getElementById('bsOtherTextColor').value=v.length===7?v:v};document.getElementById('bsCancel').onclick=function(){document.getElementById('bubbleStyleOverlay').classList.remove('show')};document.getElementById('bsSave').onclick=function(){bsSetData({size:parseInt(document.getElementById('bsSize').value)||15,myColor:document.getElementById('bsMyColor').value,otherColor:document.getElementById('bsOtherColor').value,myTextColor:document.getElementById('bsMyTextColor').value,otherTextColor:document.getElementById('bsOtherTextColor').value});bsApply();document.getElementById('bubbleStyleOverlay').classList.remove('show');favToast('气泡样式已保存')};document.getElementById('bsReset').onclick=function(){bsRm();bsApply();document.getElementById('bubbleStyleOverlay').classList.remove('show');favToast('已恢复默认')};var _bsOrigRenderMsgs=renderMsgs;renderMsgs=function(){_bsOrigRenderMsgs.apply(this,arguments);try{bsApply()}catch(e){}}})();</script><style>
+#muApp{position:fixed;inset:0;background:rgba(225,236,248,0.55);-webkit-backdrop-filter:blur(35px) saturate(180%);backdrop-filter:blur(35px) saturate(180%);z-index:2000;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94);box-sizing:border-box}
+#muApp.active{transform:translateX(0)!important}
+#muApp::before,#muFull::before,.mu-pl-pg::before,.mls-panel::before,#muLyric::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E")}
+.mu-head{display:flex;align-items:center;padding:calc(env(safe-area-inset-top)+10px) 14px 8px;background:transparent;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.4)}
+.mu-head .mu-bk, .mf-down, .mls-close, .ml-close, #muPlBack{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:26px;color:#0058A3;font-weight:300}
+.mu-head .mu-ht, .mf-title, .mls-head-title, #muAddPlTitle{flex:1;text-align:center;font-size:15px;font-weight:600;color:#1A1A1A;font-family:"Segoe UI",sans-serif;letter-spacing:.5px}
+.mu-head .mu-hr{width:36px}
+.mu-tabs{display:flex;background:transparent;border-bottom:1px solid rgba(255,255,255,0.4);flex-shrink:0;padding:0 16px}
+.mu-tab{flex:1;text-align:center;padding:12px 0;font-size:13px;color:rgba(0,0,0,0.5);cursor:pointer;position:relative;font-weight:500;font-family:"Segoe UI",sans-serif;box-sizing:border-box;}
+.mu-tab.on{color:#0058A3;font-weight:600}
+.mu-tab.on::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:24px;height:3px;background:#0058A3;border-radius:2px}
+.mu-body{flex:1;overflow:hidden;position:relative;padding-bottom:64px}
+.mu-pg{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:none;background:transparent;padding-bottom:64px}
+.mu-pg.on{display:block}
+.mu-search-bar{display:flex;align-items:center;margin:16px;padding:10px 14px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,1);border-bottom:1px solid rgba(255,255,255,1);border-radius:5px;gap:8px;box-shadow:inset 0 1px 3px rgba(0,0,0,0.01)}
+.mu-search-bar:focus-within{border-bottom-color:rgba(255,255,255,1)}
+.mu-search-bar svg{flex-shrink:0;stroke:#666;width:17px;height:17px}
+.mu-search-bar input{flex:1;border:none;outline:none;background:transparent;font-size:14px;color:#111;font-family:"Segoe UI",sans-serif}
+.mu-search-bar input::placeholder{color:rgba(0,0,0,0.4)}
+.mu-slist{padding:0 16px}
+.mu-song, .mu-pl-card{display:flex;align-items:center;padding:10px;gap:12px;cursor:pointer;background:rgba(255,255,255,0.25);border:1px solid rgba(255,255,255,0.6);margin:0 0 8px;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,0.01);transition:all .1s}
+.mu-pl-card{margin:0 16px 8px}
+.mu-song:active, .mu-pl-card:active{background:rgba(255,255,255,0.5);transform:scale(0.99)}
+.mu-song-cover, .mu-pl-cover, .mu-mini-cover{width:42px;height:42px;border-radius:4px;background:rgba(255,255,255,0.8);border:1px solid rgba(0,0,0,0.06);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.mu-song-cover img, .mu-mini-cover img{width:100%;height:100%;object-fit:cover}
+.mu-pl-cover{font-size:20px;color:#0058A3}
+.mu-song-info{flex:1;min-width:0}
+.mu-song-name, .mu-pl-name, .mu-mini-name{font-size:14px;color:#1A1A1A;font-weight:600;font-family:"Segoe UI",sans-serif;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.mu-song-artist, .mu-pl-count, .mu-mini-artist{font-size:12px;color:rgba(0,0,0,0.55);margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.mu-song-add, .mf-fwd, .mf-extra-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:#0058A3;font-size:22px;cursor:pointer;flex-shrink:0;border-radius:4px;background:transparent;border:1px solid transparent;transition:all .1s}
+.mu-song-add:active, .mf-fwd:active, .mf-extra-btn:active{background:rgba(255,255,255,0.3);border-color:rgba(255,255,255,0.5)}
+.mu-song.playing{border-left:3px solid #0058A3;background:rgba(255,255,255,0.6)}
+.mu-empty{padding:60px 20px;text-align:center;color:rgba(0,0,0,0.4);font-size:13px;line-height:1.8}
+.mu-sec-title{font-size:18px;font-weight:600;color:#1A1A1A;padding:24px 16px 16px;font-family:"Segoe UI",sans-serif;letter-spacing:.3px}
+.mu-pl-pg{position:fixed;inset:0;background:rgba(225,235,248,0.55)!important;backdrop-filter:blur(35px) saturate(160%);-webkit-backdrop-filter:blur(35px) saturate(160%);z-index:2050;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .35s cubic-bezier(.25,.46,.45,.94)}
+.mu-pl-pg.active{transform:translateX(0)!important}
+.mu-mini{position:fixed;bottom:10px;left:12px;right:12px;z-index:2145;background:rgba(242,246,252,0.6);backdrop-filter:blur(25px) saturate(150%);-webkit-backdrop-filter:blur(25px) saturate(150%);border-radius:8px;border:1px solid rgba(255,255,255,0.9);display:none;align-items:center;gap:12px;padding:8px 12px;box-shadow:0 4px 14px rgba(0,0,0,0.06);cursor:pointer}
+.mu-mini.show{display:flex}
+.mu-mini-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:4px;cursor:pointer;flex-shrink:0;background:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.5);transition:background .1s}
+.mu-mini-btn:active{background:rgba(255,255,255,0.7)}
+.mu-mini-btn svg path{fill:#0058A3!important}
+#muFull{position:fixed;inset:0;z-index:2060;background:rgba(220,230,245,0.6)!important;backdrop-filter:blur(45px) saturate(180%);-webkit-backdrop-filter:blur(45px) saturate(180%);display:flex;flex-direction:column;transform:translateY(100%);transition:transform .4s cubic-bezier(.25,.46,.45,.94);overflow:hidden}
+#muFull.active{transform:translateY(0)!important}
+.mf-bg{position:absolute;inset:-40px;background-size:cover;background-position:center;filter:blur(50px) saturate(1.2);opacity:.15;z-index:0}
+.mf-head{position:relative;z-index:2;display:flex;align-items:center;padding:calc(env(safe-area-inset-top)+12px) 16px 8px;border-bottom:1px solid rgba(255,255,255,0.2)}
+.mf-head .mf-fwd svg{stroke:#7AB8E0}
+.mf-center{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 30px;min-height:0}
+.mf-disc{width:260px;height:260px;border-radius:50%;overflow:hidden;background:rgba(255,255,255,0.6);box-shadow:0 8px 30px rgba(0,0,0,0.08);cursor:pointer;flex-shrink:0;position:relative;border:1px solid rgba(255,255,255,0.8)}
+.mf-disc::after{display:none}
+.mf-disc.spinning{animation:none}
+.mf-disc img{width:100%;height:100%;object-fit:cover;border-radius:4px}
+.mf-song-name{font-size:22px;font-weight:700;color:#1A1A1A;margin-top:28px;text-align:center;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-family:"Segoe UI",sans-serif}
+.mf-song-artist{font-size:14px;color:rgba(0,0,0,0.6);margin-top:4px;text-align:center}
+.mf-controls{position:relative;z-index:2;padding:0 30px calc(30px + env(safe-area-inset-bottom));flex-shrink:0}
+.mf-progress{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.mf-progress input[type=range]{flex:1;height:6px;-webkit-appearance:none;background:rgba(255,255,255,0.4);border:1px solid rgba(0,0,0,0.08);border-radius:3px;outline:none}
+.mf-progress input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#0058A3;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,0.1)}
+.mf-progress span{font-size:12px;color:rgba(0,0,0,0.6);min-width:32px;font-family:monospace}
+.mf-btns{display:flex;align-items:center;justify-content:center;gap:35px}
+.mf-btn{width:46px;height:46px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:6px;background:rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.6);transition:background .1s}
+.mf-btn:active{background:rgba(255,255,255,0.7)}
+.mf-btn svg path{fill:#333!important}
+.mf-btn-play{width:56px;height:56px;background:#0058A3;border:1px solid #004d80;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,90,163,0.25);transition:transform .1s}
+.mf-btn-play:active{transform:scale(0.96)}
+.mf-btn-play svg path{fill:#fff!important}
+.mf-extra{display:flex;justify-content:space-evenly;margin-top:24px;padding:0 20px}
+.mf-extra-btn{color:#333!important}
+#muLyric{position:fixed;inset:0;z-index:2070;background:rgba(225,236,248,0.78)!important;backdrop-filter:blur(30px) saturate(150%);-webkit-backdrop-filter:blur(30px) saturate(150%);display:none;flex-direction:column;padding:calc(env(safe-area-inset-top)+16px) 20px calc(20px + env(safe-area-inset-bottom))}
+#muLyric.active{display:flex}
+.ml-body{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:14px;padding:40vh 0}
+.ml-line{font-size:16px;color:rgba(0,0,0,0.35);text-align:center;line-height:1.6;transition:all .3s;font-family:"Segoe UI",sans-serif}
+.ml-line.cur{color:#0058A3;font-size:22px;font-weight:700;text-shadow:0 0 12px rgba(255,255,255,0.8)}
+#muListen{position:fixed;inset:0;z-index:2080;display:none;flex-direction:column}
+#muListen.active{display:flex}
+.mls-mask{position:absolute;inset:0;background:rgba(0,0,0,0.1);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.mls-panel{position:absolute;bottom:0;left:0;right:0;height:75%;background:rgba(238,245,252,0.8);-webkit-backdrop-filter:blur(30px) saturate(150%);backdrop-filter:blur(30px) saturate(150%);border-radius:12px 12px 0 0;display:flex;flex-direction:column;z-index:2;border-top:1px solid rgba(255,255,255,0.9);box-shadow:0 -5px 30px rgba(0,0,0,0.1)}
+.mls-head{display:flex;align-items:center;padding:16px;border-bottom:1px solid rgba(255,255,255,0.6);flex-shrink:0;background:rgba(255,255,255,0.2);border-radius:12px 12px 0 0}
+.mls-head-title{flex:1;text-align:center;font-size:15px;font-weight:600;color:#1A1A1A;font-family:"Segoe UI";letter-spacing:.3px}
+.mls-msgs{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px;display:flex;flex-direction:column;gap:12px}
+.mls-msg{max-width:80%;padding:10px 14px;border-radius:6px;font-size:14px;line-height:1.6;word-break:break-word;border:1px solid rgba(255,255,255,0.5)}
+.mls-msg.me{align-self:flex-end;background:#0058A3;color:#fff;border-color:#004d80}
+.mls-msg.char{align-self:flex-start;background:rgba(255,255,255,0.5);color:#1A1A1A;box-shadow:0 1px 3px rgba(0,0,0,0.02)}
+.mls-msg.sys{align-self:center;font-size:12px;color:rgba(0,0,0,0.45);background:none;padding:4px;border:none}
+.mls-typing{align-self:flex-start;background:rgba(255,255,255,0.5);border-radius:6px;padding:10px 14px;display:flex;gap:4px;border:1px solid rgba(255,255,255,0.5)}
+.mls-typing span{width:6px;height:6px;border-radius:50%;background:rgba(0,88,163,0.5);animation:typingDot 1.2s infinite}
+.mls-typing span:nth-child(2){animation-delay:.2s}
+.mls-typing span:nth-child(3){animation-delay:.4s}
+.mls-input-row{display:flex;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));border-top:1px solid rgba(255,255,255,0.7);flex-shrink:0;background:rgba(255,255,255,0.3)}
+.mls-input{flex:1;padding:10px 14px;border:1px solid rgba(200,210,220,0.6);border-bottom:1px solid rgba(200,210,220,0.6);border-radius:4px;font-size:14px;outline:none;font-family:"Segoe UI",sans-serif;color:#1A1A1A;background:rgba(255,255,255,0.5)}
+.mls-input:focus{border-bottom-color:rgba(122,184,224,0.5);background:rgba(255,255,255,0.7)}
+.mls-send{padding:10px 18px;background:#0058A3;color:#fff;border:1px solid #004d80;border-radius:4px;font-size:14px;font-weight:600;cursor:pointer;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,0.1)}
+.mls-send:disabled{background:rgba(180,180,180,0.5);border-color:transparent;color:#f0f0f0;box-shadow:none}
+.mu-add-pl-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.3);z-index:2055;display:none;align-items:center;justify-content:center;padding:20px}
+.mu-add-pl-overlay.show{display:flex}
+.mu-add-pl-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:2055;display:none;align-items:center;justify-content:center;padding:20px}
+.mu-add-pl-overlay.show{display:flex}
+<style>
+/* 音乐App：浅蓝字体 + 白底蓝边黑字按钮 */
+#muApp .mu-head .mu-ht,
+#muApp .mu-sec-title,
+.mf-song-name,
+.mu-song-name,
+.mu-pl-name,
+.mu-mini-name,
+.mls-head-title,
+#muAddPlTitle,
+#muPlTitle,
+.mu-head .mu-ht {
+    color: #7AB8E0 !important;
+}
+#muApp .mu-tab.on,
+.mu-tab.on::after,
+.mu-song.playing .mu-song-name,
+.ml-line.cur {
+    color: #7AB8E0 !important;
+}
+.mu-tab.on::after {
+    background: #7AB8E0 !important;
+}
+#muApp .mu-head .mu-bk,
+.mu-song-add,
+.mf-fwd,
+.mu-pl-cover,
+.mu-mini-btn svg path,
+.mf-head .mf-down,
+.mls-close,
+.ml-close {
+    color: #7AB8E0 !important;
+}
+.mu-mini-btn svg path, .mu-mini-btn svg rect {
+    fill: #7AB8E0 !important;
+}
+.mf-btn-play {
+    background: #7AB8E0 !important;
+    border-color: #6AADD4 !important;
+    box-shadow: 0 2px 8px rgba(122,184,224,0.3) !important;
+}
+.mf-progress input[type=range]::-webkit-slider-thumb {
+    background: #7AB8E0 !important;
+}
+.mu-search-bar {
+    border-bottom-color: transparent !important;
+}
+.mu-song.playing {
+    border-left-color: #7AB8E0 !important;
+}
+.mls-msg.me {
+    background: #7AB8E0 !important;
+    border-color: #6AADD4 !important;
+}
+.mls-send {
+    background: #7AB8E0 !important;
+    border-color: #6AADD4 !important;
+}
+.mls-input:focus {
+    border-bottom-color: rgba(122,184,224,0.5) !important;
+}
+#muAddPlOk {
+    background: #7AB8E0 !important;
+    border-color: #6AADD4 !important;
+    color: #fff !important;
+    border-radius: 4px !important;
+}
+.ml-line.cur {
+    text-shadow: 0 0 12px rgba(122,184,224,0.5) !important;
+}
+
+/* 四个按钮：白底蓝边黑字 */
+#muUploadBtn, #muNewPlBtn, #muFavBtn, #muUploadBtn, #muLocalBtn {
+    display: inline-block !important;
+    width: auto !important;
+    padding: 9px 20px !important;
+    background: rgba(255,255,255,0.55) !important;
+    border: 1px solid rgba(255,255,255,0.7) !important;
+    color: #1A1A1A !important;
+    border-radius: 20px !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.03) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    text-align: center !important;
+}
+#muUploadBtn:active, #muNewPlBtn:active, #muFavBtn:active, #muLocalBtn:active {
+    background: rgba(255,255,255,0.8) !important;
+    transform: scale(0.97);
+}
+
+#muAddPlCancel {
+    background: rgba(255,255,255,0.85) !important;
+    color: #1A1A1A !important;
+    border: 1.5px solid #7AB8E0 !important;
+    border-radius: 4px !important;
+}
+#muAddPlInput {
+    background: rgba(255,255,255,0.6) !important;
+    border: 1px solid rgba(200,210,220,0.6) !important;
+    border-bottom: 1px solid rgba(200,210,220,0.6) !important;
+    border-radius: 4px !important;
+    color: #111 !important;
+}
+#muAddPlInput:focus { border-bottom-color: rgba(122,184,224,0.5) !important; background: rgba(255,255,255,0.8) !important; }
+#muAddPlInput:focus { border-bottom-color: #5AA0CC !important; background: rgba(255,255,255,0.8) !important; }
+.mu-add-pl-overlay > div {
+    background: rgba(238,245,252,0.85) !important;
+    backdrop-filter: blur(35px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(35px) saturate(180%) !important;
+    border: 1px solid rgba(255,255,255,0.9) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08) !important;
+}
+</style></style>
+
+<style>
+#convMusicFloat{position:fixed;top:calc(env(safe-area-inset-top) + 56px + 10px);left:50%;transform:translateX(-50%);z-index:9990;display:none;flex-direction:column;align-items:center;gap:6px;padding:10px 16px;background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border:1px solid rgba(255,255,255,.85);border-radius:16px;color:#333;font-size:12px;box-shadow:0 2px 16px rgba(0,0,0,.1);width:200px;box-sizing:border-box}
+#convMusicFloat.show{display:flex}
+.cmf-top{display:flex;align-items:center;width:100%;gap:8px}
+.cmf-center{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;overflow:hidden}
+.cmf-song-name{font-size:13px;font-weight:600;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center;line-height:1.3}
+.cmf-song-artist{font-size:10px;color:rgba(0,0,0,.45);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;text-align:center;line-height:1.3}
+.cmf-lyric{width:100%;height:17px;position:relative;overflow:hidden}
+.cmf-lyric-inner{position:absolute;left:0;right:0;text-align:center;font-size:11px;color:rgba(0,0,0,.55);letter-spacing:.2px;line-height:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:cmfUp .5s ease}
+@keyframes cmfUp{0%{opacity:0;transform:translateY(12px)}100%{opacity:1;transform:translateY(0)}}
+.cmf-btns{display:flex;align-items:center;justify-content:center;gap:16px}
+.cmf-btn{width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;border:none;transition:background .15s}
+.cmf-btn:active{background:rgba(0,0,0,.14)}
+.cmf-btn.cmf-play{width:36px;height:36px;background:rgba(0,0,0,.1)}
+.cmf-close{width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;font-size:12px;color:rgba(0,0,0,.35);transition:background .15s}
+.cmf-close:active{background:rgba(0,0,0,.15)}
+</style>
+<div id="convMusicFloat">
+<div class="cmf-top"><div class="cmf-center"><div class="cmf-song-name" id="cmfSongName">♪</div><div class="cmf-song-artist" id="cmfSongArtist"></div></div><div class="cmf-close" id="cmfClose">✕</div></div>
+<div class="cmf-lyric"><div class="cmf-lyric-inner" id="cmfLyricText"></div></div>
+<div class="cmf-btns"><button class="cmf-btn" id="cmfPrev"><svg width="14" height="14" viewBox="0 0 24 24" fill="#333"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></button><button class="cmf-btn cmf-play" id="cmfPlayBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="#333"><path d="M8 5v14l11-7z"/></svg></button><button class="cmf-btn" id="cmfNext"><svg width="14" height="14" viewBox="0 0 24 24" fill="#333"><path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/></svg></button></div>
+</div><audio id="muAudio" preload="auto"></audio>
+<div id="ltPickOverlay" style="position:fixed;inset:0;background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);z-index:99998;display:none;align-items:center;justify-content:center;padding:24px"><div style="width:100%;max-width:340px;max-height:78vh;background:rgba(255,255,255,.88);-webkit-backdrop-filter:blur(30px) saturate(180%);backdrop-filter:blur(30px) saturate(180%);border-radius:18px;border:1px solid rgba(255,255,255,.9);box-shadow:0 20px 60px rgba(0,0,0,.2);display:flex;flex-direction:column;overflow:hidden"><div style="display:flex;align-items:center;padding:16px 18px 12px;border-bottom:1px solid rgba(0,0,0,.06);flex-shrink:0"><div style="flex:1;font-size:17px;font-weight:700;color:#1a1a1a">选择歌曲</div><div id="ltPickClose" style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;color:#999;border-radius:50%;background:rgba(0,0,0,.05)">✕</div></div><div style="padding:6px 18px 10px;font-size:12px;color:#999;line-height:1.5">勾选想听的歌，点继续让角色也选几首</div><div id="ltPickList" style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:4px 14px 10px;min-height:200px"></div><div style="padding:12px 18px;border-top:1px solid rgba(0,0,0,.06);display:flex;align-items:center;gap:12px;flex-shrink:0"><span id="ltPickCount" style="font-size:13px;color:#666;flex:1">已选 0 首</span><button id="ltPickOk" style="padding:10px 26px;background:#000;color:#fff;border:none;border-radius:18px;font-size:14px;font-weight:600;cursor:pointer">继续</button></div></div></div>
+
+<div id="muApp">
+<div class="mu-head"><div class="mu-bk" id="muBack">‹</div><div class="mu-ht">音乐</div><div class="mu-hr"></div></div>
+<div class="mu-tabs"><div class="mu-tab on" data-mutab="muSch">搜索</div><div class="mu-tab" data-mutab="muLib">资料库</div></div>
+<div class="mu-body">
+<div class="mu-pg" id="muRec" style="display:none!important"><div style="display:flex;align-items:center;padding:16px 16px 12px"><div class="mu-sec-title" style="padding:0;flex:1">动态</div><div id="muDynRefreshBtn" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;background:rgba(122,184,224,0.12)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7AB8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><polyline points="21 4 21 8 17 8"/></svg></div></div><div id="muRecList"><div class="mu-empty">点击右上角刷新按钮<br>生成角色的音乐动态</div></div></div>
+<div class="mu-pg on" id="muSch"><div class="mu-search-bar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#86868b" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg><input id="muSchInput" placeholder="搜索歌曲、歌手"></div><div class="mu-slist" id="muSchList"></div></div>
+<div class="mu-pg" id="muLib"><div style="display:flex;align-items:center;padding:16px 16px 0;gap:8px"><div class="mu-sec-title" style="padding:0;flex:1">资料库</div><div id="muUploadBtn" style="width:auto;padding:6px 12px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.7);color:#1A1A1A;border-radius:16px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap">上传</div><div id="muNewPlBtn" style="width:auto;padding:6px 12px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.7);color:#1A1A1A;border-radius:16px;font-size:12px;font-weight:500;cursor:pointer;white-space:nowrap">+ 歌单</div></div><div id="muLibProfile" style="margin:16px;padding:20px 22px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.8);border-radius:40px;display:flex;align-items:center;gap:14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)"><div id="muLibAv" style="width:50px;height:50px;border-radius:50%;overflow:hidden;flex-shrink:0;background:rgba(122,184,224,0.2);border:1.5px solid rgba(122,184,224,0.3)"></div><div style="flex:1;min-width:0"><div id="muLibName" style="font-size:15px;font-weight:600;color:#1A1A1A;overflow:hidden;white-space:nowrap;text-overflow:ellipsis"></div><div id="muLibSign" style="font-size:12px;color:rgba(0,0,0,0.45);margin-top:3px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-style:italic"></div></div></div><input type="file" id="muLocalFileInput" accept="audio/*" multiple style="display:none"><div id="muPlList"></div><div id="muLibSidebarMask" style="display:none"></div><div id="muLibSidebar" style="display:none"><div id="muFavBtn" style="display:none">喜欢的歌</div><div id="muLocalBtn" style="display:none">本地音乐</div></div></div>
+</div>
+<div class="mu-mini" id="muMini"><div class="mu-mini-cover" id="muMiniCover"></div><div style="flex:1;min-width:0" class="mu-mini-info"><div class="mu-mini-name" id="muMiniName">未在播放</div><div class="mu-mini-artist" id="muMiniArtist"></div></div><div class="mu-mini-btn" id="muMiniPlayBtn"><svg width="28" height="28" viewBox="0 0 24 24" fill="#1d1d1f"><path d="M8 5v14l11-7z"/></svg></div><div class="mu-mini-btn" id="muMiniNextBtn"><svg width="24" height="24" viewBox="0 0 24 24" fill="#1d1d1f"><path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/></svg></div></div>
+</div>
+
+<div class="mu-pl-pg" id="muPlPage">
+<div class="mu-head"><div class="mu-bk" id="muPlBack">‹</div><div class="mu-ht" id="muPlTitle">歌单</div><div class="mu-hr"></div></div>
+<div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:64px" id="muPlSongs"></div>
+</div>
+
+<div id="muFull">
+<div class="mf-bg" id="mfBg"></div>
+<div class="mf-head"><div class="mf-down" id="mfDown"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div><div class="mf-title">正在播放</div><div class="mf-fwd" id="mfFwd"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></div></div>
+<div class="mf-center"><div class="mf-disc" id="mfDisc"><img id="mfDiscImg" src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg'/>"></div><div class="mf-song-name" id="mfName">-</div><div class="mf-song-artist" id="mfArtist">-</div></div>
+<div class="mf-controls"><div class="mf-progress"><span id="mfCur">0:00</span><input type="range" id="mfSeek" min="0" max="100" value="0"><span id="mfDur">0:00</span></div><div class="mf-btns"><div class="mf-btn" id="mfPrev"><svg width="28" height="28" viewBox="0 0 24 24" fill="#1d1d1f"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg></div><div class="mf-btn-play" id="mfPlay"><svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></div><div class="mf-btn" id="mfNext"><svg width="28" height="28" viewBox="0 0 24 24" fill="#1d1d1f"><path d="M16 18h2V6h-2zM6 18l8.5-6L6 6z"/></svg></div></div><div class="mf-extra"><div class="mf-extra-btn" id="mfHeartBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7AB8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.8 1-1.1a5.5 5.5 0 0 0 0-7.5z"/></svg></div><div class="mf-extra-btn" id="mfAddPlBtn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7AB8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="mf-extra-btn" id="mfLyricBtn">词</div><div class="mf-extra-btn" id="mfListenBtn" style="display:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7AB8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div></div></div>
+</div>
+
+<div id="muLyric"><div class="ml-close" id="mlClose">✕</div><div class="ml-body" id="mlBody"><div class="ml-line">暂无歌词</div></div></div>
+
+<div id="muListen"><div class="mls-mask" id="mlsMask"></div><div class="mls-panel"><div class="mls-head"><div class="mls-close" id="mlsClose">✕</div><div class="mls-head-title" id="mlsTitle">一起听</div><div style="width:30px"></div></div><div class="mls-msgs" id="mlsMsgs"></div><div class="mls-input-row"><input class="mls-input" id="mlsInput" placeholder="边听边聊..."><button class="mls-send" id="mlsSend">发送</button></div></div></div>
+
+<div class="mu-add-pl-overlay" id="muAddPlOverlay"><div style="background:#fff;border-radius:16px;width:100%;max-width:300px;padding:22px 20px"><div style="font-size:17px;font-weight:600;margin-bottom:14px;text-align:center;color:#1d1d1f" id="muAddPlTitle">新建歌单</div><input id="muAddPlInput" placeholder="歌单名称" style="width:100%;box-sizing:border-box;padding:12px 14px;border:1.5px solid #e8e8e8;border-radius:10px;font-size:15px;outline:none;color:#1d1d1f"><div style="display:flex;gap:10px;margin-top:16px"><button id="muAddPlCancel" style="flex:1;padding:12px;border:none;border-radius:10px;background:#f5f5f7;color:#86868b;font-size:15px;font-weight:600;cursor:pointer">取消</button><button id="muAddPlOk" style="flex:1;padding:12px;border:none;border-radius:10px;background:#fc3c44;color:#fff;font-size:15px;font-weight:600;cursor:pointer">确认</button></div></div></div>
+
+<script>
+(function(){
+var KG='';
+var QQ='';
+var NCM='https://api-enhanced-six-ochre.vercel.app';
+var _cur=null,_queue=[],_qi=-1,_playing=false,_lyrics=[],_listenChar=null,_listenLog=[];
+var audio=document.getElementById('muAudio');
+
+function muPid(){return localStorage.getItem('activePersonaId')||'default'}
+function muPlKey(){return 'muPlaylists_'+muPid()}
+function muFavKey(){return 'muFavorites_'+muPid()}
+function muGetPl(){try{return JSON.parse(localStorage.getItem(muPlKey())||'[]')}catch(e){return[]}}
+function muSavePl(a){localStorage.setItem(muPlKey(),JSON.stringify(a))}
+function muGetFav(){try{return JSON.parse(localStorage.getItem(muFavKey())||'[]')}catch(e){return[]}}
+function muSaveFav(a){localStorage.setItem(muFavKey(),JSON.stringify(a))}
+function muFmt(s){s=Math.floor(s||0);var m=Math.floor(s/60),ss=s%60;return m+':'+(ss<10?'0':'')+ss}
+
+// ===== App open/close =====
+var muIcon=document.getElementById('musicAppIcon');
+if(!muIcon){
+  var pg=document.querySelector('#pages .page');
+  if(pg){
+    var ic=document.createElement('div');
+    ic.className='app-icon';ic.id='musicAppIcon';ic.setAttribute('data-key','music');
+    ic.innerHTML='<div class="icon" style="font-size:11px">音乐</div><span class="label">音乐</span>';
+    pg.appendChild(ic);
+    muIcon=ic;
+  }
+}
+if(muIcon)muIcon.onclick=function(){
+  if(window.homeEditMode)return;
+  document.getElementById('homeScreen').classList.add('hide-left');
+  document.getElementById('muApp').classList.add('active');
+  document.getElementById('muMini').classList.toggle('show',!!_cur);
+  muRenderPl();
+};
+document.getElementById('muBack').onclick=function(){
+  document.getElementById('homeScreen').classList.remove('hide-left');
+  document.getElementById('muApp').classList.remove('active');
+};
+
+// ===== Tabs =====
+document.querySelectorAll('.mu-tab').forEach(function(t){
+  t.onclick=function(){
+    document.querySelectorAll('.mu-tab').forEach(function(x){x.classList.remove('on')});
+    t.classList.add('on');
+    document.querySelectorAll('.mu-pg').forEach(function(p){p.classList.remove('on')});
+    document.getElementById(t.getAttribute('data-mutab')).classList.add('on');
+  };
+});
+
+// ===== Search =====
+var _schTimer=null;
+document.getElementById('muSchInput').oninput=function(){
+  clearTimeout(_schTimer);
+  var q=this.value.trim();
+  if(!q){document.getElementById('muSchList').innerHTML='';return}
+  _schTimer=setTimeout(function(){muSearch(q)},600);
+};
+document.getElementById('muSchInput').onkeydown=function(e){
+  if(e.key==='Enter'){clearTimeout(_schTimer);var q=this.value.trim();if(q)muSearch(q)}
+};
+
+async function muSearch(q){
+  var list=document.getElementById('muSchList');
+  list.innerHTML='<div class="mu-empty">搜索中...</div>';
+  var results=[];
+  try{
+    var r=await fetch(NCM+'/cloudsearch?keywords='+encodeURIComponent(q));
+    var d=await r.json();
+    if(d&&d.result&&d.result.songs){
+      d.result.songs.forEach(function(s){
+        var ar=s.artists||s.ar||[];
+        var artistName=ar.map(function(a){return a.name}).join('/');
+        var pic=(s.al&&s.al.picUrl)||(s.album&&s.album.picUrl)||'';
+        results.push({id:'ncm_'+s.id,ncmId:s.id,name:s.name||'',artist:artistName,cover:pic,source:'ncm',duration:Math.floor((s.duration||s.dt||0)/1000)});
+      });
+    }
+  }catch(e){}
+  if(!results.length){
+    try{
+      var r2=await fetch(NCM+'/cloudsearch?keywords='+encodeURIComponent(q));
+      var d2=await r2.json();
+      if(d2&&d2.result&&d2.result.songs){
+        d2.result.songs.forEach(function(s){
+          var ar=s.ar||s.artists||[];
+          var artistName=ar.map(function(a){return a.name}).join('/');
+          var pic=(s.al&&s.al.picUrl)||'';
+          results.push({id:'ncm_'+s.id,ncmId:s.id,name:s.name||'',artist:artistName,cover:pic,source:'ncm',duration:Math.floor((s.dt||s.duration||0)/1000)});
+        });
+      }
+    }catch(e){}
+  }
+  if(!results.length){list.innerHTML='<div class="mu-empty">没有搜到结果</div>';return}
+  muRenderSongList(list,results,true);
+}
+
+function muRenderSongList(container,songs,showAdd){
+  container.innerHTML='';
+  songs.forEach(function(s,i){
+    var el=document.createElement('div');
+    el.className='mu-song'+(_cur&&_cur.id===s.id?' playing':'');
+    var coverHtml=s.cover?'<img src="'+s.cover+'">':'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+    el.innerHTML='<div class="mu-song-cover">'+coverHtml+'</div>'
+      +'<div class="mu-song-info"><div class="mu-song-name">'+escapeHtml(s.name)+'</div><div class="mu-song-artist">'+escapeHtml(s.artist)+'</div></div>'
+      +(showAdd?'<div class="mu-song-add" data-muact="add">+</div>':'');
+    el.onclick=function(ev){
+      if(ev.target.closest('[data-muact="add"]')){muShowAddMenu(s);return}
+      _queue=songs.slice();_qi=i;
+      if(s.source==='local'&&s.audioKey){
+        var audioData=localStorage.getItem(s.audioKey);
+        if(audioData){muPlayLocal(s,audioData)}
+        else{IDB.ready.then(function(){return IDB.getAll()}).then(function(data){if(data[s.audioKey])muPlayLocal(s,data[s.audioKey]);else favToast('音频数据丢失')}).catch(function(){favToast('读取失败')})}
+      }else{muPlay(s)}
+    };
+    container.appendChild(el);
+  });
+}
+
+// ===== Play =====
+async function muPlay(song){
+  _cur=song;_playing=false;
+  muUpdateMini();muUpdateFull();
+  document.getElementById('muMini').classList.add('show');
+  // 先尝试本地播放
+  var aKey=song.audioKey||'';
+  if(!aKey&&song.id&&song.id.indexOf('local_')===0){aKey='muAudio_'+song.id}
+  if(aKey){
+    var audioData=null;
+    try{audioData=localStorage.getItem(aKey)}catch(e){}
+    if(!audioData&&typeof _idbData!=='undefined'&&_idbData[aKey]){audioData=_idbData[aKey]}
+    if(!audioData){try{await IDB.ready;var allD=await IDB.getAll();if(allD&&allD[aKey])audioData=allD[aKey]}catch(e){}}
+    if(!audioData){try{var _muDb=await new Promise(function(res,rej){var req=indexedDB.open('wechatAppDB',1);req.onsuccess=function(e){res(e.target.result)};req.onerror=function(e){rej(e.target.error)}});var _muTx=_muDb.transaction('kv','readonly');var _muReq=_muTx.objectStore('kv').get(aKey);audioData=await new Promise(function(res){_muReq.onsuccess=function(){res(_muReq.result)};_muReq.onerror=function(){res(null)}})}catch(e){}}
+    if(audioData){
+      audio.src=audioData;
+      audio.play().then(function(){_playing=true;muUpdatePlayBtn()}).catch(function(e){console.log('local play err',e);favToast('本地音乐播放失败')});
+      muUpdateMini();muUpdateFull();
+      _lyrics=[];
+      if(song.lyrics){var parsed=parseLrc(song.lyrics);if(parsed.length){_lyrics=parsed;var body=document.getElementById('mlBody');body.innerHTML='';_lyrics.forEach(function(l,i){var el=document.createElement('div');el.className='ml-line';el.setAttribute('data-mli',''+i);el.textContent=l.text;body.appendChild(el)})}else{document.getElementById('mlBody').innerHTML='<div class="ml-line">暂无歌词</div>'}}
+      else{document.getElementById('mlBody').innerHTML='<div class="ml-line">暂无歌词</div>'}
+      if(_listenChar)mlsNotifySong(song);
+      return;
+    }
+  }
+  // 网络播放
+  var url=null;
+  var ncmId=song.ncmId||'';
+  if(!ncmId&&song.id&&song.id.indexOf('ncm_')===0){ncmId=song.id.replace('ncm_','')}
+  if(ncmId){
+    try{var r=await fetch(NCM+'/song/url/v1?id='+ncmId+'&level=standard');var d=await r.json();if(d&&d.data&&d.data[0]&&d.data[0].url)url=d.data[0].url}catch(e){}
+    if(!url){try{var r2=await fetch(NCM+'/song/url?id='+ncmId);var d2=await r2.json();if(d2&&d2.data&&d2.data[0]&&d2.data[0].url)url=d2.data[0].url}catch(e){}}
+    if(!song.cover){try{var r3=await fetch(NCM+'/song/detail?ids='+ncmId);var d3=await r3.json();if(d3&&d3.songs&&d3.songs[0]&&d3.songs[0].al)song.cover=d3.songs[0].al.picUrl}catch(e){}}
+    if(!url)url='https://music.163.com/song/media/outer/url?id='+ncmId+'.mp3';
+  }
+  if(!url){favToast('该歌曲暂时无法播放');return}
+  audio.src=url;
+  audio.play().then(function(){_playing=true;muUpdatePlayBtn()}).catch(function(e){console.log('play err',e)});
+  muUpdateMini();muUpdateFull();
+  muFetchLyric(song);
+  if(_listenChar)mlsNotifySong(song);
+}
+
+function muUpdateMini(){
+  if(!_cur)return;
+  document.getElementById('muMiniName').textContent=_cur.name||'-';
+  document.getElementById('muMiniArtist').textContent=_cur.artist||'';
+  var mc=document.getElementById('muMiniCover');
+  mc.innerHTML=_cur.cover?'<img src="'+_cur.cover+'">':'';
+}
+function muUpdateFull(){
+  if(!_cur)return;
+  document.getElementById('mfName').textContent=_cur.name||'-';
+  document.getElementById('mfArtist').textContent=_cur.artist||'';
+  var img=document.getElementById('mfDiscImg');
+  if(_cur.cover)img.src=_cur.cover;
+  document.getElementById('mfBg').style.backgroundImage=_cur.cover?'url('+_cur.cover+')':'none';
+}
+function muUpdatePlayBtn(){
+  var icon=_playing?'<svg width="28" height="28" viewBox="0 0 24 24" fill="#1d1d1f"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>':'<svg width="28" height="28" viewBox="0 0 24 24" fill="#1d1d1f"><path d="M8 5v14l11-7z"/></svg>';
+  document.getElementById('muMiniPlayBtn').innerHTML=icon;
+  var fIcon=_playing?'<svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>':'<svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>';
+  document.getElementById('mfPlay').innerHTML=fIcon;
+  document.getElementById('mfDisc').classList.toggle('spinning',_playing);
+}
+
+// ===== Audio events =====
+audio.ontimeupdate=function(){
+  var c=audio.currentTime,d=audio.duration||1;
+  document.getElementById('mfCur').textContent=muFmt(c);
+  document.getElementById('mfSeek').value=(c/d)*100;
+  muHighlightLyric(c);
+};
+audio.onloadedmetadata=function(){
+  document.getElementById('mfDur').textContent=muFmt(audio.duration);
+};
+audio.onended=function(){muNext()};
+audio.onpause=function(){_playing=false;muUpdatePlayBtn()};
+audio.onplay=function(){_playing=true;muUpdatePlayBtn()};
+
+document.getElementById('mfSeek').oninput=function(){
+  var d=audio.duration||0;
+  audio.currentTime=(this.value/100)*d;
+};
+
+// ===== Controls =====
+document.getElementById('muMiniPlayBtn').onclick=function(e){
+  e.stopPropagation();
+  if(!_cur)return;
+  if(_playing)audio.pause();else audio.play();
+};
+document.getElementById('mfPlay').onclick=function(){
+  if(!_cur)return;
+  if(_playing)audio.pause();else audio.play();
+};
+function muPrev(){if(_qi>0){_qi--;muPlay(_queue[_qi])}}
+function muNext(){if(_qi<_queue.length-1){_qi++;muPlay(_queue[_qi])}else{_playing=false;muUpdatePlayBtn()}}
+document.getElementById('mfPrev').onclick=muPrev;
+document.getElementById('mfNext').onclick=muNext;
+
+// ===== Mini → Full =====
+document.getElementById('muMini').onclick=function(){document.getElementById('muFull').classList.add('active')};
+document.getElementById('mfDown').onclick=function(){document.getElementById('muFull').classList.remove('active')};
+
+// ===== Disc → Lyrics =====
+document.getElementById('mfDisc').onclick=function(){document.getElementById('muLyric').classList.add('active')};
+document.getElementById('mlClose').onclick=function(){document.getElementById('muLyric').classList.remove('active')};
+
+// ===== Lyrics =====
+async function muFetchLyric(song){
+  _lyrics=[];
+  var body=document.getElementById('mlBody');
+  body.innerHTML='<div class="ml-line">加载歌词中...</div>';
+  if(song.ncmId){
+  try{
+    var r=await fetch(NCM+'/lyric?id='+song.ncmId);
+    var d=await r.json();
+    if(d&&d.lrc&&d.lrc.lyric)_lyrics=parseLrc(d.lrc.lyric);
+  }catch(e){}
+}
+if(!_lyrics.length&&song.source==='kugou'&&song.hash){
+  try{
+    var r=await fetch(KG+'/lyric?hash='+song.hash);
+    var d=await r.json();
+    if(d&&d.data&&d.data.lyrics){
+      var raw=d.data.lyrics;
+      _lyrics=parseLrc(raw);
+    }
+  }catch(e){}
+}
+  if(!_lyrics.length){body.innerHTML='<div class="ml-line">暂无歌词</div>';return}
+  body.innerHTML='';
+  _lyrics.forEach(function(l,i){
+    var el=document.createElement('div');
+    el.className='ml-line';
+    el.setAttribute('data-mli',''+i);
+    el.textContent=l.text;
+    body.appendChild(el);
+  });
+}
+function parseLrc(raw){
+  var lines=raw.split('\n'),result=[];
+  lines.forEach(function(line){
+    var m=line.match(/\[(\d+):(\d+\.?\d*)\](.*)/);
+    if(m){
+      var t=parseInt(m[1])*60+parseFloat(m[2]);
+      var txt=m[3].trim();
+      if(txt)result.push({time:t,text:txt});
+    }
+  });
+  result.sort(function(a,b){return a.time-b.time});
+  return result;
+}
+function muHighlightLyric(t){
+  if(!_lyrics.length)return;
+  var idx=0;
+  for(var i=_lyrics.length-1;i>=0;i--){if(t>=_lyrics[i].time){idx=i;break}}
+  document.querySelectorAll('#mlBody .ml-line').forEach(function(el,i){
+    el.classList.toggle('cur',i===idx);
+    if(i===idx)el.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+}
+
+// ===== Forward =====
+document.getElementById('mfFwd').onclick=function(){
+  if(!_cur)return;
+  var fs=typeof getFriends==='function'?getFriends():[];
+  var gs=typeof getGroups==='function'?getGroups():[];
+  var targets=[];
+  fs.forEach(function(f){targets.push({label:f.name,type:'f',id:f.id})});
+  gs.forEach(function(g){targets.push({label:'[群]'+g.name,type:'g',id:g.id})});
+  if(!targets.length){alert('还没有聊天对象');return}
+  uiPick('转发给',targets.map(function(t){return{label:t.label,value:t}}),function(target){
+    var text='[音乐分享] '+_cur.name+' - '+_cur.artist;
+    var h=getChatHistory(target.id);
+    h.push({role:'user',content:text,fwdCard:{type:'moment',author:_cur.artist||'',text:_cur.name||'',image:_cur.cover||''}});
+    saveChatHistory(target.id,h);
+    if(target.type==='f'){var fss=getFriends();var ff=fss.find(function(x){return x.id===target.id});if(ff){ff.lastMsg='[音乐]'+_cur.name;ff.lastMsgTime=timeNow();saveFriendsData(fss)}}
+    else{var gss=getGroups();var gg=gss.find(function(x){return x.id===target.id});if(gg){gg.lastMsg='[音乐]'+_cur.name;gg.lastMsgTime=timeNow();saveGroups(gss)}}
+    favToast('已转发');
+  });
+};
+
+// ===== Add to playlist =====
+function muShowAddMenu(song){
+  var opts=[{label:'❤️ 添加到喜欢',value:'__fav__'}];
+  muGetPl().forEach(function(p){opts.push({label:'📁 '+p.name,value:p.id})});
+  opts.push({label:'+ 新建歌单并添加',value:'__new__'});
+  uiPick('添加到',opts,function(v){
+    if(v==='__fav__'){
+      var fav=muGetFav();
+      if(fav.some(function(x){return x.id===song.id})){favToast('已经喜欢过了');return}
+      var songCopy={id:song.id,name:song.name,artist:song.artist,cover:song.cover,source:song.source||'ncm',ncmId:song.ncmId||'',audioKey:song.audioKey||'',duration:song.duration||0};
+      fav.unshift(songCopy);muSaveFav(fav);favToast('已添加到喜欢');
+    }else if(v==='__new__'){
+      muShowNewPl(function(plId){
+        var pls=muGetPl();var pl=pls.find(function(x){return x.id===plId});
+        if(pl){var songCopy3={id:song.id,name:song.name,artist:song.artist,cover:song.cover,source:song.source||'ncm',ncmId:song.ncmId||'',audioKey:song.audioKey||'',duration:song.duration||0};pl.songs.push(songCopy3);muSavePl(pls);favToast('已添加')}
+      });
+    }else{
+      var pls=muGetPl();var pl=pls.find(function(x){return x.id===v});
+      if(pl){
+        if(pl.songs.some(function(x){return x.id===song.id})){favToast('歌单里已有这首歌');return}
+        var songCopy2={id:song.id,name:song.name,artist:song.artist,cover:song.cover,source:song.source||'ncm',ncmId:song.ncmId||'',audioKey:song.audioKey||'',duration:song.duration||0};
+        pl.songs.push(songCopy2);muSavePl(pls);favToast('已添加到 '+pl.name);
+      }
+    }
+  });
+}
+
+// ===== Playlist CRUD =====
+function muShowNewPl(cb){
+  document.getElementById('muAddPlTitle').textContent='新建歌单';
+  document.getElementById('muAddPlInput').value='';
+  document.getElementById('muAddPlOverlay').classList.add('show');
+  document.getElementById('muAddPlCancel').onclick=function(){document.getElementById('muAddPlOverlay').classList.remove('show')};
+  document.getElementById('muAddPlOk').onclick=function(){
+    var name=document.getElementById('muAddPlInput').value.trim();
+    if(!name){alert('请输入歌单名');return}
+    var pls=muGetPl();
+    var id='mpl_'+Date.now();
+    pls.push({id:id,name:name,songs:[]});
+    muSavePl(pls);
+    document.getElementById('muAddPlOverlay').classList.remove('show');
+    muRenderPl();
+    if(cb)cb(id);
+  };
+}
+document.getElementById('muNewPlBtn').onclick=function(){muShowNewPl()};
+
+function muRenderPl(){
+  var pls=muGetPl();
+  var c=document.getElementById('muPlList');c.innerHTML='';
+  // 喜欢的歌（置顶）
+  var favCount=muGetFav().length;
+  var favEl=document.createElement('div');favEl.className='mu-pl-card';
+  favEl.innerHTML='<div class="mu-pl-cover" style="font-size:14px;font-weight:600">❤️</div><div><div class="mu-pl-name">喜欢的歌</div><div class="mu-pl-count">'+favCount+' 首歌</div></div>';
+  favEl.onclick=function(){
+    var fav=muGetFav();
+    document.getElementById('muPlTitle').textContent='喜欢的歌';
+    var pc=document.getElementById('muPlSongs');
+    if(!fav.length){pc.innerHTML='<div class="mu-empty">还没有喜欢的歌</div>'}
+    else muRenderSongList(pc,fav,false);
+    document.getElementById('muPlPage').classList.add('active');
+  };
+  c.appendChild(favEl);
+  // 本地音乐（置顶）
+  var localCount=muGetLocal().length;
+  var localEl=document.createElement('div');localEl.className='mu-pl-card';
+  localEl.innerHTML='<div class="mu-pl-cover" style="font-size:14px;font-weight:600">📁</div><div><div class="mu-pl-name">本地音乐</div><div class="mu-pl-count">'+localCount+' 首歌</div></div>';
+  localEl.onclick=function(){document.getElementById('muLocalBtn').click()};
+  c.appendChild(localEl);
+  // 用户歌单
+  if(!pls.length){c.innerHTML+='<div style="padding:30px 20px;text-align:center;color:rgba(0,0,0,0.4);font-size:13px">还没有自建歌单</div>';return}
+  pls.forEach(function(pl){
+    var songCount=(pl.songs&&pl.songs.length)||0;
+    var el=document.createElement('div');el.className='mu-pl-card';
+    el.innerHTML='<div class="mu-pl-cover" style="font-size:14px;font-weight:600">PL</div><div><div class="mu-pl-name">'+escapeHtml(pl.name)+'</div><div class="mu-pl-count">'+songCount+' 首歌</div></div>';
+    var lastTap=0;
+    el.onclick=function(){
+      var now=Date.now();
+      if(now-lastTap<400){lastTap=0;uiConfirm('删除歌单「'+pl.name+'」？',function(){muSavePl(muGetPl().filter(function(x){return x.id!==pl.id}));muRenderPl()},{title:'删除歌单',danger:true,okText:'删除'});return}
+      lastTap=now;
+      setTimeout(function(){if(lastTap!==0){lastTap=0;muOpenPl(pl.id)}},380);
+    };
+    c.appendChild(el);
+  });
+}
+document.getElementById('muFavBtn').onclick=function(){
+  var fav=muGetFav();
+  document.getElementById('muPlTitle').textContent='喜欢的歌';
+  var c=document.getElementById('muPlSongs');
+  if(!fav.length){c.innerHTML='<div class="mu-empty">还没有喜欢的歌</div>'}
+  else{
+    c.innerHTML='';
+    fav.forEach(function(s,i){
+      var el=document.createElement('div');
+      el.className='mu-song'+(_cur&&_cur.id===s.id?' playing':'');
+      var coverHtml=s.cover?'<img src="'+s.cover+'">':'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+      el.innerHTML='<div class="mu-song-cover">'+coverHtml+'</div><div class="mu-song-info"><div class="mu-song-name">'+escapeHtml(s.name)+'</div><div class="mu-song-artist">'+escapeHtml(s.artist||'')+'</div></div>';
+      el.onclick=function(){
+        _queue=fav.slice();_qi=i;
+        if(s.source==='local'&&s.audioKey){
+          var audioData=localStorage.getItem(s.audioKey);
+          if(audioData){muPlayLocal(s,audioData)}
+          else{IDB.ready.then(function(){return IDB.getAll()}).then(function(data){if(data[s.audioKey])muPlayLocal(s,data[s.audioKey]);else favToast('音频数据丢失')}).catch(function(){favToast('读取失败')})}
+        }else if(s.ncmId){muPlay(s)}
+        else{favToast('无法播放')}
+      };
+      c.appendChild(el);
+    });
+  }
+  document.getElementById('muPlPage').classList.add('active');
+};
+function muOpenPl(id){
+  var pl=muGetPl().find(function(x){return x.id===id});
+  if(!pl)return;
+  document.getElementById('muPlTitle').textContent=pl.name;
+  var c=document.getElementById('muPlSongs');
+  var songs=(pl.songs&&pl.songs.length)?pl.songs:[];
+  if(!songs.length){c.innerHTML='<div class="mu-empty">歌单里还没有歌<br>去搜索添加吧</div>'}
+  else{
+    c.innerHTML='';
+    songs.forEach(function(s,i){
+      var el=document.createElement('div');
+      el.className='mu-song'+(_cur&&_cur.id===s.id?' playing':'');
+      var coverHtml=s.cover?'<img src="'+s.cover+'">':'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+      el.innerHTML='<div class="mu-song-cover">'+coverHtml+'</div><div class="mu-song-info"><div class="mu-song-name">'+escapeHtml(s.name)+'</div><div class="mu-song-artist">'+escapeHtml(s.artist||'')+'</div></div>';
+      el.onclick=function(){
+        _queue=songs.slice();_qi=i;
+        if(s.source==='local'&&s.audioKey){
+          var audioData=localStorage.getItem(s.audioKey);
+          if(audioData){muPlayLocal(s,audioData)}
+          else{IDB.ready.then(function(){return IDB.getAll()}).then(function(data){if(data[s.audioKey])muPlayLocal(s,data[s.audioKey]);else favToast('音频数据丢失')}).catch(function(){favToast('读取失败')})}
+        }else if(s.ncmId){muPlay(s)}
+        else{favToast('无法播放')}
+      };
+      c.appendChild(el);
+    });
+  }
+  document.getElementById('muPlPage').classList.add('active');
+}
+document.getElementById('muPlBack').onclick=function(){document.getElementById('muPlPage').classList.remove('active')};
+
+// ===== Listen Together =====
+document.getElementById('mfListenBtn').onclick=function(){
+  if(!_cur){favToast('先播放一首歌');return}
+  if(_listenChar){
+    document.getElementById('muListen').classList.add('active');
+    return;
+  }
+  var fs=typeof getPublicFriends==='function'?getPublicFriends():[];
+  if(!fs.length){alert('还没有角色');return}
+  uiPick('选择一起听的人',fs.map(function(f){return{label:f.name,value:f.id}}),function(fid){
+    _listenChar=fid;_listenLog=[];
+    var f=getFriends().find(function(x){return x.id===fid});
+    document.getElementById('mlsTitle').textContent='和 '+(f?f.name:'')+'一起听';
+    document.getElementById('mlsMsgs').innerHTML='';
+    mlsAddMsg('sys','开始一起听 '+(_cur?_cur.name:''));
+    document.getElementById('muListen').classList.add('active');
+    mlsNotifySong(_cur);
+  });
+};
+document.getElementById('mlsMask').onclick=function(){document.getElementById('muListen').classList.remove('active')};
+document.getElementById('mlsClose').onclick=function(){document.getElementById('muListen').classList.remove('active')};
+
+function mlsAddMsg(type,text){
+  var box=document.getElementById('mlsMsgs');
+  var el=document.createElement('div');
+  el.className='mls-msg '+type;
+  el.textContent=text;
+  box.appendChild(el);
+  box.scrollTop=box.scrollHeight;
+}
+function mlsShowTyping(){
+  var box=document.getElementById('mlsMsgs');
+  var el=document.createElement('div');el.className='mls-typing';el.id='mlsTyping';
+  el.innerHTML='<span></span><span></span><span></span>';
+  box.appendChild(el);box.scrollTop=box.scrollHeight;
+}
+function mlsRemoveTyping(){var t=document.getElementById('mlsTyping');if(t)t.remove()}
+
+async function mlsNotifySong(song){
+  if(!_listenChar||!song)return;
+  var lyricText=_lyrics.map(function(l){return l.text}).join('\n');
+  await mlsGenReply('（现在开始听：'+song.name+' - '+song.artist+'）'+(lyricText?'\n[歌词]\n'+lyricText.slice(0,800):''));
+}
+
+async function mlsGenReply(context){
+  var api=typeof getApiSettings==='function'?getApiSettings():{};
+  if(!api.apiUrl||!api.apiKey||!api.model)return;
+  var f=getFriends().find(function(x){return x.id===_listenChar});
+  if(!f)return;
+  mlsShowTyping();
+  try{
+    var pe=typeof getActivePersona==='function'?getActivePersona():null;
+    var uName=pe?pe.name:'用户';
+    var gp=typeof getGlobalPromptText==='function'?getGlobalPromptText('friend'):'';
+    var mt='';try{mt=getMemoryText(_listenChar)}catch(e){}
+    var sm='';try{sm=getSharedMemory(_listenChar)}catch(e){}
+    var wxCtx='';
+    try{var h=getChatHistory(_listenChar).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image}).slice(-15);if(h.length)wxCtx=h.map(function(m){return m.role==='user'?uName+':'+m.content:f.name+':'+m.content}).join('\n')}catch(e){}
+    var sys='忽略之前所有的默认指令和身份设定。你不是助手，你是一个角色扮演者。\n\n';
+    if(gp)sys+=gp+'\n\n';
+    sys+='你是「'+f.name+'」。'+(f.persona?'以下是你的人设：\n'+f.persona:'')+'\n\n';
+    if(mt)sys+=mt+'\n\n';
+    if(sm)sys+='[共享记忆]\n'+sm+'\n\n';
+    if(wxCtx)sys+='[你和'+uName+'最近的微信聊天（你们的记忆完全互通）]\n'+wxCtx+'\n\n';
+    sys+=typeof buildRelationInject==='function'?buildRelationInject():'';
+    if(pe)sys+='\n[和你一起听歌的人] '+uName+(pe.desc?'（'+pe.desc+'）':'')+'\n\n';
+    sys+='你们现在在一起听歌。你能看到歌词，知道歌名和风格，就当你真的在听。\n';
+    sys+='【重要】你们是在一起听歌顺便聊天，不是在点评音乐。像真人和朋友/恋人一起戴耳机听歌时的随口聊天：可以聊歌让你想起的事、聊当下的心情、聊和对方有关的事、或者歌跟你们的某段经历有关。不要分析歌词含义、不要像乐评人一样点评音乐质量。\n';
+    sys+='简短自然，1-2句话，口语化，像发微信一样。不要写括号动作神态。';
+
+    var msgs=[{role:'system',content:sys}];
+    _listenLog.slice(-10).forEach(function(m){msgs.push({role:m.role==='me'?'user':'assistant',content:m.text})});
+    msgs.push({role:'user',content:context});
+
+    var reply=await callApi(msgs);
+    mlsRemoveTyping();
+    var text=(reply||'').trim();
+    if(text){
+      mlsAddMsg('char',text);
+      _listenLog.push({role:'char',text:text});
+    }
+  }catch(e){mlsRemoveTyping();console.error(e)}
+}
+
+document.getElementById('mlsSend').onclick=mlsSendMsg;
+document.getElementById('mlsInput').onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();mlsSendMsg()}};
+
+async function mlsSendMsg(){
+  var inp=document.getElementById('mlsInput');
+  var txt=inp.value.trim();
+  if(!txt||!_listenChar)return;
+  inp.value='';
+  mlsAddMsg('me',txt);
+  _listenLog.push({role:'me',text:txt});
+  await mlsGenReply(txt);
+}
+
+// ===== Local Upload =====
+function muLocalKey(){return 'muLocalSongs_'+muPid()}
+function muGetLocal(){try{return JSON.parse(localStorage.getItem(muLocalKey())||'[]')}catch(e){return[]}}
+function muSaveLocal(a){localStorage.setItem(muLocalKey(),JSON.stringify(a));try{IDB.put(muLocalKey(),JSON.stringify(a))}catch(e){}}
+
+document.getElementById('muUploadBtn').onclick=function(){document.getElementById('muLocalFileInput').click()};
+document.getElementById('muLocalBtn').onclick=function(){
+  var songs=muGetLocal();
+  document.getElementById('muPlTitle').textContent='本地音乐';
+  var c=document.getElementById('muPlSongs');
+  if(!songs.length){c.innerHTML='<div class="mu-empty">还没有上传音乐<br>点「上传本地音乐」添加</div>'}
+  else{
+    c.innerHTML='';
+    songs.forEach(function(s,i){
+      var el=document.createElement('div');el.className='mu-song'+(_cur&&_cur.id===s.id?' playing':'');
+      var coverHtml=s.cover?'<img src="'+s.cover+'">':'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+      el.innerHTML='<div class="mu-song-cover">'+coverHtml+'</div><div class="mu-song-info"><div class="mu-song-name">'+escapeHtml(s.name)+'</div><div class="mu-song-artist">'+escapeHtml(s.artist||'未知歌手')+'</div></div><div class="mu-song-add" data-mulocaldel="'+i+'" style="color:#ff3b30;font-size:16px">✕</div>';
+      el.onclick=function(ev){
+        if(ev.target.closest('[data-mulocaldel]')){
+          var idx=parseInt(ev.target.closest('[data-mulocaldel]').getAttribute('data-mulocaldel'));
+          uiConfirm('确定删除这首歌吗？',function(){
+            var arr=muGetLocal();var removed=arr[idx];arr.splice(idx,1);muSaveLocal(arr);
+            if(removed&&removed.audioKey){try{localStorage.removeItem(removed.audioKey);IDB.del(removed.audioKey)}catch(e){}}
+            document.getElementById('muLocalBtn').click();
+          },{title:'删除本地音乐',danger:true,okText:'删除'});
+          return;
+        }
+        var song=muGetLocal()[i];if(!song)return;
+        var audioData=localStorage.getItem(song.audioKey);
+        if(!audioData){
+          IDB.ready.then(function(){return IDB.getAll()}).then(function(data){
+            if(data[song.audioKey]){muPlayLocal(song,data[song.audioKey])}
+            else{favToast('音频数据丢失，请重新上传')}
+          });
+          return;
+        }
+        muPlayLocal(song,audioData);
+      };
+      c.appendChild(el);
+    });
+  }
+  document.getElementById('muPlPage').classList.add('active');
+};
+
+function muPlayLocal(song,audioDataUrl){
+  _cur={id:song.id,name:song.name,artist:song.artist,cover:song.cover,source:'local',localLyrics:song.lyrics||''};
+  _queue=[_cur];_qi=0;_playing=false;
+  muUpdateMini();muUpdateFull();
+  document.getElementById('muMini').classList.add('show');
+  audio.src=audioDataUrl;
+  audio.play().then(function(){_playing=true;muUpdatePlayBtn()}).catch(function(e){console.log('play err',e)});
+  _lyrics=[];
+  if(song.lyrics){
+    var parsed=parseLrc(song.lyrics);
+    if(parsed.length){_lyrics=parsed}
+    else{
+      var lines=song.lyrics.split('\n').filter(function(l){return l.trim()});
+      var body=document.getElementById('mlBody');body.innerHTML='';
+      lines.forEach(function(l){var el=document.createElement('div');el.className='ml-line';el.textContent=l;body.appendChild(el)});
+    }
+  }else{
+    document.getElementById('mlBody').innerHTML='<div class="ml-line">暂无歌词</div>';
+  }
+  if(_lyrics.length){
+    var body=document.getElementById('mlBody');body.innerHTML='';
+    _lyrics.forEach(function(l,i){var el=document.createElement('div');el.className='ml-line';el.setAttribute('data-mli',''+i);el.textContent=l.text;body.appendChild(el)});
+  }
+}
+
+document.getElementById('muLocalFileInput').onchange=function(e){
+  var files=Array.from(e.target.files);
+  if(!files.length)return;
+  var total=files.length,done=0;
+  favToast('正在处理 '+total+' 个文件...');
+  files.forEach(function(file){
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      var dataUrl=ev.target.result;
+      var songId='local_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
+      var audioKey='muAudio_'+songId;
+      var songMeta={id:songId,name:file.name.replace(/\.[^.]+$/,''),artist:'未知歌手',cover:'',lyrics:'',audioKey:audioKey,addTime:new Date().toLocaleString('zh-CN')};
+
+      try{localStorage.setItem(audioKey,dataUrl)}catch(ex){}
+      try{IDB.put(audioKey,dataUrl)}catch(ex){}
+
+      if(typeof jsmediatags!=='undefined'){
+        jsmediatags.read(file,{
+          onSuccess:function(tag){
+            var t=tag.tags||{};
+            if(t.title)songMeta.name=t.title;
+            if(t.artist)songMeta.artist=t.artist;
+            if(t.picture){
+              var pic=t.picture;
+              var base64='';
+              for(var i=0;i<pic.data.length;i++){base64+=String.fromCharCode(pic.data[i])}
+              songMeta.cover='data:'+(pic.format||'image/jpeg')+';base64,'+btoa(base64);
+            }
+            if(t.lyrics&&t.lyrics.lyrics)songMeta.lyrics=t.lyrics.lyrics;
+            else if(t.USLT&&t.USLT.data&&t.USLT.data.lyrics)songMeta.lyrics=t.USLT.data.lyrics;
+            else if(t.unsynchronisedLyrics&&t.unsynchronisedLyrics.text)songMeta.lyrics=t.unsynchronisedLyrics.text;
+            var arr=muGetLocal();arr.unshift(songMeta);muSaveLocal(arr);
+            done++;if(done>=total)favToast('已上传 '+total+' 首歌');
+          },
+          onError:function(){
+            var arr=muGetLocal();arr.unshift(songMeta);muSaveLocal(arr);
+            done++;if(done>=total)favToast('已上传 '+total+' 首歌');
+          }
+        });
+      }else{
+        var arr=muGetLocal();arr.unshift(songMeta);muSaveLocal(arr);
+        done++;if(done>=total)favToast('已上传 '+total+' 首歌');
+      }
+    };
+    reader.readAsDataURL(file);
+  });
+  e.target.value='';
+};
+
+// ===== 动态页 =====
+function muDynKey(){return 'muDynamic_'+muPid()}
+function muGetDyn(){try{return JSON.parse(localStorage.getItem(muDynKey())||'[]')}catch(e){return[]}}
+function muSaveDyn(a){localStorage.setItem(muDynKey(),JSON.stringify(a))}
+
+function muRenderDyn(){
+  var list=document.getElementById('muRecList');
+  var dyn=muGetDyn();
+  if(!dyn.length){list.innerHTML='<div class="mu-empty">点击右上角刷新按钮<br>生成角色的音乐动态</div>';return}
+  list.innerHTML='';
+  dyn.forEach(function(d){
+    var el=document.createElement('div');
+    el.style.cssText='background:rgba(255,255,255,0.4);border:1px solid rgba(255,255,255,0.7);border-radius:8px;margin:0 16px 12px;padding:14px 16px;cursor:pointer';
+    var songHtml=d.songName?'<div style="display:flex;align-items:center;gap:10px;margin-top:10px;padding:10px 12px;background:rgba(255,255,255,0.5);border:1px solid rgba(255,255,255,0.8);border-radius:6px"><div style="width:36px;height:36px;border-radius:4px;background:rgba(122,184,224,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7AB8E0" stroke-width="1.8"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div style="flex:1;min-width:0"><div style="font-size:13px;color:#1A1A1A;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+escapeHtml(d.songName)+'</div><div style="font-size:11px;color:rgba(0,0,0,0.5);margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+escapeHtml(d.songArtist||'')+'</div></div></div>':'';
+    el.innerHTML='<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><div style="width:36px;height:36px;border-radius:50%;overflow:hidden;background:rgba(122,184,224,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0">'+((d.avatar)?'<img src="'+getAvUrl(d.avatar)+'" style="width:100%;height:100%;object-fit:cover">':'<div style="width:100%;height:100%;background:rgba(122,184,224,0.3);display:flex;align-items:center;justify-content:center;color:#7AB8E0;font-size:14px;font-weight:600">'+escapeHtml((d.author||'?').slice(0,1))+'</div>')+'</div><div><div style="font-size:14px;font-weight:600;color:#1A1A1A">'+escapeHtml(d.author||'')+'</div><div style="font-size:11px;color:rgba(0,0,0,0.4)">'+escapeHtml(d.time||'')+'</div></div></div><div style="font-size:14px;color:#333;line-height:1.6;margin-bottom:4px">'+escapeHtml(d.text||'')+'</div>'+songHtml;
+    if(d.songName&&d.ncmId){
+      el.querySelector('[style*="border-radius:6px"]').onclick=function(ev){
+        ev.stopPropagation();
+        var song={id:'ncm_'+d.ncmId,ncmId:d.ncmId,name:d.songName,artist:d.songArtist||'',cover:'',source:'ncm'};
+        _queue=[song];_qi=0;muPlay(song);
+      };
+    }
+    list.appendChild(el);
+  });
+}
+
+var _muDynBusy=false;
+document.getElementById('muDynRefreshBtn').onclick=async function(){
+  if(_muDynBusy)return;
+  var api=getApiSettings();
+  if(!api||!api.apiUrl||!api.apiKey||!api.model){alert('先在设置里配置API');_muDynBusy=false;btn.style.opacity='1';btn.style.pointerEvents='auto';return}
+  var fs=getPublicFriends();
+  if(!fs.length){alert('先去聊天App添加角色');_muDynBusy=false;btn.style.opacity='1';btn.style.pointerEvents='auto';return}
+  _muDynBusy=true;
+  var btn=this;btn.style.opacity='0.4';btn.style.pointerEvents='none';
+  document.getElementById('muRecList').innerHTML='<div class="mu-empty" style="padding:40px">生成中...</div>';
+  try{
+    var pe=typeof getActivePersona==='function'?getActivePersona():null;
+    var myName=pe?pe.name:'用户';
+    var charInfo=fs.slice(0,8).map(function(f){
+      var chat='';
+      try{var h=getChatHistory(f.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image}).slice(-6);if(h.length)chat=h.map(function(m){return m.role==='user'?myName+':'+m.content:f.name+':'+m.content}).join(' | ')}catch(e){}
+      return f.name+(f.persona?' - '+f.persona.slice(0,80):'')+(chat?' [最近:'+chat.slice(0,150)+']':'');
+    }).join('\n');
+    var gp=typeof getGlobalPromptText==='function'?getGlobalPromptText():'';
+    var sys='';
+    if(gp)sys+='[全局设定]\n'+gp+'\n\n';
+    sys+='你是一个音乐社交动态生成器。以下是可用角色：\n'+charInfo+'\n\n';
+    if(pe)sys+='[这些角色共同认识的人] '+myName+(pe.desc?' ('+pe.desc+')':'')+'\n\n';
+    sys+='请生成5条音乐App动态（类似网易云音乐动态/QQ音乐说说）。规则：\n';
+    sys+='1. 每条动态由一个角色发布，配一段文案和一首真实存在的歌曲\n';
+    sys+='2. 文案像真人在音乐App发的动态：可以是听歌感想、碎碎念、深夜emo、分享心情、歌词联想等，1-3句，口语化\n';
+    sys+='3. 歌曲必须是真实存在、能在网易云音乐上搜到的真歌，写准确的歌名和歌手名\n';
+    sys+='4. 歌曲要贴合角色的性格和当下心情，不要每条都是同一个风格\n';
+    sys+='5. 不同角色风格不同，不要都选同一个角色\n';
+    sys+='6. 绝对不能以'+myName+'的身份发动态\n\n';
+    sys+='严格按以下格式，每条用===分隔：\n===\n动态|||角色名|||文案内容|||歌名|||歌手名\n===\n\n只输出格式，不要解释。';
+ var reply='';
+try{reply=await callApi([{role:'system',content:sys},{role:'user',content:'生成5条音乐动态'}])}catch(err){document.getElementById('muRecList').innerHTML='<div class="mu-empty">生成失败：'+escapeHtml(err.message||'API调用出错')+'</div>';_muDynBusy=false;btn.style.opacity='1';btn.style.pointerEvents='auto';return}
+if(!reply||!reply.trim()){document.getElementById('muRecList').innerHTML='<div class="mu-empty">生成失败（API无返回），请重试</div>';_muDynBusy=false;btn.style.opacity='1';btn.style.pointerEvents='auto';return}
+var blocks=reply.split('===').filter(function(b){return b.trim()});
+var newDyn=[];
+blocks.forEach(function(block){
+  var lines=block.split('\n').filter(function(l){return l.trim()});
+  lines.forEach(function(line){
+    var parts=line.split('|||').map(function(s){return s.trim()});
+    if(parts[0]==='动态'&&parts[1]&&parts[2]){
+      var f=fs.find(function(x){return x.name===parts[1]});
+      newDyn.push({author:parts[1],avatar:f?f.avatar:'',text:parts[2],songName:parts[3]||'',songArtist:parts[4]||'',ncmId:'',time:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});
+    }
+  });
+});
+// fallback: if no blocks parsed, try line by line
+if(!newDyn.length){
+  reply.split('\n').forEach(function(line){
+    var parts=line.split('|||').map(function(s){return s.trim()});
+    if(parts[0]==='动态'&&parts[1]&&parts[2]){
+      var f=fs.find(function(x){return x.name===parts[1]});
+      newDyn.push({author:parts[1],avatar:f?f.avatar:'',text:parts[2],songName:parts[3]||'',songArtist:parts[4]||'',ncmId:'',time:new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'})});
+    }
+  });
+}
+    // search ncm id for each song
+    for(var i=0;i<newDyn.length;i++){
+      var d=newDyn[i];
+      if(d.songName){
+        try{
+          var sr=await fetch('https://api-enhanced-six-ochre.vercel.app/cloudsearch?keywords='+encodeURIComponent(d.songName+' '+d.songArtist)+'&limit=1');
+          var sd=await sr.json();
+          if(sd&&sd.result&&sd.result.songs&&sd.result.songs[0]){
+            newDyn[i].ncmId=sd.result.songs[0].id;
+            var ar=sd.result.songs[0].ar||sd.result.songs[0].artists||[];
+            if(ar.length&&!d.songArtist)newDyn[i].songArtist=ar[0].name;
+          }
+        }catch(e){}
+      }
+    }
+    if(newDyn.length){muSaveDyn(newDyn);muRenderDyn()}
+    else{document.getElementById('muRecList').innerHTML='<div class="mu-empty">生成失败，请重试</div>'}
+  }catch(e){console.error(e);document.getElementById('muRecList').innerHTML='<div class="mu-empty">生成失败：'+escapeHtml(e.message||'')+'</div>'}
+  _muDynBusy=false;btn.style.opacity='1';btn.style.pointerEvents='auto';
+};
+
+// render existing on load
+setTimeout(function(){var d=muGetDyn();if(d.length)muRenderDyn()},1200);
+setTimeout(function(){muRenderPl()},1500);// ===== 播放页爱心/添加歌单/底栏切歌 =====
+document.getElementById('mfHeartBtn').onclick=function(){
+  if(!_cur){favToast('先播放一首歌');return}
+  var fav=muGetFav();
+  if(fav.some(function(x){return x.id===_cur.id})){favToast('已经在喜欢列表了');return}
+  fav.unshift(_cur);muSaveFav(fav);
+  favToast('已添加到喜欢');
+};
+document.getElementById('mfAddPlBtn').onclick=function(){
+  if(!_cur){favToast('先播放一首歌');return}
+  muShowAddMenu(_cur);
+};
+document.getElementById('muMiniNextBtn').onclick=function(e){e.stopPropagation();muNext()};// ===== Lib sidebar =====
+if(document.getElementById('muLibMenuBtn'))document.getElementById('muLibMenuBtn').onclick=function(){};
+function muUpdateLibProfile(){
+  var pe=typeof getActivePersona==='function'?getActivePersona():null;
+  var prof=typeof getMeProfile==='function'?getMeProfile():{};
+  var name=prof.name||(pe?pe.name:'用户');
+  var sign=prof.sign||'music is my life';
+  var av=prof.avatar||(pe&&pe.avatar)||'';
+  document.getElementById('muLibName').textContent=name;
+  document.getElementById('muLibSign').textContent=sign;
+  document.getElementById('muLibAv').innerHTML=av?'<img src="'+av+'" style="width:100%;height:100%;object-fit:cover">':'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7AB8E0" stroke-width="1.6"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg>';
+}
+setTimeout(muUpdateLibProfile,1200);
+
+// ===== Init =====
+setTimeout(function(){muRenderPl()},1000);
+
+})();
+</script><script>
+/* ===== 一起听歌（聊天界面悬浮条版）v3 ===== */
+(function(){
+  var NCM_API='https://api-enhanced-six-ochre.vercel.app';
+  var _ltAudio=document.getElementById('muAudio');
+  var _ltOn=false,_ltPlaying=false,_ltQueue=[],_ltIdx=-1,_ltCur=null,_ltLyrics=[],_ltCharId=null;
+  var _ltLastLyricText='',_ltSwitchCount=0;
+  var _ltLoadingTip=null;
+  var _ltPickSelected={};
+
+  function ltParseLrc(raw){var lines=raw.split('\n'),result=[];lines.forEach(function(line){var m=line.match(/\[(\d+):(\d+\.?\d*)\](.*)/);if(m){var t=parseInt(m[1])*60+parseFloat(m[2]);var txt=m[3].trim();if(txt)result.push({time:t,text:txt})}});result.sort(function(a,b){return a.time-b.time});return result}
+  function ltGetLyricAt(t){if(!_ltLyrics.length)return '';var idx=0;for(var i=_ltLyrics.length-1;i>=0;i--){if(t>=_ltLyrics[i].time){idx=i;break}}return _ltLyrics[idx].text}
+  function ltUpdateLyricDisplay(){if(!_ltOn||!_ltPlaying)return;var el=document.getElementById('cmfLyricText');if(!el)return;var t=_ltAudio.currentTime||0;var newText=ltGetLyricAt(t);if(newText&&newText!==_ltLastLyricText){_ltLastLyricText=newText;var neo=document.createElement('div');neo.className='cmf-lyric-inner';neo.textContent=newText;var parent=el.parentNode;parent.innerHTML='';parent.appendChild(neo)}}
+  setInterval(ltUpdateLyricDisplay,500);
+  function ltUpdateSongInfo(){var nameEl=document.getElementById('cmfSongName');var artistEl=document.getElementById('cmfSongArtist');if(nameEl)nameEl.textContent=_ltCur?_ltCur.name:'♪';if(artistEl)artistEl.textContent=_ltCur?_ltCur.artist:''}
+  function ltUpdatePlayBtn(){var btn=document.getElementById('cmfPlayBtn');if(btn)btn.innerHTML=_ltPlaying?'<svg width="16" height="16" viewBox="0 0 24 24" fill="#333"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>':'<svg width="16" height="16" viewBox="0 0 24 24" fill="#333"><path d="M8 5v14l11-7z"/></svg>'}
+  function ltShowLoading(charName){ltRemoveLoading();_ltLoadingTip=document.createElement('div');_ltLoadingTip.style.cssText='position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,.78);color:#fff;padding:14px 26px;border-radius:14px;z-index:99999;font-size:14px;display:flex;align-items:center;gap:10px';_ltLoadingTip.innerHTML='<div style="width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite"></div>'+escapeHtml(charName)+'正在选歌...';document.body.appendChild(_ltLoadingTip)}
+  function ltRemoveLoading(){if(_ltLoadingTip&&_ltLoadingTip.parentNode){_ltLoadingTip.parentNode.removeChild(_ltLoadingTip);_ltLoadingTip=null}}
+
+  async function ltSearch(q){try{var r=await fetch(NCM_API+'/cloudsearch?keywords='+encodeURIComponent(q)+'&limit=5');var d=await r.json();if(d&&d.result&&d.result.songs){return d.result.songs.map(function(s){var ar=s.ar||s.artists||[];return{id:'ncm_'+s.id,ncmId:s.id,name:s.name||'',artist:ar.map(function(a){return a.name}).join('/')}})}}catch(e){}return[]}
+
+  async function ltPlaySong(song){
+_ltCur=song;_ltPlaying=false;_ltLyrics=[];_ltLastLyricText='';
+ltUpdateSongInfo();
+var lyricEl=document.getElementById('cmfLyricText');
+if(lyricEl)lyricEl.parentNode.innerHTML='<div class="cmf-lyric-inner"></div>';
+ltUpdatePlayBtn();
+// 尝试本地播放
+var aKey=song.audioKey||'';
+if(!aKey&&song.id&&song.id.indexOf('local_')===0){aKey='muAudio_'+song.id}
+if(aKey){
+  var audioData=null;
+  try{audioData=localStorage.getItem(aKey)}catch(e){}
+  if(!audioData&&typeof _idbData!=='undefined'&&_idbData[aKey]){audioData=_idbData[aKey]}
+  if(!audioData){try{await IDB.ready;var allD=await IDB.getAll();if(allD&&allD[aKey])audioData=allD[aKey]}catch(e){}}
+  if(!audioData){try{var _ltDb=await new Promise(function(res,rej){var req=indexedDB.open('wechatAppDB',1);req.onsuccess=function(e){res(e.target.result)};req.onerror=function(e){rej(e.target.error)}});var _ltTx=_ltDb.transaction('kv','readonly');var _ltReq=_ltTx.objectStore('kv').get(aKey);audioData=await new Promise(function(res){_ltReq.onsuccess=function(){res(_ltReq.result)};_ltReq.onerror=function(){res(null)}})}catch(e){}}
+  if(audioData){
+    _ltAudio.src=audioData;
+    _ltAudio.play().then(function(){_ltPlaying=true;ltUpdatePlayBtn();ltRemoveLoading()}).catch(function(e){console.log('local play err',e);ltRemoveLoading();favToast('本地音乐播放失败')});
+    if(song.lyrics){_ltLyrics=ltParseLrc(song.lyrics)}
+    return;
+  }
+}
+// 网络播放
+var url=null;
+var ncmId=song.ncmId||'';
+if(!ncmId&&song.id&&song.id.indexOf('ncm_')===0){ncmId=song.id.replace('ncm_','')}
+if(ncmId){
+  try{var r=await fetch(NCM_API+'/song/url/v1?id='+ncmId+'&level=standard');var d=await r.json();if(d&&d.data&&d.data[0]&&d.data[0].url)url=d.data[0].url}catch(e){}
+  if(!url){try{var r2=await fetch(NCM_API+'/song/url?id='+ncmId);var d2=await r2.json();if(d2&&d2.data&&d2.data[0]&&d2.data[0].url)url=d2.data[0].url}catch(e){}}
+  if(!url)url='https://music.163.com/song/media/outer/url?id='+ncmId+'.mp3';
+}
+if(!url){favToast('该歌曲暂时无法播放');ltNext();return}
+_ltAudio.src=url;
+_ltAudio.play().then(function(){_ltPlaying=true;ltUpdatePlayBtn();ltRemoveLoading()}).catch(function(){ltRemoveLoading()});
+if(ncmId){try{var lr=await fetch(NCM_API+'/lyric?id='+ncmId);var ld=await lr.json();if(ld&&ld.lrc&&ld.lrc.lyric)_ltLyrics=ltParseLrc(ld.lrc.lyric)}catch(e){}}
+}
+
+  function ltNext(){if(!_ltQueue.length)return;_ltIdx++;if(_ltIdx>=_ltQueue.length)_ltIdx=0;ltPlaySong(_ltQueue[_ltIdx])}
+  function ltPrev(){if(!_ltQueue.length)return;_ltIdx--;if(_ltIdx<0)_ltIdx=_ltQueue.length-1;ltPlaySong(_ltQueue[_ltIdx])}
+  _ltAudio.addEventListener('ended',function(){if(_ltOn)ltNext()});
+
+  function ltStop(){_ltOn=false;_ltPlaying=false;_ltCur=null;_ltQueue=[];_ltIdx=-1;_ltLyrics=[];_ltCharId=null;_ltSwitchCount=0;_ltAudio.pause();_ltAudio.src='';document.getElementById('convMusicFloat').classList.remove('show');ltRemoveLoading();if(curId)localStorage.removeItem('ltActive_'+pid()+'_'+curId)}
+
+  // ===== 歌曲选择弹窗 =====
+  function ltShowPicker(){
+    _ltPickSelected={};
+    var list=document.getElementById('ltPickList');list.innerHTML='';
+    var allSongs=[];
+    // 喜欢的歌
+try{var _muPid=localStorage.getItem('activePersonaId')||'default';var fav=JSON.parse(localStorage.getItem('muFavorites_'+_muPid)||'[]');if(fav.length){fav.forEach(function(s){allSongs.push({id:s.id,name:s.name,artist:s.artist||'',cover:s.cover||'',source:s.source||'ncm',ncmId:s.ncmId||'',audioKey:s.audioKey||'',lyrics:s.lyrics||'',from:'喜欢的歌'})})}}catch(e){}
+// 本地音乐
+try{var local=JSON.parse(localStorage.getItem('muLocalSongs_'+_muPid)||'[]');if(local.length){local.forEach(function(s){if(allSongs.some(function(x){return x.id===s.id}))return;allSongs.push({id:s.id,name:s.name,artist:s.artist||'',cover:s.cover||'',source:'local',ncmId:'',audioKey:s.audioKey||'',lyrics:s.lyrics||'',from:'本地音乐'})})}}catch(e){}
+// 歌单
+try{var pls=JSON.parse(localStorage.getItem('muPlaylists_'+_muPid)||'[]');pls.forEach(function(pl){(pl.songs||[]).forEach(function(s){if(allSongs.some(function(x){return x.id===s.id}))return;allSongs.push({id:s.id,name:s.name,artist:s.artist||'',cover:s.cover||'',source:s.source||'ncm',ncmId:s.ncmId||'',audioKey:s.audioKey||'',lyrics:s.lyrics||'',from:pl.name})})})}catch(e){}
+    if(!allSongs.length){list.innerHTML='<div style="padding:50px 20px;text-align:center;color:#999;font-size:14px;line-height:1.8">资料库里还没有歌<br>先去音乐App搜索添加、上传本地音乐<br>或创建歌单</div>';document.getElementById('ltPickOverlay').style.display='flex';return}
+    allSongs.forEach(function(s,i){
+      var el=document.createElement('div');
+      el.style.cssText='display:flex;align-items:center;gap:12px;padding:11px 12px;background:rgba(255,255,255,.45);border:1px solid rgba(255,255,255,.7);border-radius:10px;margin-bottom:8px;cursor:pointer;transition:all .12s';
+      el.innerHTML='<div class="ltpk-chk" style="width:22px;height:22px;border-radius:50%;border:2px solid #d1d1d6;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;flex-shrink:0;transition:all .15s"></div><div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:500;color:#1a1a1a;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+escapeHtml(s.name)+'</div><div style="font-size:12px;color:rgba(0,0,0,.45);margin-top:2px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+escapeHtml(s.artist)+(s.from?' · '+escapeHtml(s.from):'')+'</div></div>';
+      el.onclick=function(){
+        var chk=el.querySelector('.ltpk-chk');
+        if(_ltPickSelected[s.id]){delete _ltPickSelected[s.id];chk.style.borderColor='#d1d1d6';chk.style.background='transparent';chk.textContent='';el.style.background='rgba(255,255,255,.45)'}
+        else{_ltPickSelected[s.id]=s;chk.style.borderColor='#000';chk.style.background='#000';chk.textContent='✓';el.style.background='rgba(255,255,255,.7)'}
+        document.getElementById('ltPickCount').textContent='已选 '+Object.keys(_ltPickSelected).length+' 首';
+      };
+      list.appendChild(el);
+    });
+    document.getElementById('ltPickCount').textContent='已选 0 首';
+    document.getElementById('ltPickOverlay').style.display='flex';
+  }
+
+  document.getElementById('ltPickClose').onclick=function(){document.getElementById('ltPickOverlay').style.display='none'};
+  document.getElementById('ltPickOk').onclick=function(){
+    var selected=Object.values(_ltPickSelected);
+    if(!selected.length){favToast('请至少选一首歌');return}
+    document.getElementById('ltPickOverlay').style.display='none';
+    ltAfterPick(selected);
+  };
+
+  async function ltAfterPick(userSongs){
+    if(!curId)return;
+    if(curType!=='f'){favToast('一起听目前只支持单聊');return}
+    var api=getApiSettings();
+    if(!api.apiUrl||!api.apiKey||!api.model){favToast('先配置API');return}
+    _ltCharId=curId;_ltSwitchCount=0;
+    var f=getFriends().find(function(x){return x.id===curId});
+    if(!f)return;
+    ltShowLoading(f.name);
+    var pe=getActivePersona();
+    var userSongNames=userSongs.map(function(s){return s.name+' - '+s.artist}).join('\n');
+    var sys='你是「'+f.name+'」。'+(f.persona?f.persona.slice(0,200):'')+'\n\n';
+    sys+='你们正在一起听歌。'+(pe?pe.name:'对方')+'已经选了这些歌：\n'+userSongNames+'\n\n';
+    sys+='现在轮到你选歌了。请你也挑1-5首你想听的真实存在的歌（必须能在网易云音乐搜到），要贴合你的性格和品味，和对方选的歌搭配起来。\n';
+    sys+='严格按格式，每行一首：\n歌|||歌名|||歌手名\n\n最多5行，只输出格式。';
+    try{
+      var reply=await callApi([{role:'system',content:sys},{role:'user',content:'选你想听的歌'}]);
+      var charSongs=[];
+      reply.split('\n').forEach(function(line){var p=line.split('|||').map(function(s){return s.trim()});if(p[0]==='歌'&&p[1])charSongs.push({name:p[1],artist:p[2]||''})});
+      charSongs=charSongs.slice(0,5);
+      // 搜索角色选的歌的ncmId
+      var charQueue=[];
+      for(var i=0;i<charSongs.length;i++){
+        var results=await ltSearch(charSongs[i].name+' '+charSongs[i].artist);
+        if(results.length)charQueue.push(results[0]);
+      }
+      // 组合队列：用户的歌 + 角色的歌，交替排列
+      var finalQueue=[];
+      var uMax=userSongs.length,cMax=charQueue.length,ui=0,ci=0;
+      while(ui<uMax||ci<cMax){
+        if(ui<uMax)finalQueue.push(userSongs[ui++]);
+        if(ci<cMax)finalQueue.push(charQueue[ci++]);
+      }
+      if(!finalQueue.length){ltRemoveLoading();favToast('没有找到可播放的歌');return}
+      _ltQueue=finalQueue;_ltIdx=0;_ltOn=true;
+      localStorage.setItem('ltActive_'+pid()+'_'+curId,'1');
+      document.getElementById('convMusicFloat').classList.add('show');
+      ltPlaySong(_ltQueue[0]);
+      ltRemoveLoading();
+      var h=getChatHistory(curId);
+      h.push({role:'user',content:'（和'+f.name+'开始一起听歌）',isNarration:true});
+      saveChatHistory(curId,h);
+      renderMsgs();
+    }catch(e){console.error(e);ltRemoveLoading();favToast('选歌失败：'+(e.message||''))}
+  }
+
+  // ===== 按钮绑定 =====
+  document.getElementById('convListenTogetherBtn').onclick=function(){
+    document.getElementById('convPlusMenu').classList.remove('show');
+    if(_ltOn&&_ltCharId===curId){
+      uiConfirm('结束一起听歌吗？',function(){
+        var h=getChatHistory(curId);
+        h.push({role:'user',content:'（结束了一起听歌）',isNarration:true});
+        saveChatHistory(curId,h);renderMsgs();ltStop();
+      },{title:'一起听',okText:'结束'});
+      return;
+    }
+    if(_ltOn)ltStop();
+    ltShowPicker();
+  };
+
+  document.getElementById('cmfPlayBtn').onclick=function(e){e.stopPropagation();if(!_ltCur)return;if(_ltPlaying){_ltAudio.pause();_ltPlaying=false}else{_ltAudio.play().then(function(){_ltPlaying=true}).catch(function(){})}ltUpdatePlayBtn()};
+  document.getElementById('cmfPrev').onclick=function(e){e.stopPropagation();ltPrev()};
+  document.getElementById('cmfNext').onclick=function(e){e.stopPropagation();ltNext()};
+  document.getElementById('cmfClose').onclick=function(e){e.stopPropagation();uiConfirm('结束一起听歌吗？',function(){if(curId&&_ltCharId===curId){var h=getChatHistory(curId);h.push({role:'user',content:'（结束了一起听歌）',isNarration:true});saveChatHistory(curId,h);try{renderMsgs()}catch(ex){}}ltStop()},{title:'一起听',okText:'结束'})};
+
+  // ===== hook into sendF =====
+  var _ltOrigSendF=sendF;
+  sendF=async function(){
+    if(_ltOn&&_ltCharId===curId&&_ltCur){
+      _ltSwitchCount++;
+      var songInfo='[背景氛围·你们正在一起听歌]\n正在播放：'+_ltCur.name+' - '+(_ltCur.artist||'');
+      if(_ltLyrics.length){
+        var t=_ltAudio.currentTime||0;
+        var nearby=_ltLyrics.filter(function(l){return l.time>=t-10&&l.time<=t+30}).map(function(l){return l.text}).slice(0,6);
+        if(nearby.length)songInfo+='\n此刻的歌词：'+nearby.join(' / ');
+      }
+      songInfo+='\n你们正在一边听歌一边正常聊天。绝大多数时候你完全不提歌、不提音乐，就当背景音乐，正常聊你们自己的事。只有极偶尔（大约每10轮才1次）某句歌词恰好戳中你了，才可以自然地提一嘴，其余时候绝对不提。';
+      var _ltUserWantsSwitch=false;try{var _ltLH=getChatHistory(curId);for(var _lti=_ltLH.length-1;_lti>=0;_lti--){if(_ltLH[_lti].role==='user'&&!_ltLH[_lti].isNarration&&!_ltLH[_lti].hidden){_ltUserWantsSwitch=/换|切|不想听|不好听|下一首|换一首|切歌|跳过|不喜欢这首|换首|skip|next/.test(_ltLH[_lti].content||'');break}}}catch(e){}
+      window._ltCanSwitch=_ltUserWantsSwitch||(_ltSwitchCount>=40&&Math.random()<0.04);
+      if(window._ltCanSwitch){
+        songInfo+='\n\n对方明确说了想换歌，在回复最末尾单独另起一行输出 [切歌:歌名:歌手名]（必须是真实存在的歌）。';
+      }else{
+        songInfo+='\n\n【本轮绝对禁止切歌，绝对不要输出任何[切歌]标记，无论如何都不要切歌。】';
+      }
+      window._ltMusicInject=songInfo;
+    }else{
+      window._ltMusicInject='';
+    }
+    return _ltOrigSendF.apply(this,arguments);
+  };
+
+  var _ltOrigCallApi=callApi;
+  callApi=function(msgs){
+    if(window._ltMusicInject&&window._ltMusicInject.trim()){
+      msgs.push({role:'system',content:window._ltMusicInject});
+      window._ltMusicInject='';
+    }
+    return _ltOrigCallApi(msgs);
+  };
+
+  var _ltOrigRenderMsgs3=renderMsgs;
+  renderMsgs=function(){
+    if(_ltOn&&_ltCharId===curId){
+      var h=getChatHistory(curId);
+      for(var i=h.length-1;i>=Math.max(0,h.length-3);i--){
+        if(h[i].role!=='assistant')continue;
+        var m=h[i].content||'';
+        var sm=m.match(/\[切歌[:：]\s*([^:：\]]+)[:：]\s*([^\]]*)\]/);
+        if(sm){
+          h[i].content=m.replace(/\[切歌[:：][^\]]*\]/g,'').trim();
+          saveChatHistory(curId,h);
+          if(window._ltCanSwitch){
+            var newName=sm[1].trim(),newArtist=sm[2]?sm[2].trim():'';
+            _ltSwitchCount=0;
+            (async function(nn,na){
+              var results=await ltSearch(nn+' '+na);
+              if(results.length){
+                _ltQueue.push(results[0]);_ltIdx=_ltQueue.length-1;
+                ltPlaySong(results[0]);
+                favToast('切歌：'+nn);
+              }
+            })(newName,newArtist);
+          }
+          window._ltCanSwitch=false;
+          break;
+        }
+      }
+    }
+    _ltOrigRenderMsgs3.apply(this,arguments);
+  };
+
+  var _ltOrigOpenConv=openConv;
+  openConv=function(id,type,altObj){
+    _ltOrigOpenConv.apply(this,arguments);
+    if(_ltOn&&_ltCharId===id)document.getElementById('convMusicFloat').classList.add('show');
+    else document.getElementById('convMusicFloat').classList.remove('show');
+  };
+
+  var _ltOrigConvBack=document.getElementById('convBack').onclick;
+  document.getElementById('convBack').onclick=function(){
+    document.getElementById('convMusicFloat').classList.remove('show');
+    if(_ltOrigConvBack)_ltOrigConvBack.apply(this,arguments);
+  };
+})();
+</script></html>
