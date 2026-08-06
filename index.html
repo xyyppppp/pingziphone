@@ -14991,7 +14991,7 @@ async function muSearch(q){
       d.result.songs.forEach(function(s){
         var ar=s.artists||s.ar||[];
         var artistName=ar.map(function(a){return a.name}).join('/');
-        var pic=(s.al&&s.al.picUrl)||(s.album&&s.album.picUrl)||'';
+        var pic=((s.al&&s.al.picUrl)||(s.album&&s.album.picUrl)||'').replace('http://','https://');
         results.push({id:'ncm_'+s.id,ncmId:s.id,name:s.name||'',artist:artistName,cover:pic,source:'ncm',duration:Math.floor((s.duration||s.dt||0)/1000)});
       });
     }
@@ -15004,7 +15004,7 @@ async function muSearch(q){
         d2.result.songs.forEach(function(s){
           var ar=s.ar||s.artists||[];
           var artistName=ar.map(function(a){return a.name}).join('/');
-          var pic=(s.al&&s.al.picUrl)||'';
+          var pic=((s.al&&s.al.picUrl)||'').replace('http://','https://');
           results.push({id:'ncm_'+s.id,ncmId:s.id,name:s.name||'',artist:artistName,cover:pic,source:'ncm',duration:Math.floor((s.dt||s.duration||0)/1000)});
         });
       }
@@ -15068,7 +15068,7 @@ async function muPlay(song){
   if(ncmId){
     try{var r=await fetch(NCM+'/song/url/v1?id='+ncmId+'&level=standard');var d=await r.json();if(d&&d.data&&d.data[0]&&d.data[0].url)url=d.data[0].url}catch(e){}
     if(!url){try{var r2=await fetch(NCM+'/song/url?id='+ncmId);var d2=await r2.json();if(d2&&d2.data&&d2.data[0]&&d2.data[0].url)url=d2.data[0].url}catch(e){}}
-    if(!song.cover){try{var r3=await fetch(NCM+'/song/detail?ids='+ncmId);var d3=await r3.json();if(d3&&d3.songs&&d3.songs[0]&&d3.songs[0].al)song.cover=d3.songs[0].al.picUrl}catch(e){}}
+    if(!song.cover){try{var r3=await fetch(NCM+'/song/detail?ids='+ncmId);var d3=await r3.json();if(d3&&d3.songs&&d3.songs[0]&&d3.songs[0].al)song.cover=(d3.songs[0].al.picUrl||'').replace('http://','https://')}catch(e){}}
     if(!url)url='https://music.163.com/song/media/outer/url?id='+ncmId+'.mp3';
   }
   if(!url){favToast('该歌曲暂时无法播放');return}
