@@ -9992,7 +9992,7 @@ function doLongSum(cb){
     }
     var txt=batches[bIdx].map(function(x){return x.content}).join('\n');
         callApi([
-      {role:'system',content:'你是记忆压缩器。把下面的多条短期记忆合并为一条约80字的长期记忆。严格规则：1.用白描手法，只写具体发生了什么事、谁说了什么、做了什么，像流水账一样平铺直叙；2.禁止任何概括升华、情感分析、关系定性（不许写"关系升温""感情加深""逐渐亲近"这类笼统判断）；3.保留具体的人名、地点、事件、约定、承诺、冲突等细节；4.用第三人称；5.不要加任何前缀或标题，直接输出。'},
+      {role:'system',content:'你是记忆压缩器。把下面的多条短期记忆合并为一条约100字的长期记忆。严格规则：1.用白描手法，只写具体发生了什么事、谁说了什么、做了什么，像流水账一样平铺直叙；2.禁止任何概括升华、情感分析、关系定性（不许写"关系升温""感情加深""逐渐亲近"这类笼统判断）；3.保留具体的人名、地点、事件、约定、承诺、冲突等细节；4.用第三人称；5.不要加任何前缀或标题，直接输出。'},
       {role:'user',content:txt}
     ]).then(function(reply){
       newLong.push({content:reply.trim(),time:new Date().toLocaleString('zh-CN')});
@@ -10064,12 +10064,15 @@ if(f)f.onclick=function(){
   try{document.getElementById('longMemoryCount').textContent=mems.length+'条'}catch(ex){}
 };
 
-var g=document.getElementById('longMemoryEditDelete');
-if(g)g.onclick=function(){
+var g=document.getElementById('longMemoryEditDelete').onclick=function(){
   uiConfirm('确定删除这条长期记忆吗？',function(){
-    var mems=getLongMemories(curId);
-    mems.splice(editLongMemIdx,1);
-    saveLongMemories(curId,mems);
+    var mems=getLongMemories(curId);mems.splice(editLongMemIdx,1);saveLongMemories(curId,mems);
+    var ss=getSumSettings(curId);ss.lastIdx=0;saveSumSettings(curId,ss);
+    document.getElementById('longMemoryEditPage').classList.remove('active');
+    renderLongML();
+    try{document.getElementById('longMemoryCount').textContent=mems.length+'条'}catch(ex){}
+  },{title:'删除长期记忆',danger:true,okText:'删除'});
+};
     document.getElementById('longMemoryEditPage').classList.remove('active');
     renderLongML();
     try{document.getElementById('longMemoryCount').textContent=mems.length+'条'}catch(ex){}
