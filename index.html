@@ -4090,7 +4090,7 @@ sys+='你是抖音评论区生成器。请为下面这条视频生成真实自�
           var p=line.split('|||').map(function(s){return s.trim()});
           if(p[0]==='视频'&&p[1]){
             var raw=p[1];
-            var af=chars.find(function(x){return raw===x.name||raw.replace('@','')===x.name||raw.indexOf(x.name)>=0});
+            var _rawClean=raw.replace(/^@/,'').trim();var af=chars.find(function(x){return x.name===_rawClean||x.name===raw||_rawClean.indexOf(x.name)>=0||x.name.indexOf(_rawClean)>=0||(x.netName&&(x.netName===_rawClean||_rawClean.indexOf(x.netName)>=0))});
             var scenes=(p[2]||'').replace(/[／/]/g,'\n');
             vObj={id:'fv'+Date.now()+Math.random().toString(36).slice(2,6),author:(raw.charAt(0)==='@'?raw:'@'+raw),authorId:af?af.id:null,text:scenes?'〔画面〕\n'+scenes:'',desc:p[3]||'',likeCount:'0',commentCount:'0',favCount:'0',shareCount:'0',comments:[]};
           }else if(p[0]==='数据'){
@@ -4303,7 +4303,14 @@ function del(topComment,replyObj){
     if(authorF&&authorF.persona)sys+='视频作者（'+authorF.name+'）的人设：'+authorF.persona.slice(0,200)+'\n';
     if(friends.length){
       sys+='\n[可以出场的熟人角色（"我"添加过的朋友，只有下面这些人能作为熟人回复，其他任何角色、NPC都绝对不能出现）]\n';
-      friends.forEach(function(f){sys+='- '+f.name+(f.persona?'：'+f.persona.slice(0,60):'')+'\n'});
+      friends.forEach(function(f){
+        sys+='- '+f.name+(f.persona?'：'+f.persona.slice(0,60):'');
+        try{var _fMem=getMemories(f.id).slice(0,3).map(function(x){return x.content}).join(' ');if(_fMem)sys+=' [记忆:'+_fMem.slice(0,150)+']'}catch(e){}
+        try{var _fLm=getLongMemories(f.id).slice(0,2).map(function(x){return x.content}).join(' ');if(_fLm)sys+=' [长期记忆:'+_fLm.slice(0,100)+']'}catch(e){}
+        try{var _pe3=getActivePersona();var _un3=_pe3?_pe3.name:'用户';var _fChat=getChatHistory(f.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-6);if(_fChat.length)sys+=' [最近单聊:'+_fChat.map(function(m){return m.role==='user'?_un3+':'+m.content:f.name+':'+m.content}).join(' | ').slice(0,200)+']'}catch(e){}
+        try{var _fGrp='';getGroups().filter(function(g){return g.memberIds&&g.memberIds.indexOf(f.id)>=0}).forEach(function(g){var _gh=getChatHistory(g.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-5);if(!_gh.length)return;var _fsA=getFriends();var _pe4=getActivePersona();var _un4=_pe4?_pe4.name:'用户';_fGrp+='群'+g.name+':'+_gh.map(function(m){if(m.role==='user')return _un4+':'+m.content;var mf=_fsA.find(function(x){return x.id===m.senderId});return(mf?mf.name:'?')+':'+m.content}).join(' | ').slice(0,150)+' ';var _gMem=getMemories(g.id).slice(0,2).map(function(x){return x.content}).join(' ');if(_gMem)_fGrp+='[群记忆:'+_gMem.slice(0,100)+'] ';var _gLm=getLongMemories(g.id).slice(0,2).map(function(x){return x.content}).join(' ');if(_gLm)_fGrp+='[群长期记忆:'+_gLm.slice(0,100)+'] '});if(_fGrp.trim())sys+=' [群聊:'+_fGrp.trim().slice(0,400)+']'}catch(e){}
+        sys+='\n';
+      });
     }
     sys+='\n下面是某条评论的楼中楼对话，从上到下按时间顺序：\n';
     sys+='【'+(topComment.name||'网友')+'】'+(topComment.text||'')+'\n';
