@@ -1880,7 +1880,18 @@ setTimeout(function(){
 @keyframes cpFlashAnim{0%,100%{opacity:1}50%{opacity:.3}}
 @keyframes cpNumPulse{0%{transform:scale(1)}50%{transform:scale(1.2)}100%{transform:scale(1)}}
 #cpCaughtOverlay .cp-hint{font-size:13px;color:rgba(255,255,255,.5);margin-top:20px}
-</style><div id="cpCaughtOverlay"><div id="cpCaughtText"></div><div id="cpCaughtNum" style="display:none"></div><div class="cp-hint" id="cpCaughtHint">点击任意位置立刻退出</div></div><div id="floatBubble"></div>
+</style><div id="cpCaughtOverlay"><div id="cpCaughtText"></div><div id="cpCaughtNum" style="display:none"></div><div class="cp-hint" id="cpCaughtHint">点击任意位置立刻退出</div></div><style>
+#momentNotify{position:fixed;top:calc(env(safe-area-inset-top) + 8px);left:12px;right:12px;z-index:2147483600;display:none;align-items:center;gap:12px;padding:12px 16px;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-radius:14px;border:1px solid rgba(0,0,0,.06);box-shadow:0 4px 20px rgba(0,0,0,.12);cursor:pointer;animation:mnSlideDown .4s cubic-bezier(.34,1.32,.64,1)}
+#momentNotify.show{display:flex}
+@keyframes mnSlideDown{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
+.mn-av{width:38px;height:38px;border-radius:50%;overflow:hidden;flex-shrink:0;background:#e8e8ed}
+.mn-av img{width:100%;height:100%;object-fit:cover}
+.mn-info{flex:1;min-width:0}
+.mn-title{font-size:13px;font-weight:600;color:#000;margin-bottom:2px}
+.mn-desc{font-size:12px;color:#666;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.mn-badge{font-size:11px;color:#999;flex-shrink:0}
+</style>
+<div id="momentNotify"><div class="mn-av" id="mnAv"></div><div class="mn-info"><div class="mn-title" id="mnTitle"></div><div class="mn-desc" id="mnDesc"></div></div><div class="mn-badge">朋友圈</div></div><div id="floatBubble"></div>
 <style>
 #floatBubble{position:fixed;width:42px;height:42px;border-radius:50%;background:rgba(160,160,170,.18);border:1.5px solid rgba(160,160,170,.3);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);z-index:2147483500;cursor:pointer;display:none;touch-action:none;-webkit-user-select:none;user-select:none;transition:box-shadow .2s}
 #floatBubble.show{display:block}
@@ -8526,11 +8537,13 @@ var memTxt=mem.length?mem.slice(0,2).map(function(x){return x.content}).join('\n
   var _relFs=getRelatedFriends(f.id).filter(function(x){return x.id!==f.id});
   sys+='[可评论的好友列表（只有下面这些和'+f.name+'已绑定关系的角色才能评论；除此之外只有'+f.name+'人设里明确提到过的NPC可以评论，绝对不能出现其他任何角色；都不包括'+(pe?pe.name:'用户')+'）]\n';
   if(!_relFs.length)sys+='（没有和'+f.name+'绑定关系的角色，本条只能由'+f.name+'人设里明确提到的NPC评论，或者无人评论）\n';
-  _relFs.forEach(function(x){sys+=x.name+(x.persona?' - '+x.persona.slice(0,50):'')+'\n'});
+  _relFs.forEach(function(x){var xChat=getChatHistory(x.id).slice(-5);var xRecent=xChat.length?xChat.slice(-3).map(function(m){return m.role==='user'?(pe?pe.name:'用户')+':'+m.content:x.name+':'+m.content}).join(' | '):'';sys+=x.name+(x.persona?' - '+x.persona.slice(0,50):'')+(xRecent?' [最近:'+xRecent.slice(0,80)+']':'')+'\n'});
   sys+=buildRelationInject();
-  sys+='\n'+getTimeContext()+'\n现在你要主动发一条朋友圈，并且好友会来评论互动。\n';
-  sys+='朋友圈规则：\n- 篇幅轻盈，一般不超过三句话，随手一发的短句\n- 碎片化、去精致、口语化，可发牢骚/吐槽/碎碎念/晒日常\n- 绝对禁止煽情、发鸡汤、强行升华，别整文绉绉的文案\n- 想发什么就发什么，完全由你自己此刻的状态和心情决定，符合你的人设\n- 【比例】优先发和'+(pe?pe.name:'用户')+'无关的个人日常，只有少数情况才发和TA隐约有关的内容\n- 【禁止翻旧账】只写此刻的当下状态和新鲜事，绝对不要反复提起或复述很久以前的旧事、旧对话\n- 如需表情用真实emoji\n\n';
-  sys+='评论规则：\n- 输出2-5条好友评论，'+(pe?pe.name:'用户')+'不能出现在评论者中\n- 【朋友圈是私密熟人圈·铁律】能评论的只有：①上面好友列表里和你互相认识的角色；②你本人人设里明确提到过的具体NPC。绝对禁止编造任何陌生网友、粉丝、路人来评论\n- 评论碎片化口语化，可以很短，不必成句\n- 【禁止上帝视角】评论的角色只知道自己经历过和公开可见的事\n\n';
+  var _amOldMoments=LS.get('moments_'+pid()).filter(function(m){return m.authorId===f.id}).slice(0,8).map(function(m){return m.content}).filter(Boolean);
+  if(_amOldMoments.length)sys+='\n[你最近已经发过的朋友圈（绝对禁止重复这些内容和话题，必须发完全不同的新东西）]\n'+_amOldMoments.join('\n')+'\n\n';
+  sys+='\n'+getTimeContext()+'\n现在你要发一条朋友圈，并且好友会来评论互动。\n';
+  sys+='朋友圈规则：\n- 篇幅轻盈，一般不超过三句话，随手一发的短句\n- 碎片化、去精致、口语化，可发牢骚/吐槽/碎碎念/晒日常\n- 绝对禁止煽情、发鸡汤、强行升华，别整文绉绉的文案\n- 【比例】优先发和'+(pe?pe.name:'用户')+'无关的个人日常，只有少数情况才发和TA隐约有关的内容\n- 【禁止翻旧账】只写此刻的当下状态和新鲜事，绝对不要反复提起或复述很久以前的旧事、旧对话\n- 如果和'+(pe?pe.name:'用户')+'关系已公开就大方发，没公开就像未公开的明星暗戳戳隐晦发\n- 也可以发和对方完全无关的日常\n- 如需表情用真实emoji如😂😏\n\n';
+  sys+='评论规则：\n- 输出3-6条好友评论，'+(pe?pe.name:'用户')+'不能出现在评论者中\n- 【朋友圈是私密熟人圈·铁律】朋友圈没有陌生网友、粉丝、路人。能评论的只有：①上面好友列表里和你互相认识（人设互相提到或已绑定关系）的角色；②你本人人设里明确提到过的具体NPC（家人/同事/朋友等，用人设写明的名字）。绝对禁止编造任何陌生网友、粉丝、路人来评论\n- 评论碎片化口语化，可以很短，不必成句\n- 符合每个人的性格和关系\n- 【禁止上帝视角】评论的角色只知道自己亲身经历和公开可见的事，绝不能提到自己不可能知道的私密信息（比如别人和'+(pe?pe.name:'用户')+'的私聊内容、别人的记忆等）\n\n';
   sys+='这条朋友圈要配一张图。请额外输出一行配图的英文绘图提示词，描述贴合朋友圈内容的画面（场景、动作、物品等，如果画面里有'+f.name+'本人则包含其外貌）。\n\n严格按以下格式输出：\n动态|||朋友圈内容\n配图|||英文绘图提示词\n赞|||名字1,名字2\n评|||名字|||评论内容\n回|||名字|||回复给谁|||回复内容\n\n只输出格式，不要解释。';
   try{
     var reply=await callApi([{role:'system',content:sys},{role:'user',content:'发朋友圈并生成互动'}]);
@@ -8544,8 +8557,34 @@ var memTxt=mem.length?mem.slice(0,2).map(function(x){return x.content}).join('\n
     moments.unshift({id:'m'+Date.now(),content:content,images:images,time:new Date().toLocaleString('zh-CN'),author:f.name,authorId:f.id,likes:likes,comments:comments});
     LS.set('moments_'+pid(),moments);
     try{renderMoments()}catch(e){}
+    showMomentNotify(f,content);
     return true;
   }catch(e){console.error(e);return false}
+}
+function showMomentNotify(f,text){
+  var el=document.getElementById('momentNotify');if(!el)return;
+  var av=document.getElementById('mnAv');
+  av.innerHTML=f.avatar?'<img src="'+getAvUrl(f.avatar)+'">':'';
+  document.getElementById('mnTitle').textContent=(f.name||'')+'发了一条朋友圈';
+  document.getElementById('mnDesc').textContent=text.slice(0,30);
+  el.classList.add('show');
+  el.onclick=function(){
+    el.classList.remove('show');
+    try{
+      var pe=getActivePersona();var prof=getMeProfile();
+      document.getElementById('momentsUserName').textContent=prof.name||(pe?pe.name:'用户');
+      document.getElementById('momentsUserAvatar').innerHTML='<img src="'+(prof.avatar||pe?.avatar||'https://i.postimg.cc/tg0pdJRx/1784737415802.jpg')+'" style="width:100%;height:100%;object-fit:cover">';
+      renderMoments();
+      var savedCover=localStorage.getItem('momentsCover_'+pid());
+      if(savedCover)document.getElementById('momentsCover').style.background='url('+savedCover+') center/cover no-repeat';
+      document.getElementById('momentsPage').classList.add('active');
+      if(!document.getElementById('chatApp').classList.contains('active')){
+        document.getElementById('homeScreen').classList.add('hide-left');
+        document.getElementById('chatApp').classList.add('active');
+      }
+    }catch(e){}
+  };
+  setTimeout(function(){el.classList.remove('show')},6000);
 }
 var _autoMomentBusy=false;
 async function checkAutoMoments(){
