@@ -3227,30 +3227,44 @@ function openCommentSheet(v){
 async function dyGenComments(v){
   var api=getApiSettings();
   if(!api.apiUrl||!api.apiKey||!api.model)return false;
+  var pe=getActivePersona();var uName=pe?pe.name:'用户';
   var gp=getGlobalPromptText(),sys='';
   if(gp)sys+='[全局设定]\n'+gp+'\n\n';
+  var wb='';try{wb=getWbContent([],'system_top')}catch(e){}
+  if(wb)sys+='[世界书]\n'+wb+'\n\n';
+  sys+=buildRelationInject();
   var scene=(v.text||'').replace(/〔画面〕/g,'').replace(/[\r\n]+/g,'，').replace(/^[，,、\s]+|[，,、\s]+$/g,'').trim();
   var isVideo=!!v.text;
   sys+='你是抖音评论区生成器。请为下面这条'+(isVideo?'视频':'照片作品')+'生成真实自然的互动数据和评论。\n';
   sys+='作者：'+(v.author||'')+'\n';
   if(scene)sys+='视频画面描述："'+scene+'"\n';
   if(v.desc)sys+='作品文案："'+v.desc+'"\n';
-    if(v.image)sys+='这条作品配了一张图片（见下方），请务必仔细观察图片里真实呈现的画面、人物、场景、动作、细节，评论要紧扣图片里看到的内容，而不是凭空发挥。\n';
+  if(v.image)sys+='这条作品配了一张图片（见下方），请务必仔细观察图片里真实呈现的画面、人物、场景、动作、细节，评论要紧扣图片里看到的内容，而不是凭空发挥。\n';
+  // 如果是角色发的视频，注入该角色完整人设和上下文
+  var authorF=v.authorId?getFriends().find(function(x){return x.id===v.authorId}):null;
+  if(authorF){
+    sys+='\n[视频作者「'+authorF.name+'」的完整人设]\n'+(authorF.persona||'（无特别设定）')+'\n';
+    
+  }
   if(v.isMe){
     var _fs=getPublicFriends();
     var _contacts=(window.dyGetContacts?window.dyGetContacts():[]);
     var _followers=_contacts.map(function(id){return _fs.find(function(x){return x.id===id})}).filter(Boolean);
     if(_followers.length){
       sys+='\n[这条是"我"自己发的作品。以下是关注我的好友，请务必让其中2-4人也来评论，用他们的真名，评论要符合各自的人设和性格]\n';
-      _followers.forEach(function(f){sys+='- '+f.name+(f.persona?'：'+f.persona.slice(0,60):'')+'\n'});
+      _followers.forEach(function(f){
+        sys+='- '+f.name+(f.persona?'：'+f.persona.slice(0,100):'')+'\n';
+      });
     }
   }
   sys+='\n要求：\n';
   sys+='1. 点赞/评论/收藏/转发数据要合理（素人几百到几千，偶有爆款上万）\n';
   sys+='2. 生成10-14条网友评论，紧扣'+(v.image?'图片画面、':'')+(scene?'视频内容、':'')+'文案，口语化、有梗、真实，有夸有玩梗有抬杠有走心，昵称有网感\n';
-sys+='2.5 大部分评论自然穿插真实emoji表情（如😂🔥🥺💯👍😭），符合抖音评论区风格，别硬凑也别每条都堆一堆\n';
+  sys+='2.5 大部分评论自然穿插真实emoji表情（如😂🔥🥺💯👍😭），符合抖音评论区风格，别硬凑也别每条都堆一堆\n';
   sys+='3. 部分评论带点赞数（如1.2w、356），大部分留空\n';
-  sys+='4. 内容干净积极\n\n';
+  sys+='4. 内容干净积极\n';
+  sys+='5. 【铁律】观众弹幕（cmt）和送礼物（gift）的昵称必须是各种随机路人网友，绝对不能用「'+uName+'」这个名字发弹幕或送礼物，也不能冒充ta——ta是真人观众本人，只会自己手动发言，你绝不能替ta生成任何弹幕或礼物\n';
+  sys+='6. 【禁止上帝视角·最高优先级】路人网友/陌生网友只知道视频公开可见的画面和文案本身，绝对不能提到'+uName+'和任何角色之间的私密信息（私聊内容、记忆、关系细节、私下发生的事等）。只有上面列出的已认识的角色（好友）才能在评论中隐晦地体现和作者/用户的关系，且不能明说私密内容。路人就是路人，只能基于视频本身来评论\n\n';
   sys+='严格按以下格式：\n数据|||点赞数|||评论数|||收藏数|||转发数\n评论|||网友昵称|||评论内容|||点赞数\n评论|||网友昵称|||评论内容|||点赞数\n\n只输出格式，不要解释。';
   var userMsg;
   if(v.image){
@@ -4037,23 +4051,47 @@ var avHtml=(authorF&&authorF.avatar)?'<img src="'+getAvUrl(authorF.avatar)+'">':
     });
     }
   async function fvGenComments(v){
-    var api=getApiSettings();if(!api.apiUrl||!api.apiKey||!api.model)return false;
-    var gp=getGlobalPromptText(),sys='';
-    if(gp)sys+='[全局设定]\n'+gp+'\n\n';
-    var scene=(v.text||'').replace(/〔画面〕/g,'').replace(/[\r\n]+/g,'，').replace(/^[，,、\s]+|[，,、\s]+$/g,'').trim();
-    sys+=buildRelationInject();
-sys+='你是抖音评论区生成器。请为下面这条视频生成真实自然的评论。\n作者：'+(v.author||'')+'\n';
-    if(scene)sys+='视频画面描述："'+scene+'"\n';
-    if(v.desc)sys+='视频文案："'+v.desc+'"\n';
-    if(v.image)sys+='这条作品配了图片（见下方），请仔细观察图片内容，评论要紧扣图片里看到的画面。\n';
-    sys+='\n要求：\n1. 生成10-14条网友评论，紧扣内容，口语化有梗真实，大部分评论自然穿插真实emoji表情（如😂🔥🥺💯👍😭），符合抖音评论区风格，别硬凑\n2. 部分评论带点赞数（如1.2w、356），大部分留空\n3. 内容干净积极\n\n格式：\n评论|||网友昵称|||评论内容|||点赞数\n\n只输出格式，不要解释。';
-    var userMsg=v.image?{role:'user',content:[{type:'image_url',image_url:{url:v.image}},{type:'text',text:'看图并结合文案生成评论'}]}:{role:'user',content:'生成这条视频的评论'};
-    var reply=await callApi([{role:'system',content:sys},userMsg]);
-    var cmts=[];
-    reply.split('\n').forEach(function(line){var p=line.split('|||').map(function(s){return s.trim()});if(p[0]==='评论'&&p[1]&&p[2])cmts.push({name:p[1],text:p[2],likes:p[3]||''})});
-    if(cmts.length){v.comments=cmts;v.commentCount=String(cmts.length)}
-    return cmts.length>0;
+  var api=getApiSettings();if(!api.apiUrl||!api.apiKey||!api.model)return false;
+  var pe=getActivePersona();var uName=pe?pe.name:'用户';
+  var gp=getGlobalPromptText(),sys='';
+  if(gp)sys+='[全局设定]\n'+gp+'\n\n';
+  var wb='';try{wb=getWbContent([],'system_top')}catch(e){}
+  if(wb)sys+='[世界书]\n'+wb+'\n\n';
+  sys+=buildRelationInject();
+  var scene=(v.text||'').replace(/〔画面〕/g,'').replace(/[\r\n]+/g,'，').replace(/^[，,、\s]+|[，,、\s]+$/g,'').trim();
+  sys+='你是抖音评论区生成器。请为下面这条视频生成真实自然的评论。\n作者：'+(v.author||'')+'\n';
+  if(scene)sys+='视频画面描述："'+scene+'"\n';
+  if(v.desc)sys+='视频文案："'+v.desc+'"\n';
+  if(v.image)sys+='这条作品配了图片（见下方），请仔细观察图片内容，评论要紧扣图片里看到的画面。\n';
+  // 注入作者完整人设和上下文
+  var authorF=v.authorId?getFriends().find(function(x){return x.id===v.authorId}):null;
+  if(authorF){
+    sys+='\n[视频作者「'+authorF.name+'」的完整人设]\n'+(authorF.persona||'（无特别设定）')+'\n';
+    try{var _fvMem=getMemories(authorF.id);if(_fvMem.length)sys+='['+authorF.name+'的记忆]\n'+_fvMem.slice(0,4).map(function(x){return x.content}).join('\n---\n')+'\n'}catch(e){}
+    try{var _fvLm=getLongMemories(authorF.id);if(_fvLm.length)sys+='['+authorF.name+'的长期记忆]\n'+_fvLm.slice(0,3).map(function(x){return x.content}).join('\n---\n')+'\n'}catch(e){}
+    try{var _fvChat=getChatHistory(authorF.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-12);if(_fvChat.length)sys+='['+authorF.name+'和'+uName+'最近的聊天]\n'+_fvChat.map(function(m){return m.role==='user'?uName+':'+m.content:authorF.name+':'+m.content}).join('\n')+'\n'}catch(e){}
   }
+  // 注入可能评论的好友列表（与作者有绑定关系的角色）
+  var _fvRelFs=[];
+  if(authorF){try{_fvRelFs=getRelatedFriends(authorF.id).filter(function(x){return x.id!==authorF.id})}catch(e){}}
+  if(_fvRelFs.length){
+    sys+='\n[和作者互相认识的好友（可以来评论，用真名，评论要符合各自人设和记忆）]\n';
+_fvRelFs.forEach(function(f){
+  var _fvRMem='';
+  try{var _rm=getMemories(f.id).slice(0,3);if(_rm.length)_fvRMem+=' [记忆:'+_rm.map(function(x){return x.content}).join(';').slice(0,200)+']'}catch(e){}
+  try{var _rch=getChatHistory(f.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-8);if(_rch.length)_fvRMem+=' [最近聊天:'+_rch.map(function(m){return m.role==='user'?uName+':'+m.content:f.name+':'+m.content}).join(' | ').slice(0,250)+']'}catch(e){}
+  try{var _rgrp='';getGroups().filter(function(g){return g.memberIds&&g.memberIds.indexOf(f.id)>=0}).forEach(function(g){var gh=getChatHistory(g.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image}).slice(-6);if(gh.length){var _fsA=getFriends();_rgrp+=' [群'+g.name+':'+gh.map(function(m){if(m.role==='user')return uName+':'+m.content;var mf=_fsA.find(function(x){return x.id===m.senderId});return(mf?mf.name:'?')+':'+m.content}).join(' | ').slice(0,200)+']'}});if(_rgrp)_fvRMem+=_rgrp}catch(e){}
+  sys+='- '+f.name+(f.persona?' - '+f.persona.slice(0,80):'')+_fvRMem+'\n';
+});
+  if(pe)sys+='\n[这些角色共同认识的人] '+uName+(pe.desc?' ('+pe.desc+')':'')+'\n\n';
+  sys+='\n要求：\n1. 生成10-14条网友评论，紧扣内容，口语化有梗真实，大部分评论自然穿插真实emoji表情（如😂🔥🥺💯👍😭），符合抖音评论区风格，别硬凑\n2. 部分评论带点赞数（如1.2w、356），大部分留空\n3. 内容干净积极\n4. 绝对不能以'+uName+'的身份评论\n5. 【禁止上帝视角·最高优先级】路人网友/陌生网友只知道视频公开可见的画面和文案本身，绝对不能提到'+uName+'和任何角色之间的私密信息（私聊内容、记忆、关系细节、私下发生的事等）。只有上面列出的已认识的好友才能在评论中隐晦地体现关系，且不能明说私密内容。路人就是路人，只能基于视频本身来评论\n\n格式：\n评论|||网友昵称|||评论内容|||点赞数\n\n只输出格式，不要解释。';
+  var userMsg=v.image?{role:'user',content:[{type:'image_url',image_url:{url:v.image}},{type:'text',text:'看图并结合文案生成评论'}]}:{role:'user',content:'生成这条视频的评论'};
+  var reply=await callApi([{role:'system',content:sys},userMsg]);
+  var cmts=[];
+  reply.split('\n').forEach(function(line){var p=line.split('|||').map(function(s){return s.trim()});if(p[0]==='评论'&&p[1]&&p[2])cmts.push({name:p[1],text:p[2],likes:p[3]||''})});
+  if(cmts.length){v.comments=cmts;v.commentCount=String(cmts.length)}
+  return cmts.length>0;
+}
 
   async function refreshFriendsFeed(){
     if(fvBusy)return;
@@ -4150,7 +4188,7 @@ window.dyComment=(function(){
 
   function myName(){var d=LS.get('dyMeData_'+pid(),'{}');var pe=getActivePersona();return d.name||(pe?pe.name:'我')}
   function myAvatarHtml(){var d=LS.get('dyMeData_'+pid(),'{}');var pe=getActivePersona();var av=d.avatar||(pe&&pe.avatar);return av?'<img src="'+getAvUrl(av)+'" style="width:100%;height:100%;object-fit:cover">':forumStrangerAv(myName())}
-  function avatarHtml(c){   if(c.isMe)return myAvatarHtml();   try{var fr=getPublicFriends().find(function(f){return f.name===c.name});if(fr&&fr.avatar)return '<img src="'+getAvUrl(fr.avatar)+'" style="width:100%;height:100%;object-fit:cover">'}catch(e){}   return forumStrangerAv(c.name||'?'); } function getDyFriends(){var fs=getPublicFriends();var ids=(window.dyGetContacts?window.dyGetContacts():[]);return ids.map(function(id){return fs.find(function(x){return x.id===id})}).filter(Boolean)} function detectMention(txt){var fr=getDyFriends();for(var i=0;i<fr.length;i++){if((txt||'').indexOf('@'+fr[i].name)>=0)return fr[i].name}return ''}
+  function avatarHtml(c){   if(c.isMe)return myAvatarHtml();   try{var fr=getFriends().find(function(f){return f.name===c.name||(f.netName&&f.netName===c.name)});if(fr&&fr.avatar)return '<img src="'+getAvUrl(fr.avatar)+'" style="width:100%;height:100%;object-fit:cover">'}catch(e){}   return forumStrangerAv(c.name||'?'); } function getDyFriends(){var fs=getPublicFriends();var ids=(window.dyGetContacts?window.dyGetContacts():[]);return ids.map(function(id){return fs.find(function(x){return x.id===id})}).filter(Boolean)} function detectMention(txt){var fr=getDyFriends();for(var i=0;i<fr.length;i++){if((txt||'').indexOf('@'+fr[i].name)>=0)return fr[i].name}return ''}
 
 function ensure(){
   if(sheet)return;
@@ -4290,8 +4328,12 @@ function del(topComment,replyObj){
   loadEl.textContent='网友们正在回复…';
   sheet.querySelector('#ducList').appendChild(loadEl);
   try{
+    var pe=getActivePersona();var uName=pe?pe.name:'用户';
     var gp=getGlobalPromptText(),sys='';
     if(gp)sys+='[全局设定]\n'+gp+'\n\n';
+    var wb='';try{wb=getWbContent([],'system_top')}catch(e){}
+    if(wb)sys+='[世界书]\n'+wb+'\n\n';
+    sys+=buildRelationInject();
     var scene=(curV.text||'').replace(/〔画面〕/g,'').replace(/[\r\n]+/g,'，').replace(/^[，,、\s]+|[，,、\s]+$/g,'').trim();
     var mine=myName();
     var authorF=curV.authorId?getFriends().find(function(x){return x.id===curV.authorId}):null;
@@ -4300,11 +4342,22 @@ function del(topComment,replyObj){
     sys+='视频作者：'+(curV.author||'')+(curV.isMe?'（就是"我"'+mine+'本人发的）':'')+'\n';
     if(scene)sys+='视频画面："'+scene+'"\n';
     if(curV.desc)sys+='视频文案："'+curV.desc+'"\n';
-    if(authorF&&authorF.persona)sys+='视频作者（'+authorF.name+'）的人设：'+authorF.persona.slice(0,200)+'\n';
-    if(friends.length){
-      sys+='\n[可以出场的熟人角色（"我"添加过的朋友，只有下面这些人能作为熟人回复，其他任何角色、NPC都绝对不能出现）]\n';
-      friends.forEach(function(f){sys+='- '+f.name+(f.persona?'：'+f.persona.slice(0,60):'')+'\n'});
+    if(authorF&&authorF.persona)sys+='视频作者（'+authorF.name+'）的完整人设：'+authorF.persona+'\n';
+    // 注入作者的记忆和聊天
+    if(authorF){
+      try{var _grMem=getMemories(authorF.id);if(_grMem.length)sys+='['+authorF.name+'的记忆]\n'+_grMem.slice(0,3).map(function(x){return x.content}).join('\n---\n')+'\n'}catch(e){}
+      try{var _grChat=getChatHistory(authorF.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-10);if(_grChat.length)sys+='['+authorF.name+'和'+uName+'最近的聊天]\n'+_grChat.map(function(m){return m.role==='user'?uName+':'+m.content:authorF.name+':'+m.content}).join('\n')+'\n'}catch(e){}
     }
+    if(friends.length){
+  sys+='\n[可以出场的熟人角色（"我"添加过的朋友，只有下面这些人能作为熟人回复，其他任何角色、NPC都绝对不能出现）]\n';
+  friends.forEach(function(f){
+    var _grFMem='';
+    try{var _gm=getMemories(f.id).slice(0,3);if(_gm.length)_grFMem+=' [记忆:'+_gm.map(function(x){return x.content}).join(';').slice(0,200)+']'}catch(e){}
+    try{var _gch=getChatHistory(f.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image&&!m.isNarration&&!m.isCommand}).slice(-8);if(_gch.length)_grFMem+=' [最近聊天:'+_gch.map(function(m){return m.role==='user'?(mine||'我')+':'+m.content:f.name+':'+m.content}).join(' | ').slice(0,250)+']'}catch(e){}
+    try{var _ggrp='';getGroups().filter(function(g){return g.memberIds&&g.memberIds.indexOf(f.id)>=0}).forEach(function(g){var gh=getChatHistory(g.id).filter(function(m){return(m.content||'')&&!m.isTransfer&&!m.image}).slice(-6);if(gh.length){var _fsA=getFriends();_ggrp+=' [群'+g.name+':'+gh.map(function(m){if(m.role==='user')return(mine||'我')+':'+m.content;var mf=_fsA.find(function(x){return x.id===m.senderId});return(mf?mf.name:'?')+':'+m.content}).join(' | ').slice(0,200)+']'}});if(_ggrp)_grFMem+=_ggrp}catch(e){}
+    sys+='- '+f.name+(f.persona?'：'+f.persona.slice(0,100):'')+_grFMem+'\n';
+  });
+}
     sys+='\n下面是某条评论的楼中楼对话，从上到下按时间顺序：\n';
     sys+='【'+(topComment.name||'网友')+'】'+(topComment.text||'')+'\n';
     (topComment.replies||[]).forEach(function(r){sys+='【'+(r.name||'网友')+(r.replyTo?' 回复 '+r.replyTo:'')+'】'+(r.text||'')+'\n'});
@@ -4317,7 +4370,8 @@ function del(topComment,replyObj){
     if(mentioned)sys+='4. 【重要】"我"在评论里 @ 了「'+mentioned+'」，所以「'+mentioned+'」这次必须出现并直接回复"我"，用TA本人的人设口吻\n';
     sys+=(mentioned?'5':'4')+'. 每条都要指明回复给谁（这一楼里出现过的人）\n';
     sys+=(mentioned?'6':'5')+'. 绝对不能冒充"我"（'+mine+'）发言\n';
-    sys+=(mentioned?'7':'6')+'. 陌生网友昵称要有网感、各式各样；内容干净积极，回复可自然穿插真实emoji表情（如😂🔥🥺👍），符合抖音评论区风格，别硬凑\n\n';
+    sys+=(mentioned?'7':'6')+'. 陌生网友昵称要有网感、各式各样；内容干净积极，回复可自然穿插真实emoji表情（如😂🔥🥺👍），符合抖音评论区风格，别硬凑\n';
+    sys+=(mentioned?'8':'7')+'. 【禁止上帝视角·最高优先级】路人网友/陌生网友只知道这条视频和这个楼里公开可见的内容，绝对不能提到'+uName+'和任何角色之间的私密信息（私聊内容、记忆、关系细节、私下发生的事等）。只有上面列出的熟人角色才能在回复中隐晦地体现和'+uName+'的关系，且不能明说私密内容。路人就是路人，只能基于公开对话来回复\n\n';
     sys+='严格按格式，每行一条：\n回|||回复者昵称|||回复给谁|||回复内容\n\n只输出格式，不要解释。';
     var rep=await callApi([{role:'system',content:sys},{role:'user',content:'生成5-6条楼中楼回复'}]);
     rep.split('\n').forEach(function(line){
@@ -4330,7 +4384,7 @@ function del(topComment,replyObj){
     if(curCfg&&curCfg.save)curCfg.save();
     render();
   }catch(e){console.error(e);if(loadEl.parentNode)loadEl.remove()}
-  }
+}
 
   function open(v,cfg){
     curV=v;curCfg=cfg||{};
