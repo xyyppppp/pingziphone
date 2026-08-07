@@ -1018,11 +1018,11 @@ if(_isCharPost&&_posterF&&_posterF.persona)sys+='[发帖人'+_posterName+'的完
   sys+=buildRelationInject();
   sys+='\n朋友圈原文："'+mo.content.slice(0,100)+'"\n评论区之前的评论：\n';(mo.comments||[]).slice(-8).forEach(c=>sys+=c.name+(c.replyTo?' 回复 '+c.replyTo:'')+'：'+c.text+'\n');
   sys+='\n'+getTimeContext()+'\n'+myName+'刚刚在评论区回复了「'+replyToName+'」说："'+txt.trim()+'"\n';
-  sys+='请让上面每个人物各回复'+myName+'一句。要求：像熟人随手接话，短、自然、带各自和'+myName+'的关系味，不要复述别人说过的话，语句碎片化口语化，禁止文绉绉、禁止鸡汤，如需表情用真实emoji，禁止方括号表情。\n严格按格式，每行一条：\n回|||人物名|||回复内容\n\n只输出格式，不要解释。';
+  rSys+='请让上面每个人物各回复一句。要求：像熟人随手接话，短、自然、带各自和'+myName+'的关系味，不要复述别人说过的话，语句碎片化口语化，禁止文绉绉、禁止鸡汤，如需表情用真实emoji，禁止方括号表情。\n严格按格式，每行一条：\n回|||角色名|||回复给谁|||回复内容\n\n只输出格式，不要解释。';
   try{
-    const reply=await callApi([{role:'system',content:sys},{role:'user',content:'生成回复'}]);
+    const reply=await callApi([{role:'system',content:rSys},{role:'user',content:'生成回复'}]);
     const ms3=LS.get('moments_'+pid());const mo3=ms3[momentIdx];if(!mo3)return;if(!mo3.comments)mo3.comments=[];
-    reply.split('\n').forEach(line=>{const parts=line.split('|||').map(s=>s.trim());if(parts[0]==='回'&&parts[1]&&parts[2]&&parts[1]!==myName&&speakers.indexOf(parts[1])>=0)mo3.comments.push({name:parts[1],replyTo:myName,text:parts[2]})});
+    reply.split('\n').forEach(line=>{const parts=line.split('|||').map(s=>s.trim());if(parts[0]==='回'&&parts[1]&&parts[2]&&parts[1]!==myName){if(parts[3]){mo3.comments.push({name:parts[1],replyTo:parts[2],text:parts[3]})}else if(speakers.indexOf(parts[1])>=0){mo3.comments.push({name:parts[1],replyTo:myName,text:parts[2]})}}});
     LS.set('moments_'+pid(),ms3);renderMoments();
   }catch(e){console.error(e)}
   });
