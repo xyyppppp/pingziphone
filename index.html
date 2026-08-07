@@ -1116,7 +1116,7 @@ document.getElementById('memorySummaryBack').onclick=()=>document.getElementById
 document.getElementById('autoSummaryToggle').onclick=function(){const s=getSumSettings(curId);s.autoEnabled=!s.autoEnabled;this.classList.toggle('on',s.autoEnabled);document.getElementById('autoSummaryFreqField').style.display=s.autoEnabled?'block':'none';saveSumSettings(curId,s)};
 document.getElementById('autoSummaryFreq').onchange=function(){const s=getSumSettings(curId);s.freq=Math.max(5,parseInt(this.value)||20);this.value=s.freq;saveSumSettings(curId,s)};
 document.getElementById('manualSummaryBtn').onclick=()=>{uiConfirm('现在手动总结当前对话的新消息吗？',function(){doSum()},{title:'总结记忆',okText:'总结'})};
-async function doSum(){const api=getApiSettings();if(!api.apiUrl||!api.apiKey||!api.model)return alert('先配置API');const h=getChatHistory(curId);const s=getSumSettings(curId);const li=Math.min(s.lastIdx||0,h.length);const uns=h.slice(li);if(uns.length<3)return alert('暂无足够新消息');const fs=getFriends();const st=document.getElementById('manualSummaryStatus');st.textContent='...';const peSum=getActivePersona();const userName=peSum?peSum.name:'用户';try{const chunks=[];for(let i=0;i<uns.length;i+=30){const ck=uns.slice(i,i+30);chunks.push(ck.map(m=>{if(m.role==='user')return userName+':'+m.content;const f=fs.find(x=>x.id===m.senderId);return(f?f.name:curType==='f'?(fs.find(x=>x.id===curId)?.name||'AI'):'?')+':'+m.content}).join('\n'))}const nw=[];for(const ck of chunks){const reply=await callApi([{role:'system',content:'你是记忆压缩器。把下面的对话压缩成简短的第三人称记忆摘要。\n严格规则：\n1. 必须高度概括，绝对禁止逐句复述、原样搬运或轻微改写对话原文\n2. 用第三人称客观陈述：发生了什么事、双方达成了什么、透露了哪些关键信息或情绪转折\n3. 合并同类内容，省略寒暄、语气词、无意义的重复\n4. 只保留对后续剧情有用的事实：约定、关系变化、重要信息、情绪节点\n5. 语言精炼，一句一事实，整体60-150字\n6. 不要加"总结："之类开头，不要分析内心，不要升华\n正确示范："两人约好周末去看展。A提到最近工作压力大，B安慰并主动分担了部分事务。"\n错误示范（禁止这样）：把每句话都原封不动列出来。'},{role:'user',content:ck}]);nw.push({content:reply,time:new Date().toLocaleString('zh-CN')})}const all=[...nw.reverse(),...getMemories(curId)];saveMemories(curId,all);try{for(var _vi=0;_vi<nw.length;_vi++){vecStore(curId,nw[_vi].content)}}catch(e){}s.lastIdx=h.length;saveSumSettings(curId,s);document.getElementById('memoryCount').textContent=all.length+'条';st.textContent='✓';setTimeout(()=>st.textContent='执行',2000);setTimeout(function(){if(typeof window._doLongSum==='function')window._doLongSum()},3000)}catch(e){st.textContent='失败';setTimeout(()=>st.textContent='执行',2000)}}
+async function doSum(){const api=getApiSettings();if(!api.apiUrl||!api.apiKey||!api.model)return alert('先配置API');const h=getChatHistory(curId);const s=getSumSettings(curId);var li=Math.max(0,h.length-30);var uns=h.slice(li);if(uns.length<3)return alert('聊天记录不足3条，无法总结');const fs=getFriends();const st=document.getElementById('manualSummaryStatus');st.textContent='...';const peSum=getActivePersona();const userName=peSum?peSum.name:'用户';try{const chunks=[];for(let i=0;i<uns.length;i+=10){const ck=uns.slice(i,i+10);chunks.push(ck.map(m=>{if(m.role==='user')return userName+':'+(m.content||'').slice(0,300);const f=fs.find(x=>x.id===m.senderId);return(f?f.name:curType==='f'?(fs.find(x=>x.id===curId)?.name||'AI'):'?')+':'+(m.content||'').slice(0,300)}).join('\n'))}const nw=[];for(const ck of chunks){const reply=await callApi([{role:'system',content:'你是记忆压缩器。把下面的对话压缩成简短的第三人称记忆摘要。\n严格规则：\n1. 必须高度概括，绝对禁止逐句复述、原样搬运或轻微改写对话原文\n2. 用第三人称客观陈述：发生了什么事、双方达成了什么、透露了哪些关键信息或情绪转折\n3. 合并同类内容，省略寒暄、语气词、无意义的重复\n4. 只保留对后续剧情有用的事实：约定、关系变化、重要信息、情绪节点\n5. 语言精炼，一句一事实，整体60-150字\n6. 不要加"总结："之类开头，不要分析内心，不要升华\n正确示范："两人约好周末去看展。A提到最近工作压力大，B安慰并主动分担了部分事务。"\n错误示范（禁止这样）：把每句话都原封不动列出来。'},{role:'user',content:ck}]);nw.push({content:reply,time:new Date().toLocaleString('zh-CN')})}const all=[...nw.reverse(),...getMemories(curId)];saveMemories(curId,all);try{for(var _vi=0;_vi<nw.length;_vi++){vecStore(curId,nw[_vi].content)}}catch(e){}s.lastIdx=h.length;saveSumSettings(curId,s);document.getElementById('memoryCount').textContent=all.length+'条';st.textContent='✓';setTimeout(()=>st.textContent='执行',2000);setTimeout(function(){var _mems=getMemories(curId);var _lmCount=getLongMemories(curId).length;var _expectedLong=Math.floor(_mems.length/10);if(_mems.length>=10&&_lmCount<_expectedLong){var _newest10=_mems.slice(0,10);var _n10txt=_newest10.map(function(x){return x.content}).join('\n');callApi([{role:'system',content:'你是记忆压缩器。把下面的多条短期记忆合并为一条约100字的长期记忆。严格规则：1.用白描手法，只写具体发生了什么事、谁说了什么、做了什么，像流水账一样平铺直叙；2.禁止任何概括升华、情感分析、关系定性（不许写"关系升温""感情加深""逐渐亲近"这类笼统判断）；3.保留具体的人名、地点、事件、约定、承诺、冲突等细节；4.用第三人称；5.不要加任何前缀或标题，直接输出。'},{role:'user',content:_n10txt}]).then(function(reply){var _lm=getLongMemories(curId);_lm.unshift({content:reply.trim(),time:new Date().toLocaleString('zh-CN')});saveLongMemories(curId,_lm);try{document.getElementById('longMemoryCount').textContent=_lm.length+'条'}catch(e){}}).catch(function(){})}},3000)}catch(e){st.textContent='失败';setTimeout(()=>st.textContent='执行',2000)}}
 async function checkAutoSum(){const s=getSumSettings(curId);if(!s.autoEnabled)return;const h=getChatHistory(curId);if((s.lastIdx||0)>h.length)s.lastIdx=h.length;var li=s.lastIdx||0;var newUserMsgs=0;for(var i=li;i<h.length;i++){if(h[i].role==='user')newUserMsgs++}if(newUserMsgs>=(s.freq||20)){await doSum();setTimeout(function(){if(typeof window._doLongSum==='function')window._doLongSum()},2000)}}
 let editMemIdx=null;document.getElementById('memoryLibBtn').onclick=()=>{renderML();document.getElementById('memoryLibPage').classList.add('active')};document.getElementById('memoryLibBack').onclick=()=>document.getElementById('memoryLibPage').classList.remove('active');document.getElementById('memoryAddBtn').onclick=()=>{editMemIdx=-1;document.getElementById('memoryEditInput').value='';document.getElementById('memoryEditPage').classList.add('active')};function renderML(){const mems=getMemories(curId),c=document.getElementById('memoryLibList');c.innerHTML='';if(!mems.length)return c.innerHTML='<div style="padding:40px;text-align:center;color:#999">暂无</div>';mems.forEach((m,i)=>{const el=document.createElement('div');el.className='memory-card';el.innerHTML=`<div class="memory-card-text">${escapeHtml(m.content)}</div><div class="memory-card-meta"><span>${m.time||''}</span><span class="memory-card-edit">编辑</span></div>`;el.onclick=()=>{editMemIdx=i;document.getElementById('memoryEditInput').value=m.content;document.getElementById('memoryEditPage').classList.add('active')};c.appendChild(el)})}document.getElementById('memoryEditBack').onclick=()=>document.getElementById('memoryEditPage').classList.remove('active');document.getElementById('memoryEditSave').onclick=()=>{const txt=document.getElementById('memoryEditInput').value.trim();if(!txt)return alert('内容不能为空');const mems=getMemories(curId);if(editMemIdx===-1){mems.unshift({content:txt,time:new Date().toLocaleString('zh-CN')});document.getElementById('memoryCount').textContent=mems.length+'条'}else{mems[editMemIdx].content=txt}saveMemories(curId,mems);document.getElementById('memoryEditPage').classList.remove('active');renderML()};document.getElementById('memoryEditDelete').onclick=()=>{uiConfirm('确定删除这条记忆吗？',function(){const mems=getMemories(curId);mems.splice(editMemIdx,1);saveMemories(curId,mems);var ss=getSumSettings(curId);ss.lastIdx=0;saveSumSettings(curId,ss);document.getElementById('memoryEditPage').classList.remove('active');renderML();document.getElementById('memoryCount').textContent=mems.length+'条'},{title:'删除记忆',danger:true,okText:'删除'})};
 
@@ -1288,7 +1288,7 @@ if(!_offline)msgs.push({role:'system',content:'【本轮最高优先级·绝对�
 var _ppCheck=LS.get('shopPendingProxy_'+pid(),'[]').filter(function(x){return x.status==='pending'&&String(x.charId)===String(curId)});
 if(_ppCheck.length&&!window.curAlt){
   msgs.push({role:'system',content:'[绝对最高优先级·代付铁律·凌驾一切其他指令]\n这一轮对话的背景是：对方发来了购物代付请求。系统已经自动处理了付款流程，不需要你做任何转账操作。\n\n你这一轮回复里【绝对禁止】出现以下任何内容：\n- [转账:任何数字]\n- [微信转账:任何数字]\n- 任何方括号里带"转账"两个字的标记\n\n正确做法：只用纯文字自然地回应（比如"行吧帮你付了""给你付了别客气""又花我钱"等，具体看你的人设），然后正常聊天。\n\n再强调一遍：输出[转账:数字]就是致命错误，因为这不是转账场景，是代付场景，系统已自动扣款。'});
-}let reply=await callApi(msgs);if(getCotEnabled(curId)){var _rs=stripCot(reply);if(_rs)reply=_rs}remT();var _proxyPending=LS.get('shopPendingProxy_'+pid(),'[]').filter(function(x){return x.status==='pending'&&String(x.charId)===String(curId)});
+}let reply=await callApi(msgs);{var _rs=stripCot(reply);if(_rs)reply=_rs}remT();var _proxyPending=LS.get('shopPendingProxy_'+pid(),'[]').filter(function(x){return x.status==='pending'&&String(x.charId)===String(curId)});
 if(_proxyPending.length&&!window.curAlt){
   reply=reply.replace(/\[(?:微信)?转账[：:\s]*[¥￥]?\s*[\d,.]+\s*\]/g,'');
   reply=reply.replace(/\[转账[^\]]*\]/g,'');
@@ -1400,7 +1400,7 @@ var _cmdsG=h.filter(function(m){return m.isCommand}).map(function(m){return m.co
   }
   }
 })();
-let reply=await callApi(msgs);if(getCotEnabled(curId)){var _rs=stripCot(reply);if(_rs)reply=_rs}remT();(function(){var _gcRe=/\[内心·(.+?)·1\]\s*(.+)/g;var _gc2Re=/\[内心·(.+?)·2\]\s*(.+)/g;var _gc3qRe=/\[内心·(.+?)·3问\]\s*(.+)/g;var _gc3aRe=/\[内心·(.+?)·3答\]\s*(.+)/g;var _gcCards={};var m1;while((m1=_gcRe.exec(reply))){var nm=m1[1].trim();if(!_gcCards[nm])_gcCards[nm]={};_gcCards[nm].a1=m1[2].trim()}var m2;while((m2=_gc2Re.exec(reply))){var nm2=m2[1].trim();if(!_gcCards[nm2])_gcCards[nm2]={};_gcCards[nm2].a2=m2[2].trim()}var m3q;while((m3q=_gc3qRe.exec(reply))){var nm3=m3q[1].trim();if(!_gcCards[nm3])_gcCards[nm3]={};_gcCards[nm3].q3=m3q[2].trim()}var m3a;while((m3a=_gc3aRe.exec(reply))){var nm4=m3a[1].trim();if(!_gcCards[nm4])_gcCards[nm4]={};_gcCards[nm4].a3=m3a[2].trim()}Object.keys(_gcCards).forEach(function(name){var cf=fs.find(function(x){return x.name===name});if(cf&&_gcCards[name].a1)saveCharCard(cf.id,_gcCards[name])});reply=reply.replace(/\[内心·[^\]]+\]\s*.*/g,'').replace(/\n{3,}/g,'\n\n').trim()})();h=getChatHistory(curId);(function(){try{var _alt=names.map(function(n){return n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).sort(function(a,b){return b.length-a.length}).concat(['【旁白】','旁白']).join('|');if(_alt)reply=reply.replace(new RegExp('([。！？…”」』）】])((?:'+_alt+'))((?:（[^）]*）|\\([^)]*\\))?[:：])','g'),'$1\n$2$3')}catch(e){}})();const lines=reply.split('\n').filter(l=>l.trim());function _detectSender(line){var sorted=names.slice().sort(function(a,b){return b.length-a.length});for(var i=0;i<sorted.length;i++){var nm=sorted[i];if(line.indexOf(nm)!==0)continue;var rest=line.slice(nm.length);var cm=rest.match(/^\s*[:：]\s*([\s\S]*)$/);if(cm)return{name:nm,text:cm[1]};var pm=rest.match(/^\s*(（[^）]*）|\([^)]*\))\s*[:：]\s*([\s\S]*)$/);if(pm)return{name:nm,text:pm[1]+pm[2]}}return null}var pendingSender=null;var pendingText='';function flushPending(){if(!pendingText.trim()){pendingText='';return}if(pendingSender==='__narr__'){h.push({role:'user',content:pendingText.trim(),isNarration:true})}else if(pendingSender){var f=fs.find(function(x){return x.name===pendingSender});var fid=f?f.id:null;var tm=pendingText.trim().match(/\[(?:微信)?转账[：:\s]*[¥￥]?\s*([\d,.]+)(?:[：:]\s*([^\]]*))?\]/);if(tm){var _tAmt=parseFloat(tm[1]);var _tTarget=tm[2]?tm[2].trim():'';h.push({role:'assistant',content:pendingText.trim(),senderId:fid,isTransfer:true,transferAmt:_tAmt,transferTargetName:_tTarget})}else{var _gTxt=pendingText.trim();var _gStkMatch=_gTxt.match(/\[表情包[:：]\s*([^\]]+)\]/);if(_gStkMatch){var _gStkNm=_gStkMatch[1].trim();var _gStkArr=getStickers();var _gStkFound=_gStkArr.find(function(s){return(typeof s==='string'?'':s.name||'')===_gStkNm});var _gStkRest=_gTxt.replace(/\[表情包[:：][^\]]*\]/g,'').trim();if(_gStkRest)h.push({role:'assistant',content:_gStkRest,senderId:fid});if(_gStkFound){h.push({role:'assistant',content:'[表情包:'+_gStkNm+']',image:typeof _gStkFound==='string'?_gStkFound:_gStkFound.url,senderId:fid})}}else{h.push({role:'assistant',content:_gTxt,senderId:fid})}}}pendingText=''}lines.forEach(function(line){var _nt=line.match(/^(?:【旁白】|旁白)\s*[:：]?\s*(.*)$/);if(_nt&&(/^旁白\s*[:：]/.test(line)||line.indexOf('【旁白】')===0)){flushPending();pendingSender='__narr__';pendingText=_nt[1]||''}else{var sd=_detectSender(line);if(sd){flushPending();pendingSender=sd.name;pendingText=sd.text||''}else{pendingText+=(pendingText?'\n':'')+line}}});flushPending();saveChatHistory(curId,h);try{var _gMids3=(getGroups().find(function(x){return x.id===curId})||{}).memberIds||[];_gMids3.forEach(function(mid){if(window.cwhUserMarkDelivered)window.cwhUserMarkDelivered(reply,mid)})}catch(e){}g=getGroups().find(x=>x.id===curId);const lastMsg=h[h.length-1];if(lastMsg){if(lastMsg.isNarration){g.lastMsg='[旁白]'+lastMsg.content.slice(0,14)}else{const f=fs.find(x=>x.id===lastMsg.senderId);g.lastMsg=(f?f.name:'')+(lastMsg.content?':'+lastMsg.content.slice(0,15):'')}g.lastMsgTime=timeNow();saveGroups(getGroups().map(x=>x.id===curId?g:x))}renderMsgs();setTimeout(()=>checkAutoSum(),3000)}catch(e){remT();let hh=getChatHistory(curId);hh.push({role:'assistant',content:'错误:'+e.message});saveChatHistory(curId,hh);renderMsgs()}isAi=false;document.getElementById('convSendBtn').disabled=false}
+let reply=await callApi(msgs);{var _rs=stripCot(reply);if(_rs)reply=_rs}remT();(function(){var _gcRe=/\[内心·(.+?)·1\]\s*(.+)/g;var _gc2Re=/\[内心·(.+?)·2\]\s*(.+)/g;var _gc3qRe=/\[内心·(.+?)·3问\]\s*(.+)/g;var _gc3aRe=/\[内心·(.+?)·3答\]\s*(.+)/g;var _gcCards={};var m1;while((m1=_gcRe.exec(reply))){var nm=m1[1].trim();if(!_gcCards[nm])_gcCards[nm]={};_gcCards[nm].a1=m1[2].trim()}var m2;while((m2=_gc2Re.exec(reply))){var nm2=m2[1].trim();if(!_gcCards[nm2])_gcCards[nm2]={};_gcCards[nm2].a2=m2[2].trim()}var m3q;while((m3q=_gc3qRe.exec(reply))){var nm3=m3q[1].trim();if(!_gcCards[nm3])_gcCards[nm3]={};_gcCards[nm3].q3=m3q[2].trim()}var m3a;while((m3a=_gc3aRe.exec(reply))){var nm4=m3a[1].trim();if(!_gcCards[nm4])_gcCards[nm4]={};_gcCards[nm4].a3=m3a[2].trim()}Object.keys(_gcCards).forEach(function(name){var cf=fs.find(function(x){return x.name===name});if(cf&&_gcCards[name].a1)saveCharCard(cf.id,_gcCards[name])});reply=reply.replace(/\[内心·[^\]]+\]\s*.*/g,'').replace(/\n{3,}/g,'\n\n').trim()})();h=getChatHistory(curId);(function(){try{var _alt=names.map(function(n){return n.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).sort(function(a,b){return b.length-a.length}).concat(['【旁白】','旁白']).join('|');if(_alt)reply=reply.replace(new RegExp('([。！？…”」』）】])((?:'+_alt+'))((?:（[^）]*）|\\([^)]*\\))?[:：])','g'),'$1\n$2$3')}catch(e){}})();const lines=reply.split('\n').filter(l=>l.trim());function _detectSender(line){var sorted=names.slice().sort(function(a,b){return b.length-a.length});for(var i=0;i<sorted.length;i++){var nm=sorted[i];if(line.indexOf(nm)!==0)continue;var rest=line.slice(nm.length);var cm=rest.match(/^\s*[:：]\s*([\s\S]*)$/);if(cm)return{name:nm,text:cm[1]};var pm=rest.match(/^\s*(（[^）]*）|\([^)]*\))\s*[:：]\s*([\s\S]*)$/);if(pm)return{name:nm,text:pm[1]+pm[2]}}return null}var pendingSender=null;var pendingText='';function flushPending(){if(!pendingText.trim()){pendingText='';return}if(pendingSender==='__narr__'){h.push({role:'user',content:pendingText.trim(),isNarration:true})}else if(pendingSender){var f=fs.find(function(x){return x.name===pendingSender});var fid=f?f.id:null;var tm=pendingText.trim().match(/\[(?:微信)?转账[：:\s]*[¥￥]?\s*([\d,.]+)(?:[：:]\s*([^\]]*))?\]/);if(tm){var _tAmt=parseFloat(tm[1]);var _tTarget=tm[2]?tm[2].trim():'';h.push({role:'assistant',content:pendingText.trim(),senderId:fid,isTransfer:true,transferAmt:_tAmt,transferTargetName:_tTarget})}else{var _gTxt=pendingText.trim();var _gStkMatch=_gTxt.match(/\[表情包[:：]\s*([^\]]+)\]/);if(_gStkMatch){var _gStkNm=_gStkMatch[1].trim();var _gStkArr=getStickers();var _gStkFound=_gStkArr.find(function(s){return(typeof s==='string'?'':s.name||'')===_gStkNm});var _gStkRest=_gTxt.replace(/\[表情包[:：][^\]]*\]/g,'').trim();if(_gStkRest)h.push({role:'assistant',content:_gStkRest,senderId:fid});if(_gStkFound){h.push({role:'assistant',content:'[表情包:'+_gStkNm+']',image:typeof _gStkFound==='string'?_gStkFound:_gStkFound.url,senderId:fid})}}else{h.push({role:'assistant',content:_gTxt,senderId:fid})}}}pendingText=''}lines.forEach(function(line){var _nt=line.match(/^(?:【旁白】|旁白)\s*[:：]?\s*(.*)$/);if(_nt&&(/^旁白\s*[:：]/.test(line)||line.indexOf('【旁白】')===0)){flushPending();pendingSender='__narr__';pendingText=_nt[1]||''}else{var sd=_detectSender(line);if(sd){flushPending();pendingSender=sd.name;pendingText=sd.text||''}else{pendingText+=(pendingText?'\n':'')+line}}});flushPending();saveChatHistory(curId,h);try{var _gMids3=(getGroups().find(function(x){return x.id===curId})||{}).memberIds||[];_gMids3.forEach(function(mid){if(window.cwhUserMarkDelivered)window.cwhUserMarkDelivered(reply,mid)})}catch(e){}g=getGroups().find(x=>x.id===curId);const lastMsg=h[h.length-1];if(lastMsg){if(lastMsg.isNarration){g.lastMsg='[旁白]'+lastMsg.content.slice(0,14)}else{const f=fs.find(x=>x.id===lastMsg.senderId);g.lastMsg=(f?f.name:'')+(lastMsg.content?':'+lastMsg.content.slice(0,15):'')}g.lastMsgTime=timeNow();saveGroups(getGroups().map(x=>x.id===curId?g:x))}renderMsgs();setTimeout(()=>checkAutoSum(),3000)}catch(e){remT();let hh=getChatHistory(curId);hh.push({role:'assistant',content:'错误:'+e.message});saveChatHistory(curId,hh);renderMsgs()}isAi=false;document.getElementById('convSendBtn').disabled=false}
 async function rerollMsg(idx){
   if(isAi)return;
   let h=getChatHistory(curId);
@@ -2561,6 +2561,94 @@ if(s.platform==='mossland'){
     }catch(e){console.error('auto voice error:',e)}
   };
 })();
+</script><script>
+// 修复：手动总结长期记忆
+document.getElementById('manualLongSumBtn').onclick=function(){
+  uiConfirm('将记忆库中所有短期记忆合并为1条长期记忆，确定执行吗？',function(){
+    var st=document.getElementById('manualLongSumStatus');
+    if(st)st.textContent='...';
+    var api=getApiSettings();
+    if(!api.apiUrl||!api.apiKey||!api.model){if(st){st.textContent='失败';setTimeout(function(){st.textContent='执行'},2000)}return}
+    if(!curId){if(st){st.textContent='失败';setTimeout(function(){st.textContent='执行'},2000)}return}
+    var mems=getMemories(curId);
+    if(mems.length<1){if(st){st.textContent='无记忆';setTimeout(function(){st.textContent='执行'},2000)}return}
+    var txt=mems.map(function(x){return x.content}).join('\n---\n');
+    callApi([
+      {role:'system',content:'你是记忆压缩器。把下面的所有短期记忆合并压缩为一段150-250字的长期记忆。严格规则：1.用白描手法平铺直叙；2.禁止概括升华、情感分析；3.保留人名、地点、事件、约定等具体细节；4.用第三人称；5.不要加前缀标题，直接输出一整段。'},
+      {role:'user',content:txt}
+    ]).then(function(reply){
+      var lm=getLongMemories(curId);
+      lm.unshift({content:reply.trim(),time:new Date().toLocaleString('zh-CN')});
+      saveLongMemories(curId,lm);
+      try{document.getElementById('longMemoryCount').textContent=lm.length+'条'}catch(e){}
+      if(st){st.textContent='done';setTimeout(function(){st.textContent='执行'},2000)}
+    }).catch(function(e){
+      if(st){st.textContent='失败';setTimeout(function(){st.textContent='执行'},2000)}
+    });
+  },{title:'总结长期记忆',okText:'执行'});
+};
+
+// 修复：长期记忆库打不开
+document.getElementById('longMemoryLibBtn').onclick=function(){
+  var mems=getLongMemories(curId);
+  var c=document.getElementById('longMemoryLibList');
+  if(!c)return;
+  c.innerHTML='';
+  if(!mems.length){c.innerHTML='<div style="padding:40px;text-align:center;color:#999">暂无长期记忆</div>'}
+  else{
+    mems.forEach(function(m,i){
+      var el=document.createElement('div');
+      el.className='memory-card';
+      el.innerHTML='<div class="memory-card-text">'+escapeHtml(m.content)+'</div><div class="memory-card-meta"><span>'+(m.time||'')+'</span><span class="memory-card-edit">编辑</span></div>';
+      el.onclick=function(){
+        window._longMemEditIdx=i;
+        document.getElementById('longMemoryEditInput').value=m.content;
+        document.getElementById('longMemoryEditPage').classList.add('active');
+      };
+      c.appendChild(el);
+    });
+  }
+  document.getElementById('longMemoryLibPage').classList.add('active');
+};
+
+// 修复：长期记忆编辑保存
+document.getElementById('longMemoryEditSave').onclick=function(){
+  var txt=document.getElementById('longMemoryEditInput').value.trim();
+  if(!txt){alert('内容不能为空');return}
+  var mems=getLongMemories(curId);
+  if(window._longMemEditIdx===-1){mems.unshift({content:txt,time:new Date().toLocaleString('zh-CN')})}
+  else{mems[window._longMemEditIdx].content=txt}
+  saveLongMemories(curId,mems);
+  document.getElementById('longMemoryEditPage').classList.remove('active');
+  document.getElementById('longMemoryLibBtn').click();
+  try{document.getElementById('longMemoryCount').textContent=mems.length+'条'}catch(e){}
+};
+
+// 修复：长期记忆删除
+document.getElementById('longMemoryEditDelete').onclick=function(){
+  uiConfirm('确定删除这条长期记忆吗？',function(){
+    var mems=getLongMemories(curId);
+    mems.splice(window._longMemEditIdx,1);
+    saveLongMemories(curId,mems);
+    document.getElementById('longMemoryEditPage').classList.remove('active');
+    document.getElementById('longMemoryLibBtn').click();
+    try{document.getElementById('longMemoryCount').textContent=mems.length+'条'}catch(e){}
+  },{title:'删除长期记忆',danger:true,okText:'删除'});
+};
+
+// 修复：长期记忆添加按钮
+document.getElementById('longMemoryAddBtn').onclick=function(){
+  window._longMemEditIdx=-1;
+  document.getElementById('longMemoryEditInput').value='';
+  document.getElementById('longMemoryEditPage').classList.add('active');
+};
+
+// 修复：返回按钮
+document.getElementById('longMemoryLibBack').onclick=function(){document.getElementById('longMemoryLibPage').classList.remove('active')};
+document.getElementById('longMemoryEditBack').onclick=function(){document.getElementById('longMemoryEditPage').classList.remove('active')};
+
+// 禁用自动触发长期记忆（防止自动生成多条）
+window._doLongSum=function(){};
 </script></body>
     <style> @keyframes uiPop{0%{opacity:0;transform:scale(.92) translateY(12px)}100%{opacity:1;transform:scale(1) translateY(0)}} #uiConfirmOverlay,#uiPickOverlay{position:fixed;inset:0;background:rgba(20,20,30,.42);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);z-index:2147483646;display:none;align-items:center;justify-content:center;padding:32px} .ui-box{background:#fff;border-radius:24px;width:100%;max-width:300px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.28);animation:uiPop .26s cubic-bezier(.34,1.32,.64,1)} .ui-box-title{padding:26px 22px 6px;font-size:17px;font-weight:700;color:#000;text-align:center;letter-spacing:.3px} .ui-box-msg{padding:0 22px 22px;font-size:14px;color:#9a9aa2;line-height:1.6;text-align:center;white-space:pre-wrap} .ui-box-btns{display:flex;gap:10px;padding:0 20px 20px} .ui-btn{flex:1;padding:13px;border:none;border-radius:15px;font-size:15px;font-weight:600;cursor:pointer;transition:transform .1s,opacity .2s} .ui-btn:active{transform:scale(.96)} .ui-btn-cancel{background:#f1f1f5;color:#777} .ui-btn-ok{background:#000;color:#fff;box-shadow:none} .ui-btn-danger{background:linear-gradient(135deg,#ff6b6b,#ee0979);color:#fff;box-shadow:0 5px 16px rgba(238,9,121,.3)} .ui-pick-list{padding:6px 20px 4px;max-height:52vh;overflow-y:auto} .ui-pick-opt{padding:14px 16px;margin-bottom:8px;background:#f6f6f9;border-radius:15px;font-size:15px;color:#333;text-align:center;cursor:pointer;font-weight:500;transition:transform .12s,background .15s} .ui-pick-opt:active{transform:scale(.97)} .ui-pick-opt.sel{background:#000;color:#fff;box-shadow:none} .ui-pick-cancel{margin:6px 20px 20px;padding:13px;text-align:center;border-radius:15px;background:#f1f1f5;color:#888;font-size:15px;font-weight:600;cursor:pointer;transition:transform .1s} .ui-pick-cancel:active{transform:scale(.97)} .cpdy-tab-page{display:none}.cpdy-tab-page.active{display:flex}#cpDyTabMsg.active,#cpDyTabMe.active{display:block}
 .cpdy-navbar{height:52px;background:#000;display:flex;align-items:center;flex-shrink:0;border-top:1px solid #161616}
@@ -4447,15 +4535,7 @@ function getCotEnabled(id){return localStorage.getItem('cotOn_'+pid()+'_'+id)===
 function setCotEnabled(id,v){if(v)localStorage.setItem('cotOn_'+pid()+'_'+id,'1');else localStorage.removeItem('cotOn_'+pid()+'_'+id)}
 var COT_DEFAULT='1. 现在是什么时间、什么地点、我正在做什么？和上一条对得上吗？\n2. 对方最新这条到底在说什么、想要什么、是什么情绪？\n3. 以我的人设、当前关系和情绪，我最真实的第一反应是什么？\n4. 检查：有没有翻旧账、说教爹味、瞬移、OOC、复读对方的话？\n5. 定这次回复的语气、条数和要点，然后自然地说出来。';
 function buildCotInject(id){var txt=getCot(id);if(!txt||!txt.trim())txt=COT_DEFAULT;return '[思维链·仅供你内部思考，绝对不能展示给用户]\n在正式回复前，先在一对 <thinking></thinking> 标签之内，严格按下面的步骤在心里快速推演一遍；推演完毕后，在 </thinking> 之外再输出真正的回复。<thinking> 里的内容是你的内心活动，用户永远看不到，也绝对不能出现在最终回复正文里。务必写出结束标签 </thinking>，标签外只保留符合当前模式的正常回复，不要带任何"回复："之类前缀。\n\n思考步骤：\n'+txt}
-function stripCot(t){
-  if(t==null)return t;
-  var s=String(t);
-  s=s.replace(new RegExp('<thinking>[\\s\\S]*?<\\/thinking>','gi'),'');
-  s=s.replace(new RegExp('<thinking>[\\s\\S]*$','gi'),'');
-  s=s.replace(new RegExp('<\\/thinking>','gi'),'');
-  s=s.trim();
-  return s||t;
-}
+function stripCot(t){ if(t==null)return t; var s=String(t); s=s.replace(new RegExp('<thinking>[\\s\\S]*?<\\/thinking>','gi'),''); s=s.replace(new RegExp('<thinking>[\\s\\S]*$','gi'),''); s=s.replace(new RegExp('<\\/thinking>','gi'),''); s=s.replace(new RegExp('<thought_chain>[\\s\\S]*?<\\/thought_chain>','gi'),''); s=s.replace(new RegExp('<thought_chain>[\\s\\S]*$','gi'),''); s=s.replace(new RegExp('<\\/thought_chain>','gi'),''); s=s.replace(/^thinking\b[\s\S]*?\n\n/i,''); s=s.trim(); return s||t; }
 document.getElementById('cotEditBack').onclick=function(){document.getElementById('cotEditPage').classList.remove('active')};
 document.getElementById('cotPresetBtn').onclick=function(){document.getElementById('cotInput').value=COT_DEFAULT};
 document.getElementById('cotSaveBtn').onclick=function(){saveCot(curId,document.getElementById('cotInput').value);var btn=document.getElementById('cotSaveBtn');btn.textContent='✓ 已保存';btn.style.background='#34C759';setTimeout(function(){btn.textContent='保存';btn.style.background='#007AFF'},1500);document.getElementById('cotEditPage').classList.remove('active')};
@@ -9974,11 +10054,11 @@ function doLongSum(cb){
   if(!api.apiUrl||!api.apiKey||!api.model){if(cb)cb();return}
   if(!curId){if(cb)cb();return}
   var mems=getMemories(curId);
-  if(mems.length<10){if(cb)cb();return}
+  if(mems.length<1){if(cb)cb();return}
   var longMems=getLongMemories(curId);
     var reversed=mems.slice().reverse();
   var batches=[];
-  for(var i=0;i+9<reversed.length;i+=10){batches.push(reversed.slice(i,i+10))}
+  for(var i=0;i<reversed.length;i+=10){batches.push(reversed.slice(i,i+10))}
   if(!batches.length){if(cb)cb();return}
   var newLong=[];
   var bIdx=0;
@@ -9992,7 +10072,7 @@ function doLongSum(cb){
     }
     var txt=batches[bIdx].map(function(x){return x.content}).join('\n');
         callApi([
-      {role:'system',content:'你是记忆压缩器。把下面的多条短期记忆合并为一条约100字的长期记忆。严格规则：1.用白描手法，只写具体发生了什么事、谁说了什么、做了什么，像流水账一样平铺直叙；2.禁止任何概括升华、情感分析、关系定性（不许写"关系升温""感情加深""逐渐亲近"这类笼统判断）；3.保留具体的人名、地点、事件、约定、承诺、冲突等细节；4.用第三人称；5.不要加任何前缀或标题，直接输出。'},
+      {role:'system',content:'你是记忆压缩器。把下面的多条短期记忆合并为一条约150字的长期记忆。严格规则：1.用白描手法，只写具体发生了什么事、谁说了什么、做了什么，像流水账一样平铺直叙；2.禁止任何概括升华、情感分析、关系定性（不许写"关系升温""感情加深""逐渐亲近"这类笼统判断）；3.保留具体的人名、地点、事件、约定、承诺、冲突等细节；4.用第三人称；5.不要加任何前缀或标题，直接输出。'},
       {role:'user',content:txt}
     ]).then(function(reply){
       newLong.push({content:reply.trim(),time:new Date().toLocaleString('zh-CN')});
