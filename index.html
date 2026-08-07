@@ -4714,30 +4714,29 @@ setTimeout(updateFavCount,600);
     document.getElementById('fanwaiPage').classList.remove('active');
   };
 
-  function buildFanwaiSys(topic,minW){
+  async function buildFanwaiSys(topic,minW){
   var pe=getActivePersona();
-  var userName=pe?pe.name:'用户';
+  var userName=pe?pe.name:'你';
   var h=getChatHistory(curId);
   var fs=getFriends();
+  var gp=getGlobalPromptText();
   var sys='你是一位擅长人物刻画的小说作者，现在要为下面这段关系写一篇番外小说。请务必吃透并严格贴合下面提供的【人物设定】【记忆】【世界观】和【最近的相处】，写出的角色要和这些设定完全一致，绝不能OOC或凭空捏造与设定冲突的性格、经历。\n\n';
-
-  // 世界书（顶部）
+  if(gp)sys+='【全局设定】\n'+applyMacros(gp)+'\n\n';
   var wbTop='';
   try{wbTop=getWbContent(h,'system_top')}catch(e){}
   if(wbTop)sys+='【世界观设定】\n'+applyMacros(wbTop)+'\n\n';
-
   if(curType==='f'){
     var f=fs.find(function(x){return x.id===curId});
     sys+='【本篇主角人设——必须严格贴合】\n主角是「'+(f?f.name:'对方')+'」。\n'+(f&&f.persona?f.persona:'（无额外人设，请根据聊天记录把握其性格）')+'\n';
     if(f&&f.appearance)sys+='外貌：'+f.appearance+'\n';
     sys+='\n';
-    // 世界书（人设之后）
     var wbAfter='';try{wbAfter=getWbContent(h,'after_char')}catch(e){}
     if(wbAfter)sys+='【补充设定】\n'+applyMacros(wbAfter)+'\n\n';
     var mt=getMemoryText(curId);
     var sm=getSharedMemory(curId);
     if(mt)sys+='【你们之间的记忆——请自然沿用，不要与之矛盾】\n'+mt+'\n\n';
     if(sm)sys+='【相关的其他记忆】\n'+sm+'\n\n';
+    if(vecEnabled()){try{var _vq=h.slice(-5).map(function(m){return m.content||''}).join(' ').slice(0,500);var vecResult=await vecSearch(curId,_vq);if(vecResult)sys+='【向量记忆】\n'+vecResult+'\n\n'}catch(e){}}
     var recent=h.slice(-40).map(function(m){
       if(m.isNarration)return '（旁白）'+m.content;
       return m.role==='user'?userName+'：'+(m.content||''):(f?f.name:'对方')+'：'+(m.content||'');
@@ -4753,6 +4752,7 @@ setTimeout(updateFavCount,600);
     if(wbAfterG)sys+='【补充设定】\n'+applyMacros(wbAfterG)+'\n\n';
     var gmt=getMemoryText(curId);
     if(gmt)sys+='【相关记忆——请自然沿用，不要与之矛盾】\n'+gmt+'\n\n';
+    if(vecEnabled()){try{var _vq2=h.slice(-5).map(function(m){return m.content||''}).join(' ').slice(0,500);var vecResult2=await vecSearch(curId,_vq2);if(vecResult2)sys+='【向量记忆】\n'+vecResult2+'\n\n'}catch(e){}}
     var grecent=h.slice(-40).map(function(m){
       if(m.isNarration)return '（旁白）'+m.content;
       if(m.role==='user')return userName+'：'+(m.content||'');
@@ -4761,7 +4761,10 @@ setTimeout(updateFavCount,600);
     }).join('\n');
     if(grecent)sys+='【最近的群聊相处（把握人物关系和语气）】\n'+grecent+'\n\n';
   }
-
+  var relInject=buildRelationInject();
+  if(relInject)sys+=relInject+'\n\n';
+  var depthItems=getWbDepthItems(h);
+  if(depthItems.length){sys+='【补充世界设定】\n'+depthItems.map(function(d){return d.content}).join('\n\n')+'\n\n'}
   sys+='【代入的读者本人】'+userName+(pe&&pe.desc?'——'+pe.desc:'')+'。第二人称"你"就是指TA本人，角色和TA的关系、称呼、往事都以上面的设定与记忆为准。\n\n';
   sys+='【写作要求】\n';
   sys+='1. 用第二人称"你"来指代'+userName+'，让读者本人代入\n';
@@ -4774,7 +4777,7 @@ setTimeout(updateFavCount,600);
   }
 
   async function genFanwai(topic,minW){
-    var sys=buildFanwaiSys(topic,minW);
+    var sys=await buildFanwaiSys(topic,minW);
     var messages=[{role:'system',content:sys},{role:'user',content:'开始写这篇番外'}];
     var full='';
     var maxRounds=minW?Math.min(8,Math.ceil(minW/1000)+2):1;
@@ -4833,7 +4836,7 @@ var _timeCtx=getTimeContext();if(_timeCtx){finalMsgs.splice(finalMsgs.length>1?2
 
 // 流式生成番外：onProgress 收到当前累计全文（含多轮续写）
 async function genFanwaiStream(topic,minW,onProgress){
-  var sys=buildFanwaiSys(topic,minW);
+  var sys=await buildFanwaiSys(topic,minW);
   var messages=[{role:'system',content:sys},{role:'user',content:'开始写这篇番外'}];
   var full='';
   var maxRounds=minW?Math.min(8,Math.ceil(minW/1000)+2):1;
